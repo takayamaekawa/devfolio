@@ -2,7 +2,7 @@
 title: ArchLinuxでCLI開発環境を整える
 tags: 'ArchLinux, CLI, 開発環境'
 abbrlink: 54214
-date: 2025-04-04 02:30:12
+date: 2025-03-28 08:54:00
 ---
 ## CLI環境を作る
 - 起動時にCLIが立ち上がるための設定
@@ -60,8 +60,7 @@ sudo pacman -S ttf-dejavu otf-ipafont
 ```
 xkb-layout=jp
 ```
-あとで、`kmsconvt@tty3.service`を作るため、コメント
-~~
+あとで、`kmsconvt@tty3.service`を作るため、スキップ
 - tty2以降をkmsconに設定
 ```bash
 sudo ln -s /usr/lib/systemd/system/kmsconvt\@.service /etc/systemd/system/autovt\@.service
@@ -71,7 +70,7 @@ sudo ln -s /usr/lib/systemd/system/kmsconvt\@.service /etc/systemd/system/autovt
 ```bash
 sudo systemctl enable kmsconvt@tty3.service
 ```
-~~
+
 ## kmsconをtty3にセットする
 ```bash
 # テンプレートサービスを別名でコピー
