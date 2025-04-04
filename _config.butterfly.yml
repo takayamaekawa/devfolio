@@ -28,7 +28,7 @@ menu:
 
 code_blocks:
   # Code block theme: darker / pale night / light / ocean / false
-  theme: light
+  theme: darker
   macStyle: false
   # Code block height limit (unit: px)
   height_limit: false
@@ -52,10 +52,10 @@ social:
 # Image Settings
 # --------------------------------------
 
-favicon: /img/favicon.png
+favicon: https://raw.githubusercontent.com/bella2391/branding/refs/heads/master/banner/favicon.ico
 
 avatar:
-  img: /img/butterfly-icon.png
+  img: https://cdn.discordapp.com/avatars/829173846069608451/c60d959c284060a41912d2cb769d49da.png
   effect: false
 
 # Disable all banner images
@@ -256,7 +256,7 @@ noticeOutdate:
 footer:
   owner:
     enable: true
-    since: 2019
+    since: 2025
   custom_text:
   # Copyright of theme and framework
   copyright: true
@@ -284,7 +284,7 @@ aside:
       enable: true
       icon: fab fa-github
       text: Follow Me
-      link: https://github.com/xxxxxx
+      link: https://github.com/bella2391
   card_announcement:
     enable: true
     content: This is my Blog
