@@ -29,13 +29,6 @@ sudo systemctl set-default graphical.target
 ```
 - 日本語の表示、入力にすぐれたターミナルエミュレータをインストールする
 以下、fbtermでの実装で失敗した。まず、多くのデスクトップ環境で使われているibusとfbtermを連携させるのに必要なibus-mozcをAURパッケージからyayコマンドでインストールするはずが、ビルドに失敗する。また、kmsconでの日本語表示には、成功しているため、以降、土台をkmsconに置く。
-~~```bash
-# 未インストールであれば
-sudo pacman -Q ibus
-yay -S fbterm
-sudo pacman -S ibus-anthy
-yay -S ibus-mozc
-```~~
 
 ということで、以下、kmsconの設定
 - インストール
@@ -116,7 +109,4 @@ https://github.com/ayn2op/discordo
 できない。
 ~~まず、discordトークンは、機密情報なので、libsecretかgnome-keyringかkwalletを使用したい。
 GUIではアンロックは容易だが、CLIでのキーリングのアンロックがサポートされていないシークレットサービスも少なくない。
-ということで、まずは、CLI上でキーリングをアンロックし、discordoでログインできるかどうかを確認する必要がある。
-```bash
-sudo pacman -S opensc
-```~~
+ということで、まずは、CLI上でキーリングをアンロックし、discordoでログインできるかどうかを確認する必要がある。`opensc`パッケージに同封されている`pkcs11-tool`よりCLIでのアンロックを試したが、あれは、`gnome-keyring`で使えるようなものだった。CLIでは`gnome-keyring-daemon`が起動できないため、失敗に終わった。~~
