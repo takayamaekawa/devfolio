@@ -19,7 +19,7 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```bash
 sudo systemctl get-default
 ```
-通常、GUI環境を使用している場合は、`graphical.target`と表示され、そしてそれは、`multi-user.target`を包含している。しかし、CLI環境オンリーで十分だという人にとっては、システム起動時間の短縮やリソース効率の工場の観点から、デフォルトターゲットを`multi-user.target`に切り替えることをおすすめできる。
+通常、GUI環境を使用している場合は、`graphical.target`と表示され、そしてそれは、`multi-user.target`を包含している。しかし、CLI環境オンリーで十分だという人にとっては、システム起動時間の短縮やリソース効率の向上の観点から、デフォルトターゲットを`multi-user.target`に切り替えることをおすすめできる。
 ```bash
 sudo systemctl set-default multi-user.target
 ```
