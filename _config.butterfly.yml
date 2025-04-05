@@ -288,7 +288,7 @@ aside:
       link: https://github.com/bella2391
   card_announcement:
     enable: true
-    content: This is my Blog
+    content: "From 04/04/2025"
   card_recent_post:
     enable: true
     # If set 0 will show all
