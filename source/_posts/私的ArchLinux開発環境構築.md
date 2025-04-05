@@ -245,7 +245,8 @@ nvm use 22.12.0
 sudo pacman -S acpid xorg sddm plasma konsole
 sudo systemctl enable sddm
 ```
-私は、KDE PlasmaしかArchLinuxでは試したことないが、使いやすいと感じている。同時にダウンロードしておいたほうがいいものを紹介しよう。```bash
+私は、KDE PlasmaしかArchLinuxでは試したことないが、使いやすいと感じている。同時にダウンロードしておいたほうがいいものを紹介しよう。
+```bash
 sudo pacman -S power-profiles-daemon
 ```
 これにより、GUI操作で電源モードをパフォーマンス・バランス・省電力に変更できる。
