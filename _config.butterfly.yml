@@ -101,6 +101,7 @@ cover:
   # When cover is not set, the default cover is displayed
   default_cover:
     # - xxx.jpg
+  position: right
 
 # Replace Broken Images
 error_img:
@@ -272,7 +273,7 @@ aside:
   button: true
   mobile: true
   # Position: left / right
-  position: right
+  position: left
   display:
     archive: true
     tag: true
@@ -801,7 +802,7 @@ beautify:
 font:
   global_font_size:
   code_font_size:
-  font_family:
+    font-family: Dummy, "Noto Sans CJK JP", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif
   code_font_family:
 
 # Font settings for the site title and site subtitle
