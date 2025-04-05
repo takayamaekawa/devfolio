@@ -5,7 +5,8 @@ abbrlink: 47392
 date: 2025-03-14 18:52:00
 ---
 
-# Windows開発環境構築
+# WSLないないのWindows開発環境構築
+
 ## コメント
 こちらの記事は、主に、CLI環境で開発していきたいという方にすごく向いているかと思う。
 
@@ -98,6 +99,9 @@ cd ~/.wsl/
 wget https://raw.githubusercontent.com/bella2391/dotfiles/master/.wsl/.vimrc
 ```
 
+#### win32yank
+https://github.com/equalsraf/win32yank
+
 - 以下、vimでコピー&ペーストを行うために
 win32yankはコマンドベースの、レジスタに文字列を登録することのできるWindowsで使えるものだ。UNIX系のXディスプレイだと、`x-clip`やWayLandディスプレイだと、`wl-copy`などがある。
 ```pwsh
@@ -107,7 +111,7 @@ wget https://github.com/equalsraf/win32yank/releases/download/v0.1.1/win32yank-x
 unzip .\win32yank-x64.zip
 Remove-Item .\LICENSE, .\README.md, .\win32yank-x64.zip
 ```
-別途、`C:\Users\<user>\.global\bin`をユーザー環境変数にセットしておこう。
+別途、`C:\Users\<user>\.global\bin`をユーザー環境変数にセットしておこう。なお、今回は、WSLないないだが、WSLありきの環境で使う場合は、`.exe`実行ファイルの入ったフォルダを環境変数のパスに通す必要がある。
 
 ### ターミナルフォントを設定
 私は、NerdFontが良いと思う。
