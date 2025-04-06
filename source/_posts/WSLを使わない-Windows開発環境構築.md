@@ -139,6 +139,21 @@ cd $env:LOCALAPPDATA
 git clone https://github.com/bella2391/nvim.git
 ```
 
+### Scala環境構築
+まずは、`coursier`が使えるように、以下の記事に沿って、コマンドラインでインストールしていく。
+https://get-coursier.io/docs/cli-installation
+```pwsh
+# PowerShell
+Invoke-WebRequest -Uri "https://github.com/coursier/launchers/raw/master/cs-x86_64-pc-win32.zip" -OutFile "cs-x86_64-pc-win32.zip"
+Expand-Archive -Path "cs-x86_64-pc-win32.zip" -DestinationPath .
+Rename-Item -Path "cs-x86_64-pc-win32.exe" -NewName "cs.exe"
+Remove-Item -Path "cs-x86_64-pc-win32.zip"
+.\cs setup
+```
+これで、`coursier`コマンドが使えると思いきや...  
+なぜか使えない。シェルを再起動しても使えなかった。  
+これの解決方法は、`.bat`をユーザー環境変数に通せばいい。
+
 以下、私でないなら読み飛ばして構わない。
 ## シンボリックリンク作成
 ```cmd
