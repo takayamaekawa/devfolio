@@ -105,13 +105,12 @@ https://github.com/equalsraf/win32yank
 - 以下、vimでコピー&ペーストを行うために
 win32yankはコマンドベースの、レジスタに文字列を登録することのできるWindowsで使えるものだ。UNIX系のXディスプレイだと、`x-clip`やWayLandディスプレイだと、`wl-copy`などがある。
 ```pwsh
-mkdir -p ~/.global/bin
-cd ~/.global/bin/
+cd ~/git/dotfiles/.global/bin/ # 配置場所は任意
 wget https://github.com/equalsraf/win32yank/releases/download/v0.1.1/win32yank-x64.zip
 unzip .\win32yank-x64.zip
 Remove-Item .\LICENSE, .\README.md, .\win32yank-x64.zip
 ```
-別途、`C:\Users\<user>\.global\bin`をユーザー環境変数にセットしておこう。なお、今回は、WSLないないだが、WSLありきの環境で使う場合は、`.exe`実行ファイルの入ったフォルダを環境変数のパスに通す必要がある。
+別途、`exe`ファイルの入ったフォルダをユーザー環境変数にセットしておこう。なお、今回は、WSLないないだが、WSLありきの環境で使う場合は、`.exe`実行ファイルの入ったフォルダをWSLのディストロ内で環境変数のパスに通す必要がある。
 
 ### ターミナルフォントを設定
 私は、NerdFontが良いと思う。
