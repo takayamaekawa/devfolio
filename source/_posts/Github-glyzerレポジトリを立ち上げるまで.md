@@ -4,6 +4,12 @@ tags: 'python, gemini'
 abbrlink: 33934
 date: 2025-03-28 23:59:00
 ---
+
+// Copyright (c) 2025 bella2391
+// This file is distributed under the terms of the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+// See the LICENSE file in the source directory for details.
+// (https://creativecommons.org/licenses/by-nc-sa/4.0/)
+
 ## 回顧録
 ある日、CLI環境を構築する際に、新たなTUI（ターミナルインターフェース）アプリが必要だなと感じた。  
 それは、ChatGPTやGeminiに代表されるAI-Chatアプリだ。それらがターミナルから使えればいいなと思ったのが事の始まりである。  

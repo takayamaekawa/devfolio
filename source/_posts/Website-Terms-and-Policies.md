@@ -4,6 +4,12 @@ tags: 'google,x'
 abbrlink: 41809
 date: 2024-12-31 10:32:55
 ---
+
+// Copyright (c) 2025 bella2391
+// This file is distributed under the terms of the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+// See the LICENSE file in the source directory for details.
+// (https://creativecommons.org/licenses/by-nc-sa/4.0/)
+
 ## Note
 This post contains privacy policy and terms of service using at [fmc-web](https://github.com/bella2391/fmc-web).
 
