@@ -1,4 +1,4 @@
-# blog
+# blog (Hexo Project Source)
 
 ## Web
 see [https://bblog.f5.si/](https://bblog.f5.si/) for browsing.
@@ -11,10 +11,11 @@ Deployed at [bella2391.github.io.git](https://github.com/bella2391/bella2391.git
 
 ## License
 
-The licensing for this Hexo project differs between content and theme assets:
+This Hexo project contains content and assets under different licenses:
 
-- **Content under the `source/_posts` directory:** Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0). See the deployed [bella2391.github.io/posts/LICENSE.txt](https://bblog.f5.si/posts/LICENSE.txt) for details.
-- **Theme assets and Hexo core files:** Apache License 2.0. This includes assets and image files from the [jerryc127/hexo-theme-butterfly](https://github.com/jerryc127/hexo-theme-butterfly) theme. See the deployed [bella2391.github.io/LICENSE.txt](https://bblog.f5.si/LICENSE.txt) for details.
-- **Hexo Core:** MIT License ([https://github.com/hexojs/hexo/blob/master/LICENSE](https://github.com/hexojs/hexo/blob/master/LICENSE))
+- **Content in the `source/_posts` directory:** Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0) (see `source/_posts/LICENSE.txt`).
+- **Theme assets (generated during deployment from [jerryc127/hexo-theme-butterfly](https://github.com/jerryc127/hexo-theme-butterfly)):** Apache License 2.0 (as per the theme's license).
+- **Hexo core files:** MIT License ([https://github.com/hexojs/hexo/blob/master/LICENSE](https://github.com/hexojs/hexo/blob/master/LICENSE)).
+- **Other files in this repository:** MIT License (see `LICENSE.txt` in the root directory).
 
-This `README.md` provides information about the structure and licensing of the Hexo project itself. Licensing information for the deployed website can be found in the `README.md` of the resulting repository.
+This `README.md` describes the licensing of the source code in this Hexo project. The license information for the deployed website can be found in the `README.md` of the resulting `bella2391.github.io` repository.
