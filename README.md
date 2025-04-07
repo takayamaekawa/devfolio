@@ -3,7 +3,7 @@ This repository contains my blog powered by [hexo](https://github.com/hexojs/hex
 
 ## Deploy
 Deployed at: [bella2391.github.io](https://github.com/bella2391/bella2391.github.io/).  
-see [https://bella2391.github.io/](https://bella2391.github.io/) for web.
+see [https://bblog.f5.si/](https://bblog.f5.si/) for web.
 
 ## License
 [MIT](LICENSE.txt)
