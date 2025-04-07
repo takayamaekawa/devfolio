@@ -10,4 +10,4 @@ Deployed at [bella2391.github.io.git](https://github.com/bella2391/bella2391.git
 [hexo](https://github.com/hexojs/hexo)
 
 ## License
-Except for the `source/` directory (licensed under [CC BY-NC-SA 4.0](source/LICENSE.txt)), this project is distributed under the [MIT License](LICENSE.txt).
+Except for the `source/` directory (licensed under [CC BY-NC-SA 4.0](source/LICENSE.txt)), this project is distributed under the [MIT](LICENSE.txt).
