@@ -5,10 +5,12 @@ abbrlink: 54214
 date: 2025-03-28 08:54:00
 ---
 
-// Copyright (c) 2025 bella2391
-// This file is distributed under the terms of the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
-// See the LICENSE file in the source directory for details.
-// (https://creativecommons.org/licenses/by-nc-sa/4.0/)
+<!--
+Copyright (c) 2025 bella2391
+This file is distributed under the terms of the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+See the LICENSE file in the source directory for details.
+(https://creativecommons.org/licenses/by-nc-sa/4.0/)
+-->
 
 # CLI環境を作る
 

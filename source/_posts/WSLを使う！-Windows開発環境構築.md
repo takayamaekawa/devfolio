@@ -5,10 +5,12 @@ abbrlink: 17845
 date: 2025-03-24 02:54:00
 ---
 
-// Copyright (c) 2025 bella2391
-// This file is distributed under the terms of the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
-// See the LICENSE file in the source directory for details.
-// (https://creativecommons.org/licenses/by-nc-sa/4.0/)
+<!--
+Copyright (c) 2025 bella2391
+This file is distributed under the terms of the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+See the LICENSE file in the source directory for details.
+(https://creativecommons.org/licenses/by-nc-sa/4.0/)
+-->
 
 # WSLありきのWindows開発環境構築
 
