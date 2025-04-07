@@ -14,7 +14,8 @@ timezone: 'Asia/Tokyo'
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
 # url: https://keyp.f5.si/dev/blog
-url: https://bella2391.github.io/
+# url: https://bella2391.github.io/
+url: https://bblog.f5.si/
 #permalink: :year/:month/:day/:title/
 permalink: posts/:abbrlink/ 
 permalink_defaults:
