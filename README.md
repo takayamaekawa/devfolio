@@ -1,10 +1,12 @@
 # blog
 
 ## Web
-Deployed at: [bella2391.github.io](https://github.com/bella2391/bella2391.github.io/).  
 see [https://bblog.f5.si/](https://bblog.f5.si/) for browsing.
 
-## Powered BY
+## Deploy
+Deployed at [bella2391.github.io.git](https://github.com/bella2391/bella2391.github.io/).  
+
+## Powered By
 [hexo](https://github.com/hexojs/hexo)
 
 ## License
