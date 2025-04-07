@@ -1,13 +1,13 @@
 # bella2391.github.io
 
-## Note
-This repository contains my blog powered by [hexo](https://github.com/hexojs/hexo).
-
-## Deploy
-see [https://bblog.f5.si/](https://bblog.f5.si/) for browsing.
+## Web
+see [https://bblog.f5.si/](https://bblog.f5.si/).
 
 ## Source Code
-see [bella2391/blog](https://github.com/bella2391/blog).
+see [https://github.com/bella2391/blog](https://github.com/bella2391/blog).
+
+## Powered BY
+[hexo](https://github.com/hexojs/hexo)
 
 ## License
 [CC BY-NC-SA 4.0](LICENSE.txt)
