@@ -1,10 +1,10 @@
-# bella2391.github.io
+# verazza.github.io
 
 ## Web
 see [https://bblog.f5.si/](https://bblog.f5.si/).
 
 ## Source Code
-see [https://github.com/bella2391/blog](https://github.com/bella2391/blog).
+see [https://github.com/verazza/blog](https://github.com/verazza/blog).
 
 ## Powered By
 [hexojs/hexo](https://github.com/hexojs/hexo)

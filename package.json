@@ -1,6 +1,9 @@
 {
   "name": "hexo-site",
   "version": "0.0.0",
+  "description": "",
+  "license": "MIT",
+  "author": "verazza",
   "private": true,
   "scripts": {
     "server": "hexo clean && hexo generate && hexo server",

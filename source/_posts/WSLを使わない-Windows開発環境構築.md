@@ -6,7 +6,7 @@ date: 2025-03-14 18:52:00
 ---
 
 <!--
-Copyright (c) 2025 bella2391
+Copyright (c) 2025 verazza
 This file is distributed under the terms of the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
 See the LICENSE file in the source directory for details.
 (https://creativecommons.org/licenses/by-nc-sa/4.0/)
@@ -91,19 +91,19 @@ load(io.popen('starship init cmd'):read("*a"))()
 cd $env:LOCALAPPDATA
 mkdir -p .config
 cd .config
-wget https://raw.githubusercontent.com/bella2391/dotfiles/master/.config/starship.toml
+wget https://raw.githubusercontent.com/verazza/dotfiles/master/.config/starship.toml
 ```
 
 ### vimの設定
 - _vimrcを配置
-私の場合、[dotfiles](https://github.com/bella2391/dotfiles)にドットファイルをまとめているので、以下のコマンドで済む。
+私の場合、[dotfiles](https://github.com/verazza/dotfiles)にドットファイルをまとめているので、以下のコマンドで済む。
 ```pwsh
 cd ~
-wget https://raw.githubusercontent.com/bella2391/dotfiles/master/.vimrc
+wget https://raw.githubusercontent.com/verazza/dotfiles/master/.vimrc
 move .vimrc _vimrc
 mkdir -p ~/.wsl
 cd ~/.wsl/
-wget https://raw.githubusercontent.com/bella2391/dotfiles/master/.wsl/.vimrc
+wget https://raw.githubusercontent.com/verazza/dotfiles/master/.wsl/.vimrc
 ```
 
 #### win32yank
@@ -143,7 +143,7 @@ cd %LOCALAPPDATA%
 # pwshなら
 cd $env:LOCALAPPDATA
 
-git clone https://github.com/bella2391/nvim.git
+git clone https://github.com/verazza/nvim.git
 ```
 
 ### Scala環境構築
