@@ -13,7 +13,7 @@ See the LICENSE file in the source directory for details.
 -->
 
 ## Note
-This post contains privacy policy and terms of service using at [fmc-web](https://github.com/verazza/fmc-web).
+This post contains privacy policy and terms of service using at [kishax-web](https://github.com/verazza/kishax-web).
 
 ## Privacy Policy
 ```
