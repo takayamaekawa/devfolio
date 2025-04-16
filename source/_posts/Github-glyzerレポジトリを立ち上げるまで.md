@@ -36,7 +36,7 @@ gemini-cli embed db out.db --files-list question.txt
 PythonはあくまでGeminiAPIを使って、ソースを食わせる役割。別に言語は何でもいいと思う
 
 ## 現在思考中のもの
-以下、[glyzer:/setup.py](https://github.com/verazza/Ai-Analyzer/blob/master/setup.py) の説明
+以下、[glyzer:/setup.py](https://github.com/verazza/glyzer/blob/master/setup.py) の説明
 gemini-cliコマンドより、検索対象となるコード、それに対する質問となるコード(平文でもコードとみなす)に対して、それらいくつものファイル群を、数値ベクトル・埋め込みベクトルに変換(dbファイルにあたる)したものを、NumPy配列に変換する。単にdbファイルにエクスポートし、数値ベクトルにしても、それらは単なるバイナリデータに過ぎず、特定のデータ型・構造を持たないため、直接的に数値演算が可能になるNumPy配列に変換する必要がある。これにより、データを特定のデータ型(整数、不動小数点など)を持つ多次元配列として解釈できる。これより、コサイン類似性より比較する。コサイン類似度の高いコード片をソートし、出力する。また、その類似性よりわかったコードスニップより、geminiと応答する。
 
 なぜデータベース(`*.db`)形式なのか。
