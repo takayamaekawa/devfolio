@@ -146,7 +146,12 @@ cd $env:LOCALAPPDATA
 git clone https://github.com/verazza/nvim.git
 ```
 
-### Scala環境構築
+### Java/Scala環境構築
+#### Java
+```bash
+choco install oracle17jdk
+```
+#### Scala
 まずは、`coursier`が使えるように、以下の記事に沿って、コマンドラインでインストールしていく。
 https://get-coursier.io/docs/cli-installation
 ```pwsh
