@@ -1,7 +1,8 @@
 ---
-title: 生成AIとの共生
+title: 生成AIとの共生1
+tags: LLM
+abbrlink: 30026
 date: 2025-04-23 07:02:03
-tags: "LLM"
 ---
 
 # 生成AIをプログラミングに活用することについて
