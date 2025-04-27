@@ -7,7 +7,8 @@
   "private": true,
   "scripts": {
     "server": "hexo clean && hexo generate && hexo server",
-    "deploy": "hexo clean && hexo generate && hexo deploy"
+    "deploy": "hexo clean && hexo generate && hexo deploy",
+    "deploy2": "./deploy_to_qiita.sh"
   },
   "hexo": {
     "version": "7.3.0"
@@ -28,5 +29,8 @@
     "hexo-renderer-stylus": "^3.0.1",
     "hexo-server": "^3.0.0",
     "hexo-theme-butterfly": "^5.3.5"
+  },
+  "devDependencies": {
+    "@qiita/qiita-cli": "^1.6.2"
   }
 }
