@@ -1,9 +1,18 @@
 ---
-title: 私的MySQLチートシート
-tags: 'CheatSheet, MySQL'
+title: '私的MySQLチートシート'
+tags:
+  - 'CheatSheet'
+  - 'MySQL'
 abbrlink: 49418
 date: 2025-04-20 03:28:55
 ---
+
+<!--
+Copyright (c) 2025 verazza
+This file is distributed under the terms of the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+See the LICENSE file in the source directory for details.
+(https://creativecommons.org/licenses/by-nc-sa/4.0/)
+-->
 
 # MySQLチートシート
 ## インストール

@@ -1,9 +1,17 @@
 ---
-title: 生成AIとの共生2
-tags: LLM
+title: '生成AIとの共生2'
+tags:
+  - 'LLM'
 abbrlink: 8821
 date: 2025-04-23 17:52:50
 ---
+
+<!--
+Copyright (c) 2025 verazza
+This file is distributed under the terms of the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+See the LICENSE file in the source directory for details.
+(https://creativecommons.org/licenses/by-nc-sa/4.0/)
+-->
 
 # 生成AIは「賢さ」を奪うのか？プログラミング学習における考察
 

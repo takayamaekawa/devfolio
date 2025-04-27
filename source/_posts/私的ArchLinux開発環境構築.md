@@ -1,8 +1,10 @@
 ---
-title: 私的ArchLinux開発環境構築
+title: '私的ArchLinux開発環境構築'
 abbrlink: 14653
 date: 2025-03-13 12:09:00
 tags:
+  - 'ArchLinux'
+  - '環境構築'
 ---
 
 <!--

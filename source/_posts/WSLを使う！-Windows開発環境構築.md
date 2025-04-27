@@ -1,6 +1,10 @@
 ---
-title: WSLを使う！ Windows開発環境構築
-tags: 'Neovim, Windows, WSL, 開発環境'
+title: 'WSLを使う！ Windows開発環境構築'
+tags:
+  - 'Neovim'
+  - 'Windows'
+  - 'WSL'
+  - '開発環境'
 abbrlink: 17845
 date: 2025-03-24 02:54:00
 ---

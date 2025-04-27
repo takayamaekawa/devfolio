@@ -1,6 +1,9 @@
 ---
-title: ArchLinuxでCLI開発環境を整える
-tags: 'ArchLinux, CLI, 開発環境'
+title: 'ArchLinuxでCLI開発環境を整える'
+tags:
+  - 'ArchLinux'
+  - 'CLI'
+  - '開発環境'
 abbrlink: 54214
 date: 2025-03-28 08:54:00
 ---

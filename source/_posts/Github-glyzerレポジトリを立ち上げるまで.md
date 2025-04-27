@@ -1,6 +1,8 @@
 ---
 title: 'Github:glyzerレポジトリを立ち上げるまで'
-tags: 'python, gemini'
+tags:
+  - 'python'
+  - 'gemini'
 abbrlink: 33934
 date: 2025-03-28 23:59:00
 ---

@@ -1,9 +1,20 @@
 ---
-title: SSHログインに2FA導入
-tags: 'ArchLinux, 2FA, Google-Authendicator, SSH'
+title: 'SSHログインに2FA導入'
+tags:
+  - 'ArchLinux'
+  - '2FA'
+  - 'Google-Authendicator'
+  - 'SSH'
 abbrlink: 18876
 date: 2025-02-18 00:00:00
 ---
+
+<!--
+Copyright (c) 2025 verazza
+This file is distributed under the terms of the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+See the LICENSE file in the source directory for details.
+(https://creativecommons.org/licenses/by-nc-sa/4.0/)
+-->
 
 # sshに2FAを導入するにあたって
 ## インストール

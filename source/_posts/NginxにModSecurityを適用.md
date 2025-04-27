@@ -1,9 +1,18 @@
 ---
-title: NginxにModSecurityを適用
-tags: 'Nginx, ModSecurity'
+title: 'NginxにModSecurityを適用'
+tags:
+  - 'Nginx'
+  - 'ModSecurity'
 abbrlink: 39499
 date: 2025-02-01 00:00:00
 ---
+
+<!--
+Copyright (c) 2025 verazza
+This file is distributed under the terms of the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+See the LICENSE file in the source directory for details.
+(https://creativecommons.org/licenses/by-nc-sa/4.0/)
+-->
 
 # NginxにModSecurityを導入するまで
 
