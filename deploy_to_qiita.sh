@@ -7,10 +7,10 @@ find ./public -type f -name '*.md' -exec bash -c '
   FILE="$1"
   FRONT_MATTER=$(head -n 999 "$FILE" | grep -E "^title:|tags:|abbrlink:|date:")
   UPDATED_AT=$(echo "$FRONT_MATTER" | grep -oE "date: (.*)" | sed -E "s/^date: //")
-
+  POST_ID=$(echo "$FRONT_MATTER" | grep -oE "abbrlink: (.*)" | sed -E "s/^abbrlink: //")
   sed -i "1a updated_at: \"${UPDATED_AT}\"" "$FILE"
   sed -i "2a private: false" "$FILE"
-  sed -i "3a id: null" "$FILE"
+  sed -i "3a id: \"${POST_ID}\"" "$FILE"
   sed -i "4a organization_url_name: null" "$FILE"
   sed -i "5a slide: false" "$FILE"
   sed -i "6a ignorePublish: false" "$FILE"
