@@ -13,7 +13,11 @@ fi
 
 mkdir -p "${ROOT_QIITA}/public"
 
-CHANGED_FILES=$(git diff --name-only | grep "${SOURCE}/.*\.md$")
+if [[ $# -gt 0 && $1 == "force" ]]; then
+  CHANGED_FILES=$(git ls-files "${SOURCE}/*.md")
+else
+  CHANGED_FILES=$(git diff --name-only | grep "${SOURCE}/.*\.md$")
+fi
 
 if [ -z "$CHANGED_FILES" ]; then
   echo "No .md files changed since last commit."
