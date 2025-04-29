@@ -78,6 +78,6 @@ else
       . mapping.sh
       each "$ROOT_QIITA/public" "$md_basename"
     fi
-    npx qiita publish --root "${ROOT_QIITA}" "$md_basename"
+    npx qiita publish --root "${ROOT_QIITA}" --force "$md_basename"
   done <<<"$CHANGED_FILES"
 fi
