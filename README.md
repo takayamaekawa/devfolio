@@ -1,7 +1,7 @@
 # blog (Hexo/Qiita Project Source)
 
 ## Web
-see [https://verazza.f5.si/](https://verazza.f5.si/) or [Qiita-@verazza](https://qiita.com/verazza). If you wanna deploy at Qiita, plz execute [deploy_to_qiita.sh](deploy_to_qiita.sh) before git pushing.
+see [https://verazza.f5.si/](https://verazza.f5.si/) or [Qiita-@verazza](https://qiita.com/verazza). If you wanna deploy to Qiita, plz execute [deploy_to_qiita.sh](deploy_to_qiita.sh) before git pushing.
 
 ## Deploy
 Deployed at [verazza.github.io.git](https://github.com/verazza/verazza.github.io/).
