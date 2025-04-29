@@ -4,7 +4,7 @@ tags:
   - Qiita
   - Hexo
 private: false
-updated_at: '2025-04-29T15:32:32+09:00'
+updated_at: '2025-04-29T15:44:34+09:00'
 id: 52b68bf70e480f4835ad
 organization_url_name: null
 slide: false
@@ -91,8 +91,8 @@ npx qiita login
 ### Hexoで作ったmdファイルをQiitaへ投稿するまで
 #### 開発での苦難
 ここで私は困った。  
-この`qiita`コマンドでは、`--root`引数により、ルートプロジェクトは設定できるものの、`public`ディレクトリは必要なのだ。
-一方、`hexo`では、`*.md`ファイルが`source/_posts/`ディレクトリに配置する。ここをうまいこと統合する必要がある。  
+この`qiita`コマンドでは、`--root`引数により、ルートディレクトリは設定できるものの、`public`ディレクトリは必要なのだ。
+一方、`hexo`では、`*.md`ファイルを`source/_posts/`ディレクトリに配置する。ここをうまいこと統合する必要がある。  
 そこで、私が、その、`hexo`から`qiita`への橋渡しとなるバッシュスクリプトを開発した。それが以下である。
 
 #### `deploy_to_qiita.sh`の紹介
@@ -176,7 +176,7 @@ fi
 以下、実行時のログ  
 ![exec_deploy_to_qiita_sh.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3628758/e2858c39-162b-4446-80eb-0e73220a9e48.png)
 
-これにより、Qiitaで投稿する際に必要になる、キー`updated_at;private;id;organization_url_name;slide;ignorePublish;`などが`hexo new "<title>"`コマンドで生成された`source/_posts/`内にある`*.md`ファイルに対して、自動で追加され、そのまま投稿できるようになる。  
+これにより、Qiitaで投稿する際に必要になる、キー`updated_at;private;id;organization_url_name;slide;ignorePublish;`などが`hexo new "<title>"`コマンドで生成された`source/_posts/`内にある`*.md`ファイルに対して、自動で追加され、そのまま投稿・更新できるようになる。  
 なお、一度、`qiita/`ディレクトリを作り、そこに、`source/_posts/`内の`*.md`ファイルをコピーした後で、`sed`コマンドによるファイル操作を行うので、元の`*.md`ファイルが汚染されることはない。
 最新の`deploy_to_qiita.sh`については、以下を参照してほしい。更新があれば、記事の方も更新するようにするので、同じ内容になるかとは思う。(一応)  
 https://github.com/verazza/blog/blob/master/deploy_to_qiita.sh
