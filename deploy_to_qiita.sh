@@ -69,6 +69,11 @@ else
       sed -i "6a ignorePublish: false" "$target_file"
     fi
 
-    npx qiita publish --root "${ROOT_QIITA}" "$(basename "$source_file" .md)"
+    md_basename=$(basename "$source_file" .md)
+    if [ -f "mapping.sh" ]; then
+      . mapping.sh
+      each "$ROOT_QIITA/public" "$md_basename"
+    fi
+    npx qiita publish --root "${ROOT_QIITA}" "$md_basename"
   done <<<"$CHANGED_FILES"
 fi
