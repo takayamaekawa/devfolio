@@ -1,12 +1,14 @@
 #!/bin/bash
 
-declare -A QIITA_REPLACER=(
+declare -A RULE_OF_REPLACER=(
   ["1"]="https://verazza.f5.si/posts/8821/;https://qiita.com/verazza/items/f563b57505808f5bfaeb"
-  ["2"]="If there are any replaced words;write here"
+  ["2"]="https://verazza.f5.si/posts/30026/;https://qiita.com/verazza/items/ec148675aff054350867"
+  ["x"]="If there are any replaced words(before replacing);add here(after replacing)"
 )
 
 declare -A QIITA_MAP=(
-  ["生成AIとの共生1"]="1;2"
+  ["生成AIとの共生1"]="1;x"
+  ["生成AIとの共生2"]="2"
 )
 
 each() {
@@ -32,10 +34,10 @@ each() {
   IFS=';' read -ra keys <<<"${QIITA_MAP[$filename]}"
 
   for key in "${keys[@]}"; do
-    IFS=';' read -r before after <<<"${QIITA_REPLACER[$key]}"
+    IFS=';' read -r before after <<<"${RULE_OF_REPLACER[$key]}"
     if grep -qF "$before" "$filepath"; then
       echo "Replaceing: '$before' -> '$after' at '$filepath'"
-      # sed -i "s|$before|$after|g" "$filepath"
+      sed -i "s|$before|$after|g" "$filepath"
     else
       echo "Info: '$before' is not found at '$filepath', so skipped."
     fi
