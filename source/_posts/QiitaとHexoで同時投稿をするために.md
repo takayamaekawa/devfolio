@@ -60,7 +60,7 @@ deploy:
 ```
 
 #### テーマ
-私は、[jerryc127/hexo-theme-butterfly](https://github.com/jerryc127/hexo-theme-butterfly)を使っています。他にも、テーマはたくさんあるので好みのものを選ぼう。
+私は、[jerryc127/hexo-theme-butterfly](https://github.com/jerryc127/hexo-theme-butterfly)を使っている。他にも、テーマはたくさんあるので好みのものを選ぼう。
 https://hexo.io/themes/
 
 #### リンク簡略化〜永久リンクを短くする〜

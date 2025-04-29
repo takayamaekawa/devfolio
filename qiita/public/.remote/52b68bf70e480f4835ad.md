@@ -4,7 +4,7 @@ tags:
   - Qiita
   - Hexo
 private: false
-updated_at: '2025-04-29T16:11:10+09:00'
+updated_at: '2025-04-29T16:44:33+09:00'
 id: 52b68bf70e480f4835ad
 organization_url_name: null
 slide: false
@@ -64,7 +64,7 @@ deploy:
 ```
 
 #### テーマ
-私は、[jerryc127/hexo-theme-butterfly](https://github.com/jerryc127/hexo-theme-butterfly)を使っています。他にも、テーマはたくさんあるので好みのものを選ぼう。
+私は、[jerryc127/hexo-theme-butterfly](https://github.com/jerryc127/hexo-theme-butterfly)を使っている。他にも、テーマはたくさんあるので好みのものを選ぼう。
 https://hexo.io/themes/
 
 #### リンク簡略化〜永久リンクを短くする〜
