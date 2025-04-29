@@ -1,14 +1,16 @@
 ---
-title: NginxにModSecurityを適用
-tags:
-  - nginx
-  - ModSecurity
-private: false
 updated_at: '2025-04-28T20:04:53+09:00'
+private: false
 id: 0509d717f35f5152f46d
 organization_url_name: null
 slide: false
 ignorePublish: false
+title: 'NginxにModSecurityを適用'
+tags:
+  - 'Nginx'
+  - 'ModSecurity'
+abbrlink: 39499
+date: 2025-02-01 00:00:00
 ---
 
 <!--

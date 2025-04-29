@@ -1,14 +1,16 @@
 ---
-title: 私的ArchLinux開発環境構築
-tags:
-  - archLinux
-  - 環境構築
-private: false
 updated_at: '2025-04-28T20:04:53+09:00'
+private: false
 id: 522d6bd4666d9537c27f
 organization_url_name: null
 slide: false
 ignorePublish: false
+title: '私的ArchLinux開発環境構築'
+abbrlink: 14653
+date: 2025-03-13 12:09:00
+tags:
+  - 'ArchLinux'
+  - '環境構築'
 ---
 
 <!--

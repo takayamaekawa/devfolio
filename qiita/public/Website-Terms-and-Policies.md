@@ -1,14 +1,16 @@
 ---
-title: Website Terms and Policies
-tags:
-  - Google
-  - X
-private: false
 updated_at: '2025-04-28T20:04:53+09:00'
+private: false
 id: 4b5feb1871519604f463
 organization_url_name: null
 slide: false
 ignorePublish: false
+title: 'Website Terms and Policies'
+tags:
+  - 'google'
+  - 'x'
+abbrlink: 41809
+date: 2024-12-31 10:32:55
 ---
 
 <!--

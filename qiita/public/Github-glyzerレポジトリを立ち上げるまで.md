@@ -1,14 +1,16 @@
 ---
-title: 'Github:glyzerレポジトリを立ち上げるまで'
-tags:
-  - Python
-  - Gemini
-private: false
 updated_at: '2025-04-28T20:04:53+09:00'
+private: false
 id: 56a9d0573e661ca6983f
 organization_url_name: null
 slide: false
 ignorePublish: false
+title: 'Github:glyzerレポジトリを立ち上げるまで'
+tags:
+  - 'python'
+  - 'gemini'
+abbrlink: 33934
+date: 2025-03-28 23:59:00
 ---
 
 <!--

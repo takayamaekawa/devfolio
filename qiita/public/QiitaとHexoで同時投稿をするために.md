@@ -4,7 +4,7 @@ tags:
   - Qiita
   - Hexo
 private: false
-updated_at: '2025-04-29T16:44:33+09:00'
+updated_at: '2025-04-29T20:56:58+09:00'
 id: 52b68bf70e480f4835ad
 organization_url_name: null
 slide: false
@@ -113,7 +113,11 @@ fi
 
 mkdir -p "${ROOT_QIITA}/public"
 
-CHANGED_FILES=$(git diff --name-only | grep "${SOURCE}/.*\.md$")
+if [[ $# -gt 0 && $1 == "force" ]]; then
+  CHANGED_FILES=$(git ls-files "${SOURCE}/*.md")
+else
+  CHANGED_FILES=$(git diff --name-only | grep "${SOURCE}/.*\.md$")
+fi
 
 if [ -z "$CHANGED_FILES" ]; then
   echo "No .md files changed since last commit."
@@ -169,7 +173,12 @@ else
       sed -i "6a ignorePublish: false" "$target_file"
     fi
 
-    npx qiita publish --root "${ROOT_QIITA}" "$(basename "$source_file" .md)"
+    md_basename=$(basename "$source_file" .md)
+    if [ -f "mapping.sh" ]; then
+      . mapping.sh
+      each "$ROOT_QIITA/public" "$md_basename"
+    fi
+    npx qiita publish --root "${ROOT_QIITA}" "$md_basename"
   done <<<"$CHANGED_FILES"
 fi
 ```
@@ -182,8 +191,18 @@ fi
 https://github.com/verazza/blog/blob/master/deploy_to_qiita.sh
 
 #### `deploy_to_qiita.sh`の簡単な説明と使い方
+#### おおまかな使い方
 具体的な使い方を説明しよう。  
 これは内部で、`git diff`コマンドによる、`source/_posts`内の`*.md`ファイルに差異があれば、それを`qiita/public`にコピーして、front-matterを処理するので、`git push`する前に、`deploy_to_qiita.sh`を実行する必要がある。
+
+#### 投稿前に文字列置換を行いたい場合
+また、もし、`qiita`投稿時に、特定の`*.md`ファイルに対して、文字列置換を行いたい場合は、`mapping.sh`を`deploy_to_qiita.sh`と同じ階層に配置すれば、`deploy_to_qiita.sh`が自動で読み込んでくれる。今回、それは、ここには掲載はしないが、興味があれば、以下を見てほしい。
+https://github.com/verazza/blog/blob/master/mapping.sh  
+  
+置換だけ行いたい場合は、以下を実行すれば、`source/_posts/`内のすべての`*.md`ファイル（Git管理化にあるもの）に対して、`deploy_to_qiita.sh`を実行できる。
+```bash
+./deploy_to_qiita.sh force
+```
 
 #### 今後の`deploy_to_qiita.sh`をどうするか
 にしても、`git push`する前に、実行しなければいけないというのは、ユーザーエクスペリエンスの観点で良くないと思う。だから、まずは、これをコミット履歴やもしくはデータベースなどを駆使することで、差異があることを確認するなどして、`git diff`に依存しない形を取る必要がある。  
@@ -202,7 +221,8 @@ https://github.com/verazza/blog/blob/master/deploy_to_qiita.sh
   "server": "hexo clean && hexo generate && hexo server",
   "deploy": "hexo clean && hexo generate && hexo deploy",
   "deploy2": "./deploy_to_qiita.sh",
-  "deploy-all": "npm run deploy && npm run deploy2"
+  "deploy-all": "npm run deploy && npm run deploy2",
+  "qiita-sync": "npx qiita pull --root qiita"
 }
 ```
 

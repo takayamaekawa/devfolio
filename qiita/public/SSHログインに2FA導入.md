@@ -6,7 +6,7 @@ tags:
   - 2FA
   - Google-Authendicator
 private: false
-updated_at: '2025-04-28T20:04:53+09:00'
+updated_at: '2025-04-29T20:56:59+09:00'
 id: b840688ec38e89839ac1
 organization_url_name: null
 slide: false

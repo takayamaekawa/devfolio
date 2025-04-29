@@ -1,16 +1,18 @@
 ---
-title: OBSやVBCableを使わずに音声を内部ルーティング
-tags:
-  - archLinux
-  - OBS
-  - JACK
-  - VBCable
-private: false
 updated_at: '2025-04-28T20:04:53+09:00'
+private: false
 id: 7e4c56dc7f05daa97aa8
 organization_url_name: null
 slide: false
 ignorePublish: false
+title: 'OBSやVBCableを使わずに音声を内部ルーティング'
+tags:
+  - 'OBS'
+  - 'VBCable'
+  - 'Jack'
+  - 'ArchLinux'
+abbrlink: 54038
+date: 2025-04-20 02:54:47
 ---
 
 <!--

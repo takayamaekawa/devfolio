@@ -1,16 +1,18 @@
 ---
-title: WSLを使う！ Windows開発環境構築
-tags:
-  - Windows
-  - 開発環境
-  - neovim
-  - WSL
-private: false
 updated_at: '2025-04-28T20:04:53+09:00'
+private: false
 id: 9b4de78f3176e9a1c341
 organization_url_name: null
 slide: false
 ignorePublish: false
+title: 'WSLを使う！ Windows開発環境構築'
+tags:
+  - 'Neovim'
+  - 'Windows'
+  - 'WSL'
+  - '開発環境'
+abbrlink: 17845
+date: 2025-03-24 02:54:00
 ---
 
 <!--

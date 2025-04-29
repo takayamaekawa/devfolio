@@ -1,13 +1,15 @@
 ---
-title: 生成AIとの共生1
-tags:
-  - LLM
-private: false
 updated_at: '2025-04-28T20:04:53+09:00'
+private: false
 id: ec148675aff054350867
 organization_url_name: null
 slide: false
 ignorePublish: false
+title: '生成AIとの共生1'
+tags:
+  - 'LLM'
+abbrlink: 30026
+date: 2025-04-23 07:02:03
 ---
 
 <!--
@@ -56,4 +58,5 @@ rの住人ピエロより
 https://youtu.be/fFQ9kax20I0?si=f59Kuw5A8jezI7En
 
 ## 続き
-[生成AIとの共生2](https://verazza.f5.si/posts/8821/)を見てね。
+[生成AIとの共生2](https://qiita.com/verazza/items/f563b57505808f5bfaeb)を見てね。
+test

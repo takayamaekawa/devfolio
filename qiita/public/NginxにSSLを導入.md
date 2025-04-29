@@ -1,14 +1,16 @@
 ---
-title: NginxにSSLを導入
-tags:
-  - nginx
-  - SSL
-private: false
 updated_at: '2025-04-28T20:04:53+09:00'
+private: false
 id: 64c79e3b6572144f1faf
 organization_url_name: null
 slide: false
 ignorePublish: false
+title: 'NginxにSSLを導入'
+tags:
+  - 'Nginx'
+  - 'SSL'
+abbrlink: 21623
+date: 2025-02-01 00:00:00
 ---
 
 <!--
