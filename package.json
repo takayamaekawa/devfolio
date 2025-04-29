@@ -9,7 +9,8 @@
     "server": "hexo clean && hexo generate && hexo server",
     "deploy": "hexo clean && hexo generate && hexo deploy",
     "deploy2": "./deploy_to_qiita.sh",
-    "deploy-all": "npm run deploy && npm run deploy2"
+    "deploy-all": "npm run deploy && npm run deploy2",
+    "qiita-sync": "npx qiita pull --root qiita"
   },
   "hexo": {
     "version": "7.3.0"
