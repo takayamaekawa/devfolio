@@ -1,7 +1,7 @@
 # verazza.github.io
 
 ## Web
-see [https://verazza.f5.si/](https://verazza.f5.si/)([https://verazza.github.io/](https://verazza.github.io/)).
+see [https://verazza.f5.si/](https://verazza.f5.si/) ( [https://verazza.github.io/](https://verazza.github.io/) ).
 
 ## Source Code
 see [https://github.com/verazza/blog](https://github.com/verazza/blog).
