@@ -87,40 +87,81 @@ npx qiita login
 ```bash
 #!/bin/bash
 
-hexo generate # abbrlinkが*.mdファイルに対して、idの番号付けを行うために必要
+ROOT_QIITA="qiita"
+SOURCE="source/_posts"
 
-rm -rf ./public
-cp -r ./source/_posts/ ./public
+cd "$(dirname "$0")"
 
-find ./public -type f -name '*.md' -exec bash -c '
-  FILE="$1"
-  FRONT_MATTER=$(head -n 999 "$FILE" | grep -E "^title:|tags:|abbrlink:|date:")
-  UPDATED_AT=$(echo "$FRONT_MATTER" | grep -oE "date: (.*)" | sed -E "s/^date: //")
-  POST_ID=$(echo "$FRONT_MATTER" | grep -oE "abbrlink: (.*)" | sed -E "s/^abbrlink: //")
-  sed -i "1a updated_at: \"${UPDATED_AT}\"" "$FILE"
-  sed -i "2a private: false" "$FILE"
-  sed -i "3a id: \"${POST_ID}\"" "$FILE"
-  sed -i "4a organization_url_name: null" "$FILE"
-  sed -i "5a slide: false" "$FILE"
-  sed -i "6a ignorePublish: false" "$FILE"
-' _ {} \;
+current_quotepath=$(git config --get core.quotepath)
+if [ "$current_quotepath" != "false" ]; then
+  echo "Setting core.quotepath to false to handle Japanese filenames correctly."
+  git config --global core.quotepath false
+fi
 
-# 個別処理したい場合は以下を使用
-# declare -a basenames
-# while IFS= read -r -d $'\0' file; do
-#   basename=$(basename "$file" .md)
-#   basenames+=("$basename")
-# done < <(find ./source/_posts -type f -name '*.md' -print0)
+mkdir -p "${ROOT_QIITA}/public"
 
-# for basename in "${basenames[@]}"; do
-#   echo "Publishing: $basename.md"
-#   npx qiita publish "$basename"
-# done
+CHANGED_FILES=$(git diff --name-only | grep "${SOURCE}/.*\.md$")
 
-npx qiita publish --all
+if [ -z "$CHANGED_FILES" ]; then
+  echo "No .md files changed since last commit."
+else
+  echo "Changed .md files:"
+  while IFS= read -r file; do
+    echo "- $file"
+
+    source_file="$file"
+    target_file="${ROOT_QIITA}/public/$(basename "$source_file")"
+
+    if [[ -f "$target_file" ]]; then
+      echo "File exists: $source_file -> $target_file"
+
+      temp_file="${target_file}.temp"
+      mv "$target_file" "$temp_file"
+
+      cp "$source_file" "$target_file"
+
+      TEMP_FRONT_MATTER=$(head -n 999 "$temp_file" | grep -E "^updated_at:|private:|id:|organization_url_name:|slide:|ignorePublish:")
+      TEMP_UPDATED_AT=$(echo "$TEMP_FRONT_MATTER" | grep -oE "^updated_at: (.*)$" | sed -E "s/^updated_at: //")
+      TEMP_PRIVATE=$(echo "$TEMP_FRONT_MATTER" | grep -oE "^private: (.*)$" | sed -E "s/^private: //")
+      TEMP_ID=$(echo "$TEMP_FRONT_MATTER" | grep -oE "^id: (.*)$" | sed -E "s/^id: //")
+      TEMP_ORG_URL=$(echo "$TEMP_FRONT_MATTER" | grep -oE "^organization_url_name: (.*)$" | sed -E "s/^organization_url_name: //")
+      TEMP_SLIDE=$(echo "$TEMP_FRONT_MATTER" | grep -oE "^slide: (.*)$" | sed -E "s/^slide: //")
+      TEMP_IGNORE=$(echo "$TEMP_FRONT_MATTER" | grep -oE "^ignorePublish: (.*)$" | sed -E "s/^ignorePublish: //")
+
+      if [ -n "$TEMP_UPDATED_AT" ]; then
+        sed -i "1a updated_at: ${TEMP_UPDATED_AT}" "$target_file"
+      fi
+      sed -i "2a private: ${TEMP_PRIVATE}" "$target_file"
+      if [ -n "$TEMP_ID" ]; then
+        sed -i "3a id: ${TEMP_ID}" "$target_file"
+      fi
+      if [ -n "$TEMP_ORG_URL" ]; then
+        sed -i "4a organization_url_name: ${TEMP_ORG_URL}" "$target_file"
+      fi
+      sed -i "5a slide: ${TEMP_SLIDE}" "$target_file"
+      sed -i "6a ignorePublish: ${TEMP_SLIDE}" "$target_file"
+
+      rm "$temp_file"
+    else
+      echo "New file: $source_file -> $target_file"
+
+      cp "$source_file" "$target_file"
+      FRONT_MATTER=$(head -n 999 "$target_file" | grep -E "^title:|tags:|abbrlink:|date:")
+      UPDATED_AT=$(echo "$FRONT_MATTER" | grep -oE "^date: (.*)$" | sed -E "s/^date: //")
+      sed -i "1a updated_at: \"${UPDATED_AT}\"" "$target_file"
+      sed -i "2a private: false" "$target_file"
+      sed -i "3a id: null" "$target_file"
+      sed -i "4a organization_url_name: null" "$target_file"
+      sed -i "5a slide: false" "$target_file"
+      sed -i "6a ignorePublish: false" "$target_file"
+    fi
+
+    npx qiita publish --root "${ROOT_QIITA}" "$(basename "$source_file" .md)"
+  done <<<"$CHANGED_FILES"
+fi
 ```
 これにより、Qiitaで投稿する際に必要になる、キー`updated_at;private;id;organization_url_name;slide;ignorePublish;`などが`hexo new "<title>"`コマンドで生成された`source/_posts/`内にある`*.md`ファイルに対して、自動で追加され、そのまま投稿できるようになる。  
-なお、一度、ルートディレクトリの`public`を削除し、`source/_posts/`内の`*.md`ファイルをコピーした後で、`sed`コマンドによるファイル操作を行うので、元の`*.md`ファイルが汚染されることはない。
+なお、一度、`qiita/`ディレクトリを作り、そこに、`source/_posts/`内の`*.md`ファイルをコピーした後で、`sed`コマンドによるファイル操作を行うので、元の`*.md`ファイルが汚染されることはない。
 最新の`deploy_to_qiita.sh`については、以下を参照してほしい。更新があれば、記事の方も更新するようにするので、同じ内容になるかとは思う。(一応)  
 https://github.com/verazza/blog/blob/master/deploy_to_qiita.sh
 
@@ -137,6 +178,8 @@ https://github.com/verazza/blog/blob/master/deploy_to_qiita.sh
 
 ## 最後に
 今回は、記事作成および投稿に`hexo`を使っていた私が`qiita`にも、一応投稿しておくか！ってことで、`Qiita-CLI`を使いましたが、良い機会になりました。やっぱコマンド触ってるだけでエンジニアっぽい...
+追記:  
+おそらく、これを応用すれば、`zenn`にも投稿できると思うので、またいずれ...
 
 ## 参考
 [jerryc127/hexo-theme-butterfly](https://github.com/jerryc127/hexo-theme-butterfly)テーマを使うときに  
