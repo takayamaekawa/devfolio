@@ -1,10 +1,14 @@
 ---
-title: 'QiitaとHexoで同時投稿をするために'
+title: QiitaとHexoで同時投稿をするために
 tags:
-  - 'Qiita'
-  - 'Hexo'
-abbrlink: 8859
-date: 2025-04-28 16:01:00
+  - Qiita
+  - Hexo
+private: false
+updated_at: '2025-04-29T14:31:45+09:00'
+id: 52b68bf70e480f4835ad
+organization_url_name: null
+slide: false
+ignorePublish: false
 ---
 
 # QiitaとHexoで同時投稿するには
