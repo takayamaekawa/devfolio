@@ -9,6 +9,10 @@ date: 2025-04-28 16:01:00
 
 # QiitaとHexoで同時投稿するには
 
+## 最初に
+これは、あくまで、`Qiita over Hexo`であることに注意したい。私が、最初に`Hexo`で投稿するようになって、のちに、`Qiita`で投稿しようとしたため、ディレクトリ階層などは、`Hexo`が主軸になる。
+
+## HexoとQiitaの概略
 どちらもMarkDown形式のファイルを自動化されたcss、javascriptと合わせて、最終的に、htmlに変換するサービスを提供している。`npm`パッケージリポジトリににそれらをCLIから操作できる便利なツールが出ているため、先に、`npm`使える状況にないよって人は以下を参考にしてね。
 [私的ArchLinux開発環境構築 >> nvmによるnpm/node環境構築](https://qiita.com/verazza/items/1561e33b12f83d650f8f#nvm%E3%81%AB%E3%82%88%E3%82%8Bnpmnode%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89)
 
@@ -79,10 +83,15 @@ npm i @qiita/qiita-cli --save-dev
 npx qiita init
 npx qiita login
 ```
+
+### Hexoで作ったmdファイルをQiitaへ投稿するまで
+#### 開発での苦難
 ここで私は困った。  
 この`qiita`コマンドでは、`--root`引数により、ルートプロジェクトは設定できるものの、`public`ディレクトリは必要なのだ。
 一方、`hexo`では、`*.md`ファイルが`source/_posts/`ディレクトリに配置する。ここをうまいこと統合する必要がある。  
-そこで、私が、その、`hexo`から`qiita`への橋渡しとなるバッシュスクリプトを開発した。それが以下である。  
+そこで、私が、その、`hexo`から`qiita`への橋渡しとなるバッシュスクリプトを開発した。それが以下である。
+
+#### `deploy_to_qiita.sh`の紹介
 `deploy_to_qiita.sh`
 ```bash
 #!/bin/bash
@@ -160,10 +169,27 @@ else
   done <<<"$CHANGED_FILES"
 fi
 ```
+以下、実行時のログ  
+![exec_deploy_to_qiita_sh.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3628758/e2858c39-162b-4446-80eb-0e73220a9e48.png)
+
 これにより、Qiitaで投稿する際に必要になる、キー`updated_at;private;id;organization_url_name;slide;ignorePublish;`などが`hexo new "<title>"`コマンドで生成された`source/_posts/`内にある`*.md`ファイルに対して、自動で追加され、そのまま投稿できるようになる。  
 なお、一度、`qiita/`ディレクトリを作り、そこに、`source/_posts/`内の`*.md`ファイルをコピーした後で、`sed`コマンドによるファイル操作を行うので、元の`*.md`ファイルが汚染されることはない。
 最新の`deploy_to_qiita.sh`については、以下を参照してほしい。更新があれば、記事の方も更新するようにするので、同じ内容になるかとは思う。(一応)  
 https://github.com/verazza/blog/blob/master/deploy_to_qiita.sh
+
+#### `deploy_to_qiita.sh`の簡単な説明と使い方
+具体的な使い方を説明しよう。  
+これは内部で、`git diff`コマンドによる、`source/_posts`内の`*.md`ファイルに差異があれば、それを`qiita/public`にコピーして、front-matterを処理するので、`git push`する前に、`deploy_to_qiita.sh`を実行する必要がある。
+
+#### 今後の`deploy_to_qiita.sh`をどうするか
+にしても、`git push`する前に、実行しなければいけないというのは、ユーザーエクスペリエンスの観点で良くないと思う。だから、まずは、これをコミット履歴やもしくはデータベースなどを駆使することで、差異があることを確認するなどして、`git diff`に依存しない形を取る必要がある。  
+別途、`zenn`にも投稿できるようにしたい。
+
+### 同時投稿での注意点
+`Qiita`と`Hexo`で同時投稿・同時配信するために、画像リンクなどは、おそらく、`Qiita`ベースのほうが良い。  
+理由は、`Hexo`での画像表示するときのMARKDOWN形式での書き方は、`![](/images/sample.png)`というように、ルートに`/images`ディレクトリがある前提で`public/images`に画像を保存するのだが、`Qiita`ではそのようなものはサポートされていないためだ。  
+じゃあ、どうするのかというと、一度、WEBの方で、`Qiita`で画像を貼り付けると、`https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/`から始まる画像リンクが得られるので、これを`Hexo`のソースである`*.md`ファイルにも貼り付けることで、両方で画像を表示することが可能になる。  
+めんどうだけどね。
 
 ## `package.json`のタスク
 以下、参考までに。
@@ -173,7 +199,7 @@ https://github.com/verazza/blog/blob/master/deploy_to_qiita.sh
   "deploy": "hexo clean && hexo generate && hexo deploy",
   "deploy2": "./deploy_to_qiita.sh",
   "deploy-all": "npm run deploy && npm run deploy2"
-},
+}
 ```
 
 ## 最後に
