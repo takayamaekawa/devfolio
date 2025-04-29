@@ -1,10 +1,10 @@
 # blog (Hexo Project Source)
 
 ## Web
-see [https://verazza.f5.si/](https://verazza.f5.si/) for browsing.
+see [https://verazza.f5.si/](https://verazza.f5.si/) or [Qiita-@verazza](https://qiita.com/verazza). If you wanna deploy at Qiita, plz execute [deploy_to_qiita.sh](deploy_to_qiita.sh) before git pushing.
 
 ## Deploy
-Deployed at [verazza.github.io.git](https://github.com/verazza/verazza.github.io/).  
+Deployed at [verazza.github.io.git](https://github.com/verazza/verazza.github.io/).
 
 ## Powered By
 [hexojs/hexo](https://github.com/hexojs/hexo)
