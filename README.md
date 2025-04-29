@@ -1,4 +1,4 @@
-# blog (Hexo Project Source)
+# blog (Hexo/Qiita Project Source)
 
 ## Web
 see [https://verazza.f5.si/](https://verazza.f5.si/) or [Qiita-@verazza](https://qiita.com/verazza). If you wanna deploy at Qiita, plz execute [deploy_to_qiita.sh](deploy_to_qiita.sh) before git pushing.
