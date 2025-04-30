@@ -35,5 +35,5 @@ sudo certbot --nginx
 ```
 新たにドメインを増やす場合、既存のSSL証明書に新たに追加することが可能。
 ```
-sudo certbot --nginx -d keyp.f5.si,kishax.f5.si
+sudo certbot --nginx -d sample.com,sample2.com
 ```
