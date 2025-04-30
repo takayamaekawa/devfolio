@@ -4,7 +4,7 @@ tags:
   - Qiita
   - Hexo
 private: false
-updated_at: '2025-04-29T20:56:58+09:00'
+updated_at: '2025-05-01T04:03:33+09:00'
 id: 52b68bf70e480f4835ad
 organization_url_name: null
 slide: false
@@ -212,7 +212,8 @@ https://github.com/verazza/blog/blob/master/mapping.sh
 `Qiita`と`Hexo`で同時投稿・同時配信するために、画像リンクなどは、おそらく、`Qiita`ベースのほうが良い。  
 理由は、`Hexo`での画像表示するときのMARKDOWN形式での書き方は、`![](/images/sample.png)`というように、ルートに`/images`ディレクトリがある前提で`public/images`に画像を保存するのだが、`Qiita`ではそのようなものはサポートされていないためだ。  
 じゃあ、どうするのかというと、一度、WEBの方で、`Qiita`で画像を貼り付けると、`https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/`から始まる画像リンクが得られるので、これを`Hexo`のソースである`*.md`ファイルにも貼り付けることで、両方で画像を表示することが可能になる。  
-めんどうだけどね。
+~~めんどうだけどね。~~  
+いや、そんなことしなくてもいいのだ。文字列置換があれば、例えば、`Qiita`にデプロイするときには、`/image/sample.png`という文字列を`https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/`に変換すればいい。すなわち、`mapping.sh`にその旨を書けばよい。
 
 ## `package.json`のタスク
 以下、参考までに。

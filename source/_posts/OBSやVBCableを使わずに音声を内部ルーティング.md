@@ -29,4 +29,4 @@ systemctl --user restart pipewire-media-session
 ```
 jack, setupのinterfaceに持ってるオーディオインターフェースを選択
 あとは、グラフよりルーティング
-![jack_graph.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3628758/e1e25ade-583d-4dfe-8a88-0181888877f7.png)
+![jack_graph.png](/images/jack_graph.png)

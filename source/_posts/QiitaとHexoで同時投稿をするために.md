@@ -14,7 +14,7 @@ date: 2025-04-28 16:01:00
 
 ## HexoとQiitaの概略
 どちらもMarkDown形式のファイルを自動化されたcss、javascriptと合わせて、最終的に、htmlに変換するサービスを提供している。`npm`パッケージリポジトリにそれらをCLIから操作できる便利なツールが出ているため、先に、`npm`使える状況にないよって人は以下を参考にしてね。
-[私的ArchLinux開発環境構築 >> nvmによるnpm/node環境構築](https://qiita.com/verazza/items/1561e33b12f83d650f8f#nvm%E3%81%AB%E3%82%88%E3%82%8Bnpmnode%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89)
+[私的ArchLinux開発環境構築 >> nvmによるnpm/node環境構築](https://verazza.dev/posts/14653/#nvm%E3%81%AB%E3%82%88%E3%82%8Bnpm-node%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89)
 
 ## Hexo
 ### インストール
@@ -179,7 +179,7 @@ else
 fi
 ```
 以下、実行時のログ  
-![exec_deploy_to_qiita_sh.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3628758/e2858c39-162b-4446-80eb-0e73220a9e48.png)
+![exec_deploy_to_qiita_sh.png](/images/deploy_to_qiita_sh.png)
 
 これにより、Qiitaで投稿する際に必要になる、キー`updated_at;private;id;organization_url_name;slide;ignorePublish;`などが`hexo new "<title>"`コマンドで生成された`source/_posts/`内にある`*.md`ファイルに対して、自動で追加され、そのまま投稿・更新できるようになる。  
 なお、一度、`qiita/`ディレクトリを作り、そこに、`source/_posts/`内の`*.md`ファイルをコピーした後で、`sed`コマンドによるファイル操作を行うので、元の`*.md`ファイルが汚染されることはない。
@@ -208,7 +208,8 @@ https://github.com/verazza/blog/blob/master/mapping.sh
 `Qiita`と`Hexo`で同時投稿・同時配信するために、画像リンクなどは、おそらく、`Qiita`ベースのほうが良い。  
 理由は、`Hexo`での画像表示するときのMARKDOWN形式での書き方は、`![](/images/sample.png)`というように、ルートに`/images`ディレクトリがある前提で`public/images`に画像を保存するのだが、`Qiita`ではそのようなものはサポートされていないためだ。  
 じゃあ、どうするのかというと、一度、WEBの方で、`Qiita`で画像を貼り付けると、`https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/`から始まる画像リンクが得られるので、これを`Hexo`のソースである`*.md`ファイルにも貼り付けることで、両方で画像を表示することが可能になる。  
-めんどうだけどね。
+~~めんどうだけどね。~~  
+いや、そんなことしなくてもいいのだ。文字列置換があれば、例えば、`Qiita`にデプロイするときには、`/image/sample.png`という文字列を`https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/`に変換すればいい。すなわち、`mapping.sh`にその旨を書けばよい。
 
 ## `package.json`のタスク
 以下、参考までに。
