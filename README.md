@@ -1,13 +1,16 @@
 # blog (Hexo/Qiita Project Source)
 
-## Web
-see [https://verazza.f5.si/](https://verazza.f5.si/) ( [https://verazza.github.io/](https://verazza.github.io/) ) or [Qiita-@verazza](https://qiita.com/verazza).
+## Deployed at
+- github.io  
+[https://verazza.github.io/](https://verazza.github.io/)
+- cloudflare  
+[https://verazza.dev/](https://verazza.dev/)
+- qiita  
+[Qiita-@verazza](https://qiita.com/verazza).  
+If you wanna deploy to Qiita, plz execute [deploy_to_qiita.sh](deploy_to_qiita.sh) before git pushing.
 
-## Deploy
-Deployed at [verazza.github.io.git](https://github.com/verazza/verazza.github.io/) or [Qiita-@verazza](https://qiita.com/verazza). If you wanna deploy to Qiita, plz execute [deploy_to_qiita.sh](deploy_to_qiita.sh) before git pushing.
-
-## Powered By
-[hexojs/hexo](https://github.com/hexojs/hexo)
+## Static Site Generator
+Powered by [hexojs/hexo](https://github.com/hexojs/hexo)
 
 ## License
 
