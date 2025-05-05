@@ -41,7 +41,7 @@ We are committed to protecting your personal information and use appropriate sec
 We do not share your information with third parties except as required by law or necessary for the operation of the App.
 
 5. Contact Us
-If you have any questions about this Privacy Policy, please contact us at [maekawatakaya10.8@gmail.com].
+If you have any questions about this Privacy Policy, please contact us at [mc.kishax@gmail.com].
 ```
 
 ## Terms Of Service
@@ -68,5 +68,5 @@ We reserve the right to suspend or terminate your access to the App for violatio
 We may update these Terms from time to time. Continued use of the App constitutes acceptance of the updated Terms.
 
 6. Contact Us
-If you have any questions about these Terms, please contact us at [maekawatakaya10.8@gmail.com].
+If you have any questions about these Terms, please contact us at [mc.kishax@gmail.com].
 ```
