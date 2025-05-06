@@ -6,8 +6,8 @@
   "author": "verazza",
   "private": true,
   "scripts": {
+    "dev": "npx hexo clean && npx hexo generate && npx hexo server",
     "build": "npx hexo clean && npx hexo generate",
-    "server": "npx hexo clean && npx hexo generate && npx hexo server",
     "generate": "npx hexo clean && npx hexo generate",
     "deploy-git": "npx hexo clean && npx hexo generate && npx hexo deploy",
     "deploy-qiita": "./deploy_to_qiita.sh",
