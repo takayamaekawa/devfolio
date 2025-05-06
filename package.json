@@ -6,11 +6,13 @@
   "author": "verazza",
   "private": true,
   "scripts": {
+    "build": "npx hexo clean && npx hexo generate",
     "server": "npx hexo clean && npx hexo generate && npx hexo server",
     "generate": "npx hexo clean && npx hexo generate",
     "deploy": "npx hexo clean && npx hexo generate && npx hexo deploy",
     "deploy2": "./deploy_to_qiita.sh",
     "deploy-all": "npm run deploy && npm run deploy2",
+    "deploy-only": "npx hexo deploy",
     "qiita-sync": "npx qiita pull --root qiita"
   },
   "hexo": {
