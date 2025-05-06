@@ -290,7 +290,7 @@ aside:
     enable: true
     content: "From 04/04/2025"
   card_recent_post:
-    enable: false
+    enable: true
     # If set 0 will show all
     limit: 5
     # Sort: date / updated

@@ -3,6 +3,17 @@ export default {
     try {
       const url = new URL(request.url);
       let pathname = url.pathname;
+
+      // リダイレクト対象の記事IDの配列
+      const oldPostIds = ['8859', '8821', '30026', '34194', '49418'];
+
+      // 古いパーマリンクを新しいパーマリンクへリダイレクトする処理
+      for (const oldId of oldPostIds) {
+        if (pathname === `/${oldId}/`) {
+          return Response.redirect(`${url.origin}/posts/${oldId}/`, 301);
+        }
+      }
+
       if (pathname.endsWith('/')) {
         pathname += 'index.html';
       }
