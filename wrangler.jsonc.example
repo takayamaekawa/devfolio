@@ -1,0 +1,37 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "hono-worker",
+  "main": "./dist/index.js",
+  "compatibility_date": "2025-05-01",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "assets": {
+    "directory": "./dist"
+  },
+  "vars": {
+    "APP_NAME": "hono-worker"
+  },
+  "kv_namespaces": [
+    {
+      "binding": "CONFIG",
+      "id": "YOUR_KV_NAMESPACES_ID"
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "hono-worker",
+      "database_id": "YOUR_D1_DATABASE_ID"
+    }
+  ]
+  // "r2_buckets": [
+  //   {
+  //     "binding": "MY_BUCKET",
+  //     "bucket_name": "my-bucket"
+  //   }
+  // ],
+  // "ai": {
+  //   "binding": "AI"
+  // }
+}
