@@ -4,10 +4,8 @@ export default {
       const url = new URL(request.url);
       let pathname = url.pathname;
 
-      // リダイレクト対象の記事IDの配列
       const oldPostIds = ['8859', '8821', '30026', '34194', '49418'];
 
-      // 古いパーマリンクを新しいパーマリンクへリダイレクトする処理
       for (const oldId of oldPostIds) {
         if (pathname === `/${oldId}/`) {
           return Response.redirect(`${url.origin}/posts/${oldId}/`, 301);
@@ -18,7 +16,6 @@ export default {
         pathname += 'index.html';
       }
 
-      // atom.xml の特別な処理
       if (pathname === '/atom.xml') {
         const assetResponse = await fetch(`https://static-content/atom.xml`, {
           cf: {
@@ -33,7 +30,6 @@ export default {
         }
       }
 
-      // search.xml の特別な処理
       if (pathname === '/search.xml') {
         const assetResponse = await fetch(`https://static-content/search.xml`, {
           cf: {
@@ -48,7 +44,6 @@ export default {
         }
       }
 
-      // その他の静的アセットの処理
       const assetResponse = await fetch(`https://static-content/${pathname}`, {
         cf: {
           cacheTtl: 60 * 60 * 24 * 7, // 7日間のブラウザキャッシュ
@@ -61,7 +56,6 @@ export default {
         return assetResponse;
       }
 
-      // ファイルが見つからなかった場合は404を返す
       return new Response('Not Found', { status: 404 });
     } catch (e) {
       console.error('Error handling request:', e);
