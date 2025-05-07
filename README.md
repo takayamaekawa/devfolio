@@ -1,13 +1,13 @@
 # blog (Hexo/Qiita Project Source)
 
 ## Deployed at
-- github.io  
-[https://verazza.github.io/](https://verazza.github.io/)
-- cloudflare  
-[https://verazza.dev/](https://verazza.dev/)
+- cloudflare/workers  
+[https://verazza.dev/blog](https://verazza.dev/blog)
 - qiita  
 [Qiita-@verazza](https://qiita.com/verazza).  
 If you wanna deploy to Qiita, plz execute [deploy_to_qiita.sh](deploy_to_qiita.sh) before git pushing.
+- github.io  
+[https://verazza.github.io/](https://verazza.github.io/)
 
 ## Static Site Generator
 Powered by [hexojs/hexo](https://github.com/hexojs/hexo)
