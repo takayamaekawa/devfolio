@@ -52,10 +52,10 @@ social:
 # Image Settings
 # --------------------------------------
 
-favicon: https://raw.githubusercontent.com/verazza/branding/refs/heads/master/web/favicon/verazza/verazza.ico
+favicon: https://verazza.dev/favicon.ico
 
 avatar:
-  img: https://cdn.discordapp.com/avatars/829173846069608451/c60d959c284060a41912d2cb769d49da.png
+  img: https://verazza.dev/favicon.png
   effect: false
 
 # Disable all banner images
