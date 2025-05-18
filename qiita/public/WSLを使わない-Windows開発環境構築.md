@@ -84,6 +84,10 @@ Invoke-Expression (&starship init powershell)
 # コマンド一行で行うには
 Invoke-Expression (&starship init powershell --print-full-init | Out-String)
 ```
+もし、`$PROFILE`から読み込む際に、`Loading personal and system profiles took 1073ms. `と表示される場合は、PowerShellプロファイルのコマンドラインを以下の値に変更しよう。
+```"
+C:\Program Files\PowerShell\7\pwsh.exe" -NoExit -Command "Invoke-Expression (&starship init powershell --print-full-init | Out-String)"
+```
 
 - cmdに適用する場合
 https://chrisant996.github.io/clink/clink.html
