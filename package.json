@@ -11,8 +11,10 @@
     "generate": "npx hexo clean && npx hexo generate",
     "deploy-git": "npx hexo clean && npx hexo generate && npx hexo deploy",
     "deploy-qiita": "./deploy_to_qiita.sh",
+    "deploy-qiita-win": ".\\deploy_to_qiita.sh",
     "deploy-workers": "npm run build && npx wrangler deploy",
     "deploy-all": "npm run deploy-git && npm run deploy-qiita",
+    "deploy-all-win": "npm run deploy-git && npm run deploy-qiita-win",
     "qiita-sync": "npx qiita pull --root qiita"
   },
   "hexo": {
