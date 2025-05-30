@@ -1,7 +1,7 @@
 #!/bin/bash
 
 declare -A RULE_OF_REPLACER=(
-  ["1"]="https://.dev/posts/8821/;https://qiita.com/takaya_maekawa/items/f563b57505808f5bfaeb"
+  ["1"]="https://maekawa.dev/posts/8821/;https://qiita.com/takaya_maekawa/items/f563b57505808f5bfaeb"
   ["2"]="https://maekawa.dev/posts/30026/;https://qiita.com/takaya_maekawa/items/ec148675aff054350867"
   ["3"]="https://maekawa.dev/posts/14653/#nvm%E3%81%AB%E3%82%88%E3%82%8Bnpm-node%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89;https://qiita.com/takaya_maekawa/items/1561e33b12f83d650f8f#nvm%E3%81%AB%E3%82%88%E3%82%8Bnpmnode%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89"
   ["4"]="/images/deploy_to_qiita_sh.png;https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3628758/e2858c39-162b-4446-80eb-0e73220a9e48.png"
