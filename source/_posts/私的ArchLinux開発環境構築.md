@@ -8,7 +8,7 @@ tags:
 ---
 
 <!--
-Copyright (c) 2025 verazza
+Copyright (c) 2025 Takaya Maekawa
 This file is distributed under the terms of the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
 See the LICENSE file in the source directory for details.
 (https://creativecommons.org/licenses/by-nc-sa/4.0/)
@@ -18,7 +18,7 @@ See the LICENSE file in the source directory for details.
 
 ## コメント
 以下の記事はとても長い。  
-なので、Dockerを使った、[devkit](https://github.com/verazza/devkit) によるコマンド一発で、私と同じ環境が作れるものを開発した。なお、ディストロ全体の容量は10GBほど。以下は、ほぼほぼdevkitの [Dockerfile](https://github.com/verazza/devkit/blob/master/Dockerfile) に記述している内容と同じである。
+なので、Dockerを使った、[devkit](https://github.com/takayamaekawa/devkit) によるコマンド一発で、私と同じ環境が作れるものを開発した。なお、ディストロ全体の容量は10GBほど。以下は、ほぼほぼdevkitの [Dockerfile](https://github.com/takayamaekawa/devkit/blob/master/Dockerfile) に記述している内容と同じである。
 
 ## 開発環境構築
 ### ネット確認
@@ -179,7 +179,7 @@ sudo pacman -S docker docker-compose
 ### githubシークレットサービス
 `git-credential-manager`を使用すると、Gitでのリモートへのプッシュ時に、ブラウザによるログイン認証が行われる。
 私は以下に書いてある内容を環境毎に入力するのが面倒だったので、専用のbashファイルを作って、実行するようにしてます。
-興味のある方は、[verazza/dotfiles:/.global/bin/gauth](https://github.com/verazza/dotfiles/blob/master/.global/bin/gauth) を見てみてください。
+興味のある方は、[takayamaekawa/dotfiles:/.global/bin/gauth](https://github.com/takayamaekawa/dotfiles/blob/master/.global/bin/gauth) を見てみてください。
 ```bash
 yay -Syu git-credential-manager-core-extras
 git config --global credential.helper 'manager'
@@ -222,7 +222,7 @@ coursier install metals
 
 ### Neovimの設定
 以下の私のNeovimの設定レポジトリを紹介する。ぜひ見てほしい。  
-https://github.com/verazza/nvim
+https://github.com/takayamaekawa/nvim
 
 ### kittyの設定
 #### w3mでブラウジング中に画像を表示するための設定
@@ -247,7 +247,7 @@ nvm use 22.12.0
 ```
 
 ### dotfilesのインポート
-私の環境では、設定ファイルはすべてGithubのレポジトリ: [verazza/dotfiles](https://github.com/verazza/dotfiles)にまとめているので、各ソフトウェアのドットファイルを移植するだけで済む。
+私の環境では、設定ファイルはすべてGithubのレポジトリ: [takayamaekawa/dotfiles](https://github.com/takayamaekawa/dotfiles)にまとめているので、各ソフトウェアのドットファイルを移植するだけで済む。
 
 ### GUI環境の構築（任意）
 ```bash

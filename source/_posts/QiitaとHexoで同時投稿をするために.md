@@ -14,7 +14,7 @@ date: 2025-04-28 16:01:00
 
 ## HexoとQiitaの概略
 どちらもMarkDown形式のファイルを自動化されたcss、javascriptと合わせて、最終的に、htmlに変換するサービスを提供している。`npm`パッケージリポジトリにそれらをCLIから操作できる便利なツールが出ているため、先に、`npm`使える状況にないよって人は以下を参考にしてね。
-[私的ArchLinux開発環境構築 >> nvmによるnpm/node環境構築](https://verazza.dev/posts/14653/#nvm%E3%81%AB%E3%82%88%E3%82%8Bnpm-node%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89)
+[私的ArchLinux開発環境構築 >> nvmによるnpm/node環境構築](https://maekawa.dev/posts/14653/#nvm%E3%81%AB%E3%82%88%E3%82%8Bnpm-node%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89)
 
 ## Hexo
 ### インストール
@@ -184,7 +184,7 @@ fi
 これにより、Qiitaで投稿する際に必要になる、キー`updated_at;private;id;organization_url_name;slide;ignorePublish;`などが`hexo new "<title>"`コマンドで生成された`source/_posts/`内にある`*.md`ファイルに対して、自動で追加され、そのまま投稿・更新できるようになる。  
 なお、一度、`qiita/`ディレクトリを作り、そこに、`source/_posts/`内の`*.md`ファイルをコピーした後で、`sed`コマンドによるファイル操作を行うので、元の`*.md`ファイルが汚染されることはない。
 最新の`deploy_to_qiita.sh`については、以下を参照してほしい。更新があれば、記事の方も更新するようにするので、同じ内容になるかとは思う。(一応)  
-https://github.com/verazza/blog/blob/master/deploy_to_qiita.sh
+https://github.com/takayamaekawa/blog/blob/master/deploy_to_qiita.sh
 
 #### `deploy_to_qiita.sh`の簡単な説明と使い方
 #### おおまかな使い方
@@ -193,7 +193,7 @@ https://github.com/verazza/blog/blob/master/deploy_to_qiita.sh
 
 #### 投稿前に文字列置換を行いたい場合
 また、もし、`qiita`投稿時に、特定の`*.md`ファイルに対して、文字列置換を行いたい場合は、`mapping.sh`を`deploy_to_qiita.sh`と同じ階層に配置すれば、`deploy_to_qiita.sh`が自動で読み込んでくれる。今回、それは、ここには掲載はしないが、興味があれば、以下を見てほしい。
-https://github.com/verazza/blog/blob/master/mapping.sh  
+https://github.com/takayamaekawa/blog/blob/master/mapping.sh  
   
 置換だけ行いたい場合は、以下を実行すれば、`source/_posts/`内のすべての`*.md`ファイル（Git管理化にあるもの）に対して、`deploy_to_qiita.sh`を実行できる。
 ```bash

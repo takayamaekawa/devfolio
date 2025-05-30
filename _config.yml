@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: verazza blog
-subtitle: 'CLI愛好家'
-description: 'CLIが好き。VSCodeが嫌い。'
+title: TM Blog
+subtitle: 'CLI-like without VSCode'
+description: ''
 keywords:
-author: verazza
+author: Takaya Maekawa
 language: ja
 timezone: 'Asia/Tokyo'
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://verazza.dev/blog
+url: https://maekawa.dev/blog
 # root: /blog/
 
 #permalink: :year/:month/:day/:title/
@@ -114,7 +114,7 @@ theme: butterfly # https://github.com/jerryc127/hexo-theme-butterfly
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: https://github.com/verazza/verazza.github.io
+  repo: https://github.com/takayamaekawa/takayamaekawa.github.io
   branch: master
 
 search:

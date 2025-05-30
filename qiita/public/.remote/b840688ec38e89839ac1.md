@@ -6,7 +6,7 @@ tags:
   - 2FA
   - Google-Authendicator
 private: false
-updated_at: '2025-04-29T20:56:59+09:00'
+updated_at: '2025-05-30T19:32:46+09:00'
 id: b840688ec38e89839ac1
 organization_url_name: null
 slide: false
@@ -14,7 +14,7 @@ ignorePublish: false
 ---
 
 <!--
-Copyright (c) 2025 verazza
+Copyright (c) 2025 Takaya Maekawa
 This file is distributed under the terms of the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
 See the LICENSE file in the source directory for details.
 (https://creativecommons.org/licenses/by-nc-sa/4.0/)

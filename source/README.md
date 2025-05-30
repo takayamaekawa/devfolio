@@ -1,15 +1,15 @@
-# verazza.github.io
+# takayamaekawa.github.io
 
 ## Deployed at
 - github.io  
-[https://verazza.github.io/](https://verazza.github.io/)
+[https://takayamaekawa.github.io/](https://takayamaekawa.github.io/)
 - cloudflare  
-[https://verazza.dev/](https://verazza.dev/)
+[https://maekawa.dev/](https://maekawa.dev/)
 - qiita  
-[Qiita-@verazza](https://qiita.com/verazza).  
+[Qiita-@takaya_maekawa](https://qiita.com/takaya_maekawa).  
 
 ## Source Code
-see [https://github.com/verazza/blog](https://github.com/verazza/blog).
+see [https://github.com/takayamaekawa/blog](https://github.com/takayamaekawa/blog).
 
 ## Static Site Generator
 Powered by [hexojs/hexo](https://github.com/hexojs/hexo)

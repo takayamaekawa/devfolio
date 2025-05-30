@@ -16,7 +16,7 @@ date: 2025-03-24 02:54:00
 ---
 
 <!--
-Copyright (c) 2025 verazza
+Copyright (c) 2025 Takaya Maekawa
 This file is distributed under the terms of the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
 See the LICENSE file in the source directory for details.
 (https://creativecommons.org/licenses/by-nc-sa/4.0/)
@@ -25,7 +25,7 @@ See the LICENSE file in the source directory for details.
 # WSLありきのWindows開発環境構築
 
 ## コメント
-この記事は、WSL導入とWSL-Archを使うまでのロードマップを知ることができる。また、WSLにArch導入後の開発環境構築には、通常のネイティブにブートすることを想定した[私的ArchLinux開発環境構築](https://verazza.github.io/posts/14653/)の内容を含む。
+この記事は、WSL導入とWSL-Archを使うまでのロードマップを知ることができる。また、WSLにArch導入後の開発環境構築には、通常のネイティブにブートすることを想定した[私的ArchLinux開発環境構築](https://takayamaekawa.github.io/posts/14653/)の内容を含む。
 
 ということで、まずは、WSLを使えるようにしていく。
 ## WSLの導入
@@ -133,7 +133,7 @@ wsl -l -v
 設定方法は様々だが、例として以下を紹介する。
 ```
 [user]
-default=verazza
+default=takayamaekawa
 
 [boot]
 systemd = true
@@ -166,7 +166,7 @@ kernelCommandLine = cgroup_no_v1=all
 https://learn.microsoft.com/ja-jp/windows/wsl/wsl-config#wslconfig
 ## WSLにArchインポート後
 ここからは、WSL-Archでの開発環境構築を行う。
-ほとんどネイティブにArchをブートしているときに実行するものと大差ない。ということで、それは別記事に書こうと思う。[私的ArchLinux開発環境構築](https://verazza.github.io/posts/14653/)を見てほしい。また、各種WSLディストロのソフトウェアを利用中に、クリップボードにコピーしたければ、[win32yankについて](https://verazza.github.io/posts/47392/#win32yank)を参照してほしい。
+ほとんどネイティブにArchをブートしているときに実行するものと大差ない。ということで、それは別記事に書こうと思う。[私的ArchLinux開発環境構築](https://takayamaekawa.github.io/posts/14653/)を見てほしい。また、各種WSLディストロのソフトウェアを利用中に、クリップボードにコピーしたければ、[win32yankについて](https://takayamaekawa.github.io/posts/47392/#win32yank)を参照してほしい。
 
 ## 最後に
 WSLはとてもいいと思います。第一に、メインOSが荒れないし、第二に、エクスポート・インポートも容易にできる。正直、実機で色々なOSを試してきた身としては、WSLの凄みにもう少し早く気づきたかったですね。

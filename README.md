@@ -2,12 +2,12 @@
 
 ## Deployed at
 - cloudflare/workers  
-[https://verazza.dev/blog](https://verazza.dev/blog)
+[https://maekawa.dev/blog](https://maekawa.dev/blog)
 - qiita  
-[Qiita-@verazza](https://qiita.com/verazza).  
+[Qiita-@takaya_maekawa](https://qiita.com/takaya_maekawa).  
 If you wanna deploy to Qiita, plz execute [deploy_to_qiita.sh](deploy_to_qiita.sh) before git pushing.
 - github.io  
-[https://verazza.github.io/](https://verazza.github.io/)
+[https://takayamaekawa.github.io/](https://takayamaekawa.github.io/)
 
 ## Static Site Generator
 Powered by [hexojs/hexo](https://github.com/hexojs/hexo)
@@ -21,4 +21,4 @@ This Hexo project contains content and assets under different licenses:
 - **Hexo core files:** MIT License ([https://github.com/hexojs/hexo/blob/master/LICENSE](https://github.com/hexojs/hexo/blob/master/LICENSE)).
 - **Other files in this repository:** MIT License (see `LICENSE` in the root directory).
 
-This `README.md` describes the licensing of the source code in this Hexo project. The license information for the deployed website can be found in the `README.md` of the resulting `verazza.github.io` repository.
+This `README.md` describes the licensing of the source code in this Hexo project. The license information for the deployed website can be found in the `README.md` of the resulting `takayamaekawa.github.io` repository.

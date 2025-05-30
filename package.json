@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "",
   "license": "MIT",
-  "author": "verazza",
+  "author": "Takaya Maekawa",
   "private": true,
   "scripts": {
     "dev": "npx hexo clean && npx hexo generate && npx hexo server",

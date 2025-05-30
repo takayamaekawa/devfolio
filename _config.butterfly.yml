@@ -52,10 +52,10 @@ social:
 # Image Settings
 # --------------------------------------
 
-favicon: https://verazza.dev/favicon.ico
+favicon: https://maekawa.dev/favicon.ico
 
 avatar:
-  img: https://verazza.dev/favicon.png
+  img: https://maekawa.dev/favicon.png
   effect: false
 
 # Disable all banner images
@@ -285,7 +285,7 @@ aside:
       enable: true
       icon: fab fa-x-twitter
       text: Follow Me
-      link: https://x.com/verazza_
+      link: https://x.com/takaya_maekawa
   card_announcement:
     enable: true
     content: "From 04/04/2025"

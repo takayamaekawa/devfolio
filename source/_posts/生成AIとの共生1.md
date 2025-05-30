@@ -7,7 +7,7 @@ date: 2025-04-23 07:02:03
 ---
 
 <!--
-Copyright (c) 2025 verazza
+Copyright (c) 2025 Takaya Maekawa
 This file is distributed under the terms of the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
 See the LICENSE file in the source directory for details.
 (https://creativecommons.org/licenses/by-nc-sa/4.0/)
@@ -52,4 +52,4 @@ rの住人ピエロより
 https://youtu.be/fFQ9kax20I0?si=f59Kuw5A8jezI7En
 
 ## 続き
-[生成AIとの共生2](https://verazza.dev/posts/8821/)を見てね。
+[生成AIとの共生2](https://maekawa.dev/posts/8821/)を見てね。

@@ -14,7 +14,7 @@ date: 2025-04-20 04:10:01
 ---
 
 <!--
-Copyright (c) 2025 verazza
+Copyright (c) 2025 Takaya Maekawa
 This file is distributed under the terms of the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
 See the LICENSE file in the source directory for details.
 (https://creativecommons.org/licenses/by-nc-sa/4.0/)
