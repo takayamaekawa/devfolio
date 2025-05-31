@@ -4,6 +4,7 @@ export default {
       const url = new URL(request.url);
       let pathname = url.pathname;
 
+      // 以下、butterflyの「最近の記事」にて、rootを/blogに設定しているのに、/[id]のURLに設定されてしまう問題を回避するためのコードだが、そもそも、これがめんどうだと感じる場合は、「最近の記事」を非表示にすることをおすすめする。どうしても、「最近の記事」を表示したい場合は、下のコメントアウトを外して、適宜修正すること。
       const oldPostIds = ['8859', '8821', '30026', '34194', '49418'];
 
       for (const oldId of oldPostIds) {
