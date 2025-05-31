@@ -25,7 +25,7 @@ See the LICENSE file in the source directory for details.
 # WSLありきのWindows開発環境構築
 
 ## コメント
-この記事は、WSL導入とWSL-Archを使うまでのロードマップを知ることができる。また、WSLにArch導入後の開発環境構築には、通常のネイティブにブートすることを想定した[私的ArchLinux開発環境構築](https://takayamaekawa.github.io/posts/14653/)の内容を含む。
+この記事は、WSL導入とWSL-Archを使うまでのロードマップを知ることができる。また、WSLにArch導入後の開発環境構築には、通常のネイティブにブートすることを想定した[私的ArchLinux開発環境構築](https://qiita.com/takaya_maekawa/items/522d6bd4666d9537c27f)の内容を含む。
 
 ということで、まずは、WSLを使えるようにしていく。
 ## WSLの導入
@@ -190,7 +190,7 @@ https://learn.microsoft.com/ja-jp/windows/dev-environment/javascript/nodejs-on-w
 
 ## WSLにArchインポート後
 ここからは、WSL-Archでの開発環境構築を行う。
-ほとんどネイティブにArchをブートしているときに実行するものと大差ない。ということで、それは別記事に書こうと思う。[私的ArchLinux開発環境構築](https://takayamaekawa.github.io/posts/14653/)を見てほしい。また、各種WSLディストロのソフトウェアを利用中に、クリップボードにコピーしたければ、[win32yankについて](https://takayamaekawa.github.io/posts/47392/#win32yank)を参照してほしい。  
+ほとんどネイティブにArchをブートしているときに実行するものと大差ない。ということで、それは別記事に書こうと思う。[私的ArchLinux開発環境構築](https://qiita.com/takaya_maekawa/items/522d6bd4666d9537c27f)を見てほしい。また、各種WSLディストロのソフトウェアを利用中に、クリップボードにコピーしたければ、[win32yankについて](https://qiita.com/takaya_maekawa/items/65452a2b670b6cc7114a#win32yank)を参照してほしい。  
 
 ## 最後に
 WSLはとてもいいと思います。第一に、メインOSが荒れないし、第二に、エクスポート・インポートも容易にできる。正直、実機で色々なOSを試してきた身としては、WSLの凄みにもう少し早く気づきたかったですね。
