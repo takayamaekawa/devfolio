@@ -14,7 +14,7 @@ date: 2025-04-28 16:01:00
 
 ## HexoとQiitaの概略
 どちらもMarkDown形式のファイルを自動化されたcss、javascriptと合わせて、最終的に、htmlに変換するサービスを提供している。`npm`パッケージリポジトリにそれらをCLIから操作できる便利なツールが出ているため、先に、`npm`使える状況にないよって人は以下を参考にしてね。
-[私的ArchLinux開発環境構築 >> nvmによるnpm/node環境構築](https://maekawa.dev/posts/14653/#nvm%E3%81%AB%E3%82%88%E3%82%8Bnpm-node%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89)
+[私的ArchLinux開発環境構築 >> nvmによるnpm/node環境構築](https://maekawa.dev/blog/posts/14653/#nvm%E3%81%AB%E3%82%88%E3%82%8Bnpm-node%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89)
 
 ## Hexo
 ### インストール

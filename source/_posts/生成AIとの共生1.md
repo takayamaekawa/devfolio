@@ -52,4 +52,4 @@ rの住人ピエロより
 https://youtu.be/fFQ9kax20I0?si=f59Kuw5A8jezI7En
 
 ## 続き
-[生成AIとの共生2](https://maekawa.dev/posts/8821/)を見てね。
+[生成AIとの共生2](https://maekawa.dev/blog/posts/8821/)を見てね。
