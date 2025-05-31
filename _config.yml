@@ -112,10 +112,10 @@ theme: butterfly # https://github.com/jerryc127/hexo-theme-butterfly
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
-deploy:
-  type: git
-  repo: https://github.com/takayamaekawa/takayamaekawa.github.io
-  branch: master
+# deploy:
+#   type: git
+#   repo: https://github.com/takayamaekawa/takayamaekawa.github.io
+#   branch: master
 
 search:
   path: search.xml
