@@ -284,7 +284,7 @@ aside:
     description: "CLI-like without VSCode"
     button:
       enable: true
-      icon: fab fa-globe
+      icon: fas fa-external-link-alt
       text: Visit Portfolio
       link: https://maekawa.dev
   card_announcement:
