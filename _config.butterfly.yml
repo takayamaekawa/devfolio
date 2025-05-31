@@ -45,6 +45,7 @@ code_blocks:
 # Formal:
 #   icon: link || the description || color
 social:
+  fab fa-x-twitter: https://x.com/takaya_maekawa || X || '#1da1f2'
   fab fa-github: https://github.com/takayamaekawa || Github || '#24292e'
   fas fa-envelope: mailto:takaya@maekawa.dev || Email || '#4a7dbe'
 
@@ -280,12 +281,12 @@ aside:
     category: true
   card_author:
     enable: true
-    description:
+    description: "CLI-like without VSCode"
     button:
       enable: true
-      icon: fab fa-x-twitter
-      text: Follow Me
-      link: https://x.com/takaya_maekawa
+      icon: fab fa-globe
+      text: Vist Portfolio
+      link: https://maekawa.dev
   card_announcement:
     enable: true
     content: "From 04/04/2025"
