@@ -285,7 +285,7 @@ aside:
     button:
       enable: true
       icon: fab fa-globe
-      text: Vist Portfolio
+      text: Visit Portfolio
       link: https://maekawa.dev
   card_announcement:
     enable: true
