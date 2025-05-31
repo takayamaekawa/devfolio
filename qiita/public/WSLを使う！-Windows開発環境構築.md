@@ -164,9 +164,33 @@ kernelCommandLine = cgroup_no_v1=all
 ```
 主に、ディストロ内で実行されたGUIアプリケーションをWindows側のディスプレイで見るための設定だ。詳しくは、以下を参照。
 https://learn.microsoft.com/ja-jp/windows/wsl/wsl-config#wslconfig
+
+## Git-Credential-Managerのインストール
+Windows側でDesktop-Gitをインストールしている場合、WSLのディストロでもGit-Credential-Managerを使うことができる。これにより、GitHubやGitLabなどのリモートリポジトリへの認証が簡単になる。
+```bash
+git config --global credential.helper "/mnt/c/Program\ Files/Git/mingw64/bin/git-credential-manager.exe"
+```
+詳しくは、以下を参照。  
+https://learn.microsoft.com/ja-jp/windows/wsl/tutorials/wsl-git?source=recommendations
+
+## npmのインストール
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+command -v nvm
+# もしここでnvmコマンドが見つからなかったら以下を実行
+# nvmは自動的に.bashrcに環境変数を追加するので、以下を実行して反映させる
+source ~/.bashrc
+# Node.js の現在の安定した LTS リリースをインストール
+nvm install --lts
+# npmを最新版にアップデート
+npm install -g npm@latest
+```
+詳しくは、以下を参照。
+https://learn.microsoft.com/ja-jp/windows/dev-environment/javascript/nodejs-on-wsl#install-nvm-nodejs-and-npm
+
 ## WSLにArchインポート後
 ここからは、WSL-Archでの開発環境構築を行う。
-ほとんどネイティブにArchをブートしているときに実行するものと大差ない。ということで、それは別記事に書こうと思う。[私的ArchLinux開発環境構築](https://takayamaekawa.github.io/posts/14653/)を見てほしい。また、各種WSLディストロのソフトウェアを利用中に、クリップボードにコピーしたければ、[win32yankについて](https://takayamaekawa.github.io/posts/47392/#win32yank)を参照してほしい。
+ほとんどネイティブにArchをブートしているときに実行するものと大差ない。ということで、それは別記事に書こうと思う。[私的ArchLinux開発環境構築](https://takayamaekawa.github.io/posts/14653/)を見てほしい。また、各種WSLディストロのソフトウェアを利用中に、クリップボードにコピーしたければ、[win32yankについて](https://takayamaekawa.github.io/posts/47392/#win32yank)を参照してほしい。  
 
 ## 最後に
 WSLはとてもいいと思います。第一に、メインOSが荒れないし、第二に、エクスポート・インポートも容易にできる。正直、実機で色々なOSを試してきた身としては、WSLの凄みにもう少し早く気づきたかったですね。
