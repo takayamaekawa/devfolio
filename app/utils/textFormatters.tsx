@@ -66,9 +66,8 @@ export const FormattedTextRenderer = ({ text, lang }: { text: LocalizedString | 
   const translated = translate(text, lang);
   if (!translated || translated.trim() === "") return null;
 
-  const parts = parseAndStyleInlineCode(translated);
-  // ★ key を文字列に変換 (例: i.toString() または String(i))
-  return <>{parts.map((part, i) => <Fragment key={String(i)}>{part}</Fragment>)}</>;
+  const htmlFormatted = formatHtml(text, lang);
+  return <span dangerouslySetInnerHTML={{ __html: htmlFormatted }} />;
 };
 
 // 翻訳とインラインコードスタイル適用をまとめたヘルパー
