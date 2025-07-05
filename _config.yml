@@ -134,3 +134,7 @@ sitemap:
   rel: false
   tags: true
   categories: true
+
+inject:
+  head:
+    - <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2877828132102103" crossorigin="anonymous"></script>
