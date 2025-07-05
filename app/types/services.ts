@@ -7,6 +7,14 @@ export type ServiceOtherSiteItem = {
 };
 
 export type ServiceInfo = {
+  devNotes: {
+    title: LocalizedString;
+    subtitle: LocalizedString;
+    description1: LocalizedString;
+    obsidianPoint: LocalizedString;
+    visitSite: LocalizedString;
+    siteUrl: string;
+  };
   techBlog: {
     title: LocalizedString;
     description1: LocalizedString;
