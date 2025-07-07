@@ -4,8 +4,9 @@ import { translate } from '../utils/i18n';
 import { projectPageStrings } from '../locales/translations'; // projectPageStringsも必要なら
 import { FormattedTextRenderer } from '../utils/textFormatters';
 
-const GetGitUrlComponent = ({ githubId, repo }: { githubId: string, repo: string }) => {
-  const gitUrl = `https://github.com/${githubId}/${repo}`;
+const GetGitUrlComponent = ({ githubId, repo, org }: { githubId: string, repo: string, org?: string }) => {
+  const actualGithubId = org || githubId;
+  const gitUrl = `https://github.com/${actualGithubId}/${repo}`;
   return <a href={gitUrl} class="text-blue-400 hover:text-blue-300 text-link" target="_blank" rel="noopener noreferrer">{repo}</a>;
 };
 
@@ -15,12 +16,14 @@ type ProjectItemProps = ProjectInfo & {
 };
 
 function ProjectItem({
-  id, title, description, details, points, statement, githubRepoName, liveLink, detailsLinkRepo, lang, githubId
+  id, title, description, details, points, statement, githubRepoName, org, liveLink, detailsLinkRepo, lang, githubId
 }: ProjectItemProps) {
 
   // ★ githubId と githubRepoName の両方が存在する場合のみURLを生成
-  const githubProjectUrl = (githubId && githubRepoName)
-    ? `https://github.com/${githubId}/${githubRepoName}`
+  // orgが指定されている場合はorgを使用、そうでなければgithubIdを使用
+  const actualGithubId = org || githubId;
+  const githubProjectUrl = (actualGithubId && githubRepoName)
+    ? `https://github.com/${actualGithubId}/${githubRepoName}`
     : undefined;
 
   return (
@@ -37,7 +40,7 @@ function ProjectItem({
         {id === 'kishax' && detailsLinkRepo ? (
           <p>
             {translate(projectPageStrings.kishaxAuthDetailPrefix, lang)}
-            <GetGitUrlComponent githubId={githubId} repo={detailsLinkRepo} />
+            <GetGitUrlComponent githubId={githubId} repo={detailsLinkRepo} org={org} />
             {translate(projectPageStrings.kishaxAuthDetailSuffix, lang)}
           </p>
         ) : (

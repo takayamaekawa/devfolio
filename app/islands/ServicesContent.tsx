@@ -68,6 +68,8 @@ const ServicesContent = ({ profile, services }: ServicesContentProps) => {
           {translate(services.kishax.portalSite, lang)}<a href={profile.social.kishax.page.url} class="text-blue-400 underline hover:text-blue-300 text-link" rel="noopener noreferrer" target="_blank">kishax.net</a>
           <br /><br />
           {translate(services.kishax.discordTitle, lang)}<a href={profile.social.kishax.discord.url} class="text-blue-400 underline hover:text-blue-300 text-link" rel="noopener noreferrer" target="_blank">{translate(services.kishax.joinHere, lang)}</a>
+          <br /><br />
+          <a href={`${profile.social.github.url}/${profile.social.github.id}`} class="text-blue-400 underline hover:text-blue-300 text-link" rel="noopener noreferrer" target="_blank">GitHub</a>
         </p>
       </article>
       <article>

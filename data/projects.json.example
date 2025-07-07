@@ -28,7 +28,8 @@
         "ja": "自分の宇宙船でどこまでも飛んでいける、そんな自由を感じられるゲーム。",
         "en": "A game where you can fly anywhere with your own spaceship and feel the freedom of space."
       },
-      "githubRepoName": "space-adventure"
+      "githubRepoName": "space-adventure",
+      "org": "SpaceGameStudios"
     },
     {
       "id": "task-magic",
