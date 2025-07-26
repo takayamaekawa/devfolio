@@ -54,7 +54,7 @@ export const aboutPageStrings = {
   myBlogLinkText: { ja: "私のブログ", en: "My Blog" },
   qiitaUserPrefix: { ja: "Qiita-@", en: "Qiita-@" },
   projectsLinkText: { ja: "PROJECTS", en: "PROJECTS" },
-
+  servicesLinkText: { ja: "SERVICES", en: "SERVICES" },
   // 「最後に」セクションのテキストセグメント
   finallyP1_seg1: {
     ja: "今では自分でブログなども書いて情報発信をしています。ぜひ興味のある方は、",
@@ -71,7 +71,15 @@ export const aboutPageStrings = {
   },
   finallyP2_seg2: { ja: " で確認できます。", en: "." },
   finallyP3_seg1: {
-    ja: "私は将来、起業し、独立するつもりです。しかし、経験が乏しいため、他の人のバックアップが必要になります。そのためにも、今後は、創作性と行動力を持って、邁進するつもりです。",
-    en: "I intend to start my own business and become independent in the future. However, due to my lack of experience, I will need the backup of others. For this reason, I intend to push forward with creativity and energy.",
+    ja: "私は将来、起業し、独立するつもりです。そのために、現在は、実務から私のプログラミングがどうビジネスに活かされるかを焦点に、インターンを通して、日々励んでいます。<br /><br />しかし、起業のためにはまだまだ経験が乏しいため、他の人のバックアップが必要になります。",
+    en: "I plan to start my own business and become independent in the future. To achieve this, I am currently focusing on how my programming can be utilized in business through internships, working hard every day.<br /><br />However, since I still lack experience for starting a business, I need the support of others.",
+  },
+  finallyP3_seg2: {
+    ja: "<br /><br />もし、私の活動に興味を持っていただけたら、ぜひご連絡ください。",
+    en: "<br /><br />If you are interested in my activities, please feel free to contact me.",
+  },
+  finallyP3_seg3: {
+    ja: "<br /><br />---<br /><br />近頃、私は、人間力を育むためにも上京予定です。少なくとも私は形から入るタイプなので、まずは東京に出て、様々な人と出会い、協力し合いながら成長していきたいと考えています。",
+    en: "<br /><br />---<br /><br />Recently, I am planning to move to Tokyo to cultivate my human skills. At least for me, I tend to start from the form, so I want to go to Tokyo first and grow by meeting various people and collaborating with them.",
   },
 };
