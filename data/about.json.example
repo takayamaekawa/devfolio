@@ -41,6 +41,64 @@
     "title": {
       "ja": "最後に",
       "en": "Finally"
-    }
+    },
+  "paragraphs": [
+      {
+        "segments": [
+          {
+            "type": "text",
+            "key": "finallyP1_seg1"
+          },
+          {
+            "type": "link",
+            "linkId": "myBlog"
+          },
+          {
+            "type": "text",
+            "key": "finallyP1_seg2"
+          },
+          {
+            "type": "link",
+            "linkId": "qiita"
+          },
+          {
+            "type": "text",
+            "key": "finallyP1_seg3"
+          }
+        ]
+      },
+      {
+        "segments": [
+          {
+            "type": "text",
+            "key": "finallyP2_seg1"
+          },
+          {
+            "type": "link",
+            "linkId": "projects"
+          },
+          {
+            "type": "text",
+            "key": "finallyP2_seg2"
+          }
+        ]
+      },
+      {
+        "segments": [
+          {
+            "type": "text",
+            "key": "finallyP3_seg1"
+          },
+          {
+            "type": "text",
+            "key": "finallyP3_seg2"
+          },
+          {
+            "type": "text",
+            "key": "finallyP3_seg3"
+          }
+        ]
+      }
+    ]
   }
 }
