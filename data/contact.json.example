@@ -1,6 +1,15 @@
 {
   "way": [
     {
+      "label": "LinkedIn",
+      "id": "sample-user-1515b7373",
+      "url": "https://www.linkedin.com/in",
+      "comment": {
+        "ja": "LinkedInでのコネクションを歓迎します。",
+        "en": "Connections on LinkedIn are welcome."
+      }
+    },
+    {
       "label": "Slack",
       "id": "sample_user",
       "comment": {
