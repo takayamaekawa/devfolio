@@ -1,7 +1,7 @@
-import { otherDictionary } from '../locales/translations';
+import { otherDictionary } from "../locales/translations";
 
 function RubyText({ text, lang }: { text: string; lang: string }) {
-  if (lang !== 'ja') {
+  if (lang !== "ja") {
     return <>{text}</>;
   }
 
@@ -9,8 +9,8 @@ function RubyText({ text, lang }: { text: string; lang: string }) {
   let processedText = text;
   for (const [jaName, enName] of Object.entries(otherDictionary)) {
     processedText = processedText.replace(
-      new RegExp(jaName, 'g'),
-      `<ruby>${jaName}<rt>${enName}</rt></ruby>`
+      new RegExp(jaName, "g"),
+      `<ruby>${jaName}<rt>${enName}</rt></ruby>`,
     );
   }
 

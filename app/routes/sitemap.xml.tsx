@@ -1,18 +1,21 @@
-import { createRoute } from 'honox/factory';
-import profile from '../../data/profile.json';
-import routesDataJson from '../../data/routes.json';
-import type { RoutesJson } from '../types/routes';
+import { createRoute } from "honox/factory";
+import profile from "../../data/profile.json";
+import routesDataJson from "../../data/routes.json";
+import type { RoutesJson } from "../types/routes";
 
 // インポートしたJSONデータに型を適用 (TypeScriptが型推論できない場合があるため)
 const routesData: RoutesJson = routesDataJson;
 
 export default createRoute(async (c) => {
   const lastmod = new Date().toISOString();
-  let sitemapEntriesXml = '';
+  let sitemapEntriesXml = "";
 
-  if (routesData.sitemapIndexFiles && Array.isArray(routesData.sitemapIndexFiles)) {
+  if (
+    routesData.sitemapIndexFiles &&
+    Array.isArray(routesData.sitemapIndexFiles)
+  ) {
     sitemapEntriesXml = routesData.sitemapIndexFiles
-      .map(sitemapFile => {
+      .map((sitemapFile) => {
         // profile.url が末尾に / を持たず、sitemapFile.loc が / で始まることを想定
         const sitemapLocation = `${profile.url}${sitemapFile.loc}`;
         return `
@@ -21,10 +24,12 @@ export default createRoute(async (c) => {
     <lastmod>${lastmod}</lastmod>
   </sitemap>`;
       })
-      .join('');
+      .join("");
   } else {
     // sitemapIndexFiles が未定義の場合のフォールバック (例: sitemap-honox.xml のみ)
-    console.warn("sitemap.xml.tsx: 'sitemapIndexFiles' not found in routes.json. Defaulting to sitemap-honox.xml only.");
+    console.warn(
+      "sitemap.xml.tsx: 'sitemapIndexFiles' not found in routes.json. Defaulting to sitemap-honox.xml only.",
+    );
     const honoxSitemapUrl = `${profile.url}/sitemap-honox.xml`;
     sitemapEntriesXml = `
   <sitemap>
@@ -37,6 +42,6 @@ export default createRoute(async (c) => {
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${sitemapEntriesXml}
 </sitemapindex>`;
 
-  c.header('Content-Type', 'application/xml');
+  c.header("Content-Type", "application/xml");
   return c.body(xml);
 });

@@ -1,9 +1,9 @@
-import type { LocalizedString } from './common';
+import type { LocalizedString } from "./common";
 
 type SiteMapProps = {
   priority?: string;
   changefreq?: string;
-}
+};
 
 export type RouteContent = {
   title: LocalizedString;

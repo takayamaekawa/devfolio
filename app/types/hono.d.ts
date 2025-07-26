@@ -1,4 +1,4 @@
-import type { } from 'hono'
+import type {} from "hono";
 
 type MetaTag = {
   name?: string;
@@ -6,16 +6,16 @@ type MetaTag = {
   content: string;
 };
 
-declare module 'hono' {
+declare module "hono" {
   interface Env {
     Variables: {
       APP_NAME?: string;
       pageTitle?: string;
       metaTags?: MetaTag[];
-    }
+    };
     Bindings: {
       CONFIG?: KVNamespace;
       DB?: D1Database;
-    }
+    };
   }
 }

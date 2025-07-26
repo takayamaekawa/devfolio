@@ -1,24 +1,34 @@
-import { usePageLang } from '../hooks/pageLang';
-import { translate } from '../utils/i18n';
-import type { ContactData, ContactMethodInfo } from '../types/contact'; // 新しい型をインポート
-import type { Language } from '../types/common';
+import { usePageLang } from "../hooks/pageLang";
+import { translate } from "../utils/i18n";
+import type { ContactData, ContactMethodInfo } from "../types/contact"; // 新しい型をインポート
+import type { Language } from "../types/common";
 
 // 各連絡方法をカード形式で表示するコンポーネント
-const ContactCard = ({ method, lang }: { method: ContactMethodInfo, lang: Language }) => {
+const ContactCard = ({
+  method,
+  lang,
+}: {
+  method: ContactMethodInfo;
+  lang: Language;
+}) => {
   let href: string | undefined;
   let displayLabel: string;
 
   // labelプロパティが文字列かオブジェクトかで翻訳方法を分ける
-  const name = typeof method.label === 'string' ? method.label : translate(method.label, lang);
+  const name =
+    typeof method.label === "string"
+      ? method.label
+      : translate(method.label, lang);
 
   // 連絡方法の種類に応じて、表示するラベルとリンク先を決定
-  if (name === 'Discord') {
+  if (name === "Discord") {
     href = undefined; // Discordは直接リンクできないので、IDのみ表示
     displayLabel = `@${method.id}`;
-  } else if (name === 'X') {
+  } else if (name === "X") {
     href = `${method.url}/${method.id}`;
     displayLabel = `@${method.id}`;
-  } else if (method.email) { // Emailオブジェクトの場合
+  } else if (method.email) {
+    // Emailオブジェクトの場合
     href = `mailto:${method.email}`;
     displayLabel = method.email;
   } else if (method.phone) {
@@ -26,13 +36,13 @@ const ContactCard = ({ method, lang }: { method: ContactMethodInfo, lang: Langua
 
     // 1. `tel:` リンク用のhrefを作成 (国際形式のまま、ハイフンなどを削除)
     // これにより、どの国からでも正しく電話をかけられる
-    href = `tel:${method.phone.replace(/[- ]/g, '')}`;
+    href = `tel:${method.phone.replace(/[- ]/g, "")}`;
 
     // 2. 画面表示用のラベルを作成
-    if (lang === 'ja' && method.phone.startsWith('+81')) {
+    if (lang === "ja" && method.phone.startsWith("+81")) {
       // 言語が日本語で、番号が '+81' で始まる場合、見慣れた '0'始まりの形式に変換
       // 例: "+81-90-1234-5678" -> "090-1234-5678"
-      displayLabel = method.phone.replace(/^\+81[- ]?/, '0');
+      displayLabel = method.phone.replace(/^\+81[- ]?/, "0");
     } else {
       // それ以外の言語、または '+81' で始まらない番号の場合は、そのまま表示
       displayLabel = method.phone;
@@ -40,7 +50,7 @@ const ContactCard = ({ method, lang }: { method: ContactMethodInfo, lang: Langua
   } else {
     // 将来的に他のタイプが増えた場合のフォールバック
     href = method.url;
-    displayLabel = `@${method.id}` || '';
+    displayLabel = `@${method.id}` || "";
   }
 
   return (

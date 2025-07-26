@@ -1,8 +1,8 @@
 // app/routes/[name].tsx
-import { createRoute } from 'honox/factory';
+import { createRoute } from "honox/factory";
 
 export default createRoute(async (c) => {
-  const name = c.req.param('name');
+  const name = c.req.param("name");
 
   return c.render(
     <>
@@ -10,6 +10,6 @@ export default createRoute(async (c) => {
         <h1 className="text-2xl font-bold">Hello, {name}!</h1>
         <p className="mt-4">You are viewing the page for: {name}</p>
       </div>
-    </>
+    </>,
   );
 });

@@ -1,6 +1,6 @@
-import type { Language } from '../types/common';
-import type { LocalizedString } from '../types/common';
-import { otherDictionary } from '../locales/translations';
+import type { Language } from "../types/common";
+import type { LocalizedString } from "../types/common";
+import { otherDictionary } from "../locales/translations";
 
 /**
  * LocalizedString オブジェクトまたは文字列から、指定された言語のテキストを返します。
@@ -9,12 +9,15 @@ import { otherDictionary } from '../locales/translations';
  * @param lang 対象の言語
  * @returns 翻訳された文字列
  */
-export function translate(data: LocalizedString | string | undefined, lang: Language): string {
-  if (!data) return ''; // データがない場合は空文字を返す
-  if (typeof data === 'string') return data; // 文字列の場合はそのまま返す
+export function translate(
+  data: LocalizedString | string | undefined,
+  lang: Language,
+): string {
+  if (!data) return ""; // データがない場合は空文字を返す
+  if (typeof data === "string") return data; // 文字列の場合はそのまま返す
 
   // LocalizedString の場合
-  return data[lang] || data.ja || ''; // 対象言語、なければ日本語、なければ空文字
+  return data[lang] || data.ja || ""; // 対象言語、なければ日本語、なければ空文字
 }
 
 /**
@@ -24,7 +27,10 @@ export function translate(data: LocalizedString | string | undefined, lang: Lang
  * @param lang 対象の言語
  * @returns 翻訳された文字列
  */
-export function translateWithHtml(data: LocalizedString | string | undefined, lang: Language): string {
+export function translateWithHtml(
+  data: LocalizedString | string | undefined,
+  lang: Language,
+): string {
   // TODO: HTMLタグのプレースホルダー処理を実装する
   return translate(data, lang);
 }
@@ -36,17 +42,17 @@ export function translateWithHtml(data: LocalizedString | string | undefined, la
  * @returns ルビ付きのHTML文字列
  */
 export function addRubyToFishNames(text: string, lang: Language): string {
-  if (lang !== 'ja') {
+  if (lang !== "ja") {
     return text;
   }
 
   let processedText = text;
   for (const [jaName, names] of Object.entries(otherDictionary)) {
     // 正規表現で、<ruby>タグの内側でない魚の名前を探す
-    const regex = new RegExp(jaName + '(?![^<]*</rt>)', 'g');
+    const regex = new RegExp(jaName + "(?![^<]*</rt>)", "g");
     processedText = processedText.replace(
       regex,
-      `<ruby>${jaName}<rt>${names.en}</rt></ruby>`
+      `<ruby>${jaName}<rt>${names.en}</rt></ruby>`,
     );
   }
   return processedText;
@@ -58,7 +64,10 @@ export function addRubyToFishNames(text: string, lang: Language): string {
  * @param lang 対象の言語
  * @returns 翻訳・ルビ付きのHTML文字列
  */
-export function translateAndRuby(data: LocalizedString | string | undefined, lang: Language): string {
+export function translateAndRuby(
+  data: LocalizedString | string | undefined,
+  lang: Language,
+): string {
   const translated = translate(data, lang);
   return addRubyToFishNames(translated, lang);
 }

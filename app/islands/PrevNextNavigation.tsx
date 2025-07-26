@@ -1,20 +1,24 @@
-import { useState, useEffect } from 'hono/jsx';
-import { usePageLang } from '../hooks/pageLang';
-import { translate } from '../utils/i18n';
-import { generalMessages } from '../locales/translations';
-import { getNextPage, getPreviousPage, type NavItem } from '../config/navigation';
-import type { FullRouteInfo } from '../types/routes';
+import { useState, useEffect } from "hono/jsx";
+import { usePageLang } from "../hooks/pageLang";
+import { translate } from "../utils/i18n";
+import { generalMessages } from "../locales/translations";
+import {
+  getNextPage,
+  getPreviousPage,
+  type NavItem,
+} from "../config/navigation";
+import type { FullRouteInfo } from "../types/routes";
 
 type ArrowIconProps = {
-  direction: 'left' | 'right';
+  direction: "left" | "right";
   className?: string;
 };
 
-const ArrowIcon = ({ direction, className = '' }: ArrowIconProps) => {
+const ArrowIcon = ({ direction, className = "" }: ArrowIconProps) => {
   const commonPath = "M13.5 4.5 21 12m0 0L13.5 19.5M21 12H3";
   let svgClassName = `h-5 w-5 sm:h-6 sm:w-6 shrink-0 ${className}`;
-  if (direction === 'left') {
-    svgClassName += ' rotate-180 origin-center';
+  if (direction === "left") {
+    svgClassName += " rotate-180 origin-center";
   }
   return (
     <svg
@@ -30,18 +34,24 @@ const ArrowIcon = ({ direction, className = '' }: ArrowIconProps) => {
   );
 };
 
-
 type PrevNextNavigationProps = {
   currentPath: string;
   routesData: { routes: FullRouteInfo[] }; // ★ routesData を props として追加
 };
 
-const PrevNextNavigation = ({ currentPath, routesData }: PrevNextNavigationProps) => {
+const PrevNextNavigation = ({
+  currentPath,
+  routesData,
+}: PrevNextNavigationProps) => {
   const { lang } = usePageLang();
 
   // ★ getPreviousPage と getNextPage に routesData を渡す
-  const [previousPageInfo, setPreviousPageInfo] = useState<NavItem | null>(() => getPreviousPage(currentPath, routesData));
-  const [nextPageInfo, setNextPageInfo] = useState<NavItem | null>(() => getNextPage(currentPath, routesData));
+  const [previousPageInfo, setPreviousPageInfo] = useState<NavItem | null>(() =>
+    getPreviousPage(currentPath, routesData),
+  );
+  const [nextPageInfo, setNextPageInfo] = useState<NavItem | null>(() =>
+    getNextPage(currentPath, routesData),
+  );
 
   useEffect(() => {
     // ★ useEffect 内でも routesData を渡す
@@ -53,8 +63,12 @@ const PrevNextNavigation = ({ currentPath, routesData }: PrevNextNavigationProps
     return null;
   }
 
-  const prevPageTitle = previousPageInfo ? translate(previousPageInfo.title, lang) : null;
-  const nextPageTitle = nextPageInfo ? translate(nextPageInfo.title, lang) : null;
+  const prevPageTitle = previousPageInfo
+    ? translate(previousPageInfo.title, lang)
+    : null;
+  const nextPageTitle = nextPageInfo
+    ? translate(nextPageInfo.title, lang)
+    : null;
 
   return (
     <div class="mt-10 mb-8 py-5 px-4 sm:px-6 bg-slate-800/70 border border-slate-700/60 rounded-lg shadow-xl flex flex-col sm:flex-row justify-between items-stretch gap-4">
@@ -64,7 +78,10 @@ const PrevNextNavigation = ({ currentPath, routesData }: PrevNextNavigationProps
           href={previousPageInfo.path}
           class="group flex-1 flex items-center p-3 sm:p-4 rounded-md hover:bg-slate-700/80 transition-colors duration-150 text-gray-300 hover:text-white"
         >
-          <ArrowIcon direction="left" className="mr-2 sm:mr-3 text-gray-400 group-hover:text-white transition-colors" />
+          <ArrowIcon
+            direction="left"
+            className="mr-2 sm:mr-3 text-gray-400 group-hover:text-white transition-colors"
+          />
           <div class="text-left">
             <span class="text-xs text-gray-400 block group-hover:text-gray-200 transition-colors">
               {translate(generalMessages.prevButtonText, lang)}
@@ -96,7 +113,10 @@ const PrevNextNavigation = ({ currentPath, routesData }: PrevNextNavigationProps
               </span>
             )}
           </div>
-          <ArrowIcon direction="right" className="ml-2 sm:ml-3 text-gray-400 group-hover:text-white transition-colors" />
+          <ArrowIcon
+            direction="right"
+            className="ml-2 sm:ml-3 text-gray-400 group-hover:text-white transition-colors"
+          />
         </a>
       ) : (
         <div class="flex-1"></div>

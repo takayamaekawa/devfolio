@@ -1,0 +1,30 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", "public/**"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "build-blog": {
+      "dependsOn": ["^build"],
+      "outputs": ["blog/public/**"]
+    },
+    "preview": {
+      "cache": false,
+      "persistent": true
+    },
+    "deploy": {
+      "dependsOn": ["build"]
+    },
+    "deploy-blog": {
+      "dependsOn": ["build", "build-blog"]
+    },
+    "deploy-blog-win": {
+      "dependsOn": ["build", "build-blog-win"]
+    }
+  }
+}

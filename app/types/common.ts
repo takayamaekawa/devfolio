@@ -3,6 +3,9 @@ export type LocalizedString = {
   en: string;
 };
 
-export type Language = 'ja' | 'en';
+export type Language = "ja" | "en";
 
-export type NameRuby = string | { text: string; ruby: string } | LocalizedString;
+export type NameRuby =
+  | string
+  | { text: string; ruby: string }
+  | LocalizedString;

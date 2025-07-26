@@ -1,4 +1,4 @@
-import { LocalizedString } from '../types/common';
+import { LocalizedString } from "../types/common";
 
 export type ServiceOtherSiteItem = {
   name: LocalizedString;
@@ -39,5 +39,5 @@ export type ServiceInfo = {
     description2: LocalizedString;
     visitSite: LocalizedString;
     info: ServiceOtherSiteItem[];
-  }
-}
+  };
+};

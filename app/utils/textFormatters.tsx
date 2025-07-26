@@ -1,6 +1,6 @@
-import { Fragment } from 'hono/jsx'; // Fragmentをインポート
-import type { Language, LocalizedString } from '../types/common';
-import { translate } from '../utils/i18n';
+import { Fragment } from "hono/jsx"; // Fragmentをインポート
+import type { Language, LocalizedString } from "../types/common";
+import { translate } from "../utils/i18n";
 
 /**
  * 文字列内のバッククォートで囲まれた部分を <code> HTML タグに置き換えます。
@@ -8,13 +8,13 @@ import { translate } from '../utils/i18n';
  * @returns HTML文字列。バッククォート部分はスタイル付きの<code>タグに変換される。
  */
 export function styleInlineCodeToHtml(text: string | undefined | null): string {
-  if (!text) return ''; // textがundefinedやnullの場合は空文字列を返す
+  if (!text) return ""; // textがundefinedやnullの場合は空文字列を返す
 
   // バッククォートで囲まれた部分を <code> タグでラップして置換
   // スタイルはTailwind CSSのクラスで直接指定
   return text.replace(
     /`([^`]+?)`/g, // 非貪欲マッチでバッククォート間をキャプチャ
-    '<code class="bg-slate-700 text-emerald-400 px-1.5 py-0.5 rounded-md text-sm font-mono mx-0.5">$1</code>'
+    '<code class="bg-slate-700 text-emerald-400 px-1.5 py-0.5 rounded-md text-sm font-mono mx-0.5">$1</code>',
   );
 }
 
@@ -23,8 +23,10 @@ export function styleInlineCodeToHtml(text: string | undefined | null): string {
  * @param text 加工する文字列
  * @returns 文字列とJSX要素の配列
  */
-export function parseAndStyleInlineCode(text: string | undefined | null): (string | any)[] {
-  if (!text) return ['']; // textがundefinedやnullの場合は空の配列要素を返すか、空文字列を返す
+export function parseAndStyleInlineCode(
+  text: string | undefined | null,
+): (string | any)[] {
+  if (!text) return [""]; // textがundefinedやnullの場合は空の配列要素を返すか、空文字列を返す
 
   const parts: (string | any)[] = [];
   // バッククォートで囲まれた部分を見つける正規表現 (非貪欲マッチ `+?`)
@@ -41,9 +43,9 @@ export function parseAndStyleInlineCode(text: string | undefined | null): (strin
     // スタイルはTailwind CSSのクラスで直接指定する例
     const capturedText = match[1]; // ★ 一度変数に代入
     parts.push(
-      <code class="bg-slate-700 text-emerald-400 px-1.5 py-0.5 rounded-md text-sm font-mono mx-0.5" >
+      <code class="bg-slate-700 text-emerald-400 px-1.5 py-0.5 rounded-md text-sm font-mono mx-0.5">
         {capturedText}
-      </code>
+      </code>,
     );
     lastIndex = regex.lastIndex;
   }
@@ -61,7 +63,13 @@ export function parseAndStyleInlineCode(text: string | undefined | null): (strin
   return parts;
 }
 
-export const FormattedTextRenderer = ({ text, lang }: { text: LocalizedString | undefined, lang: Language }) => {
+export const FormattedTextRenderer = ({
+  text,
+  lang,
+}: {
+  text: LocalizedString | undefined;
+  lang: Language;
+}) => {
   if (!text) return null;
   const translated = translate(text, lang);
   if (!translated || translated.trim() === "") return null;
@@ -71,8 +79,12 @@ export const FormattedTextRenderer = ({ text, lang }: { text: LocalizedString | 
 };
 
 // 翻訳とインラインコードスタイル適用をまとめたヘルパー
-export const formatHtml = (textInput: LocalizedString | string | undefined, lang: Language): string => {
+export const formatHtml = (
+  textInput: LocalizedString | string | undefined,
+  lang: Language,
+): string => {
   if (!textInput) return "";
-  const translated = typeof textInput === 'string' ? textInput : translate(textInput, lang);
+  const translated =
+    typeof textInput === "string" ? textInput : translate(textInput, lang);
   return styleInlineCodeToHtml(translated);
 };

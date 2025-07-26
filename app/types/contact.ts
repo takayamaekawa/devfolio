@@ -1,4 +1,4 @@
-import type { LocalizedString } from './common';
+import type { LocalizedString } from "./common";
 
 export type ContactMethodInfo = {
   label: string | LocalizedString;

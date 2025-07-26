@@ -1,8 +1,9 @@
 // app/routes/projects.tsx
-import { createRoute } from 'honox/factory';
-import profileData from '../../data/profile.json'; import projectsJson from '../../data/projects.json'; // ★ JSONからプロジェクトデータをインポート
-import type { ProjectInfo } from '../types/projects';   // ★ 型をインポート
-import ProjectList from '../islands/ProjectList';       // ★ ProjectList Islandをインポート
+import { createRoute } from "honox/factory";
+import profileData from "../../data/profile.json";
+import projectsJson from "../../data/projects.json"; // ★ JSONからプロジェクトデータをインポート
+import type { ProjectInfo } from "../types/projects"; // ★ 型をインポート
+import ProjectList from "../islands/ProjectList"; // ★ ProjectList Islandをインポート
 
 // 型アサーション
 const allProjectsData: ProjectInfo[] = projectsJson.projects as ProjectInfo[];
@@ -18,6 +19,6 @@ export default createRoute(async (c) => {
   return c.render(
     <>
       <ProjectList projects={allProjectsData} profile={relevantProfileData} />
-    </>
+    </>,
   );
 });

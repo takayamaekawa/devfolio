@@ -1,4 +1,4 @@
-import type { LocalizedString, NameRuby } from './common'; // LocalizedStringを再利用
+import type { LocalizedString, NameRuby } from "./common"; // LocalizedStringを再利用
 
 export type StaffMember = {
   id: string;

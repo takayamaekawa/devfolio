@@ -1,13 +1,13 @@
-import { usePageLang } from '../hooks/pageLang';
-import type { ProjectInfo } from '../types/projects';
-import ProjectItem from '../components/ProjectItem'; // ★コンポーネントをインポート
-import type { ProfileData } from '../types/profile'; // RootLayoutIslandからprofileの型を借用 (または共通型へ)
-import { translate } from '../utils/i18n';
-import { generalMessages } from '../locales/translations';
+import { usePageLang } from "../hooks/pageLang";
+import type { ProjectInfo } from "../types/projects";
+import ProjectItem from "../components/ProjectItem"; // ★コンポーネントをインポート
+import type { ProfileData } from "../types/profile"; // RootLayoutIslandからprofileの型を借用 (または共通型へ)
+import { translate } from "../utils/i18n";
+import { generalMessages } from "../locales/translations";
 
 type ProjectListProps = {
   projects: ProjectInfo[];
-  profile: Pick<ProfileData, 'social'>; // GitHub IDを含むsocial情報が必要
+  profile: Pick<ProfileData, "social">; // GitHub IDを含むsocial情報が必要
 };
 
 const ProjectList = ({ projects, profile }: ProjectListProps) => {
@@ -36,15 +36,16 @@ const ProjectList = ({ projects, profile }: ProjectListProps) => {
       </section>
       {githubProfileUrl && githubId && (
         <p class="mt-12 text-center text-gray-400">
-          <span dangerouslySetInnerHTML={{
-            __html: translate(generalMessages.moreInfoCheck, lang).replace(
-              "{githubProfileLink}",
-              `<a href="${githubProfileUrl}" class="text-blue-400 hover:text-blue-300 text-link" target="_blank" rel="noopener noreferrer">github-${githubId}</a>`
-            )
-          }}></span>
+          <span
+            dangerouslySetInnerHTML={{
+              __html: translate(generalMessages.moreInfoCheck, lang).replace(
+                "{githubProfileLink}",
+                `<a href="${githubProfileUrl}" class="text-blue-400 hover:text-blue-300 text-link" target="_blank" rel="noopener noreferrer">github-${githubId}</a>`,
+              ),
+            }}
+          ></span>
         </p>
-      )
-      }
+      )}
     </>
   );
 };
