@@ -33,6 +33,12 @@ const ContactCard = ({
   } else if (name === "LinkedIn") {
     href = `${method.url}/${method.id}`;
     displayLabel = `@${method.id}`;
+  } else if (name === "CloudWorks") {
+    href = `${method.url}/${method.id}`;
+    displayLabel = `@${method.id}`;
+  } else if (name === "Facebook") {
+    href = `${method.url}/${method.id}`;
+    displayLabel = `@${method.id}`;
   } else if (method.email) {
     // Emailオブジェクトの場合
     href = `mailto:${method.email}`;

@@ -1,5 +1,13 @@
 {
   "way": [
+  {
+    "label": "Facebook",
+    "id": "sampleuser",
+    "url": "https://www.facebook.com",
+    "comment": {
+      "ja": "メッセージを送ってください。",
+      "en": "Please send a message."
+    },
     {
       "label": "LinkedIn",
       "id": "sample-user-1515b7373",
