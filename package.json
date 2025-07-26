@@ -15,7 +15,8 @@
     "deploy-workers": "npm run build && npx wrangler deploy",
     "deploy-all": "npm run deploy-git && npm run deploy-qiita",
     "deploy-all-win": "npm run deploy-git && npm run deploy-qiita-win",
-    "qiita-sync": "npx qiita pull --root qiita"
+    "qiita-sync": "npx qiita pull --root qiita",
+    "format": "npx biome format --write ."
   },
   "hexo": {
     "version": "7.3.0"
@@ -38,7 +39,9 @@
     "hexo-theme-butterfly": "^5.3.5"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.1.2",
     "@qiita/qiita-cli": "^1.6.2",
+    "turbo": "^2.5.5",
     "wrangler": "^4.14.1"
   }
 }
