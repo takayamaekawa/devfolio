@@ -1,0 +1,13 @@
+wrangler.jsonc
+.DS_Store
+Thumbs.db
+db.json
+*.log
+node_modules/
+package-lock.json
+public/
+.deploy*/
+_multiconfig.yml
+
+# Configuration files (keep examples, ignore actual config)
+config/mapping.config.js
