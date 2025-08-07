@@ -1,13 +1,49 @@
-wrangler.jsonc
-.DS_Store
-Thumbs.db
-db.json
-*.log
-node_modules/
-package-lock.json
+# Hexo generated files
 public/
+db.json
 .deploy*/
 _multiconfig.yml
 
 # Configuration files (keep examples, ignore actual config)
 config/mapping.config.js
+wrangler.jsonc
+
+# Dependencies
+node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Package managers
+package-lock.json
+yarn.lock
+
+# Hexo cache
+.hexo/
+
+# Temporary files
+.tmp/
+temp/

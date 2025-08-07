@@ -1,0 +1,37 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "devfolio",
+  "main": "./packages/portfolio/dist/index.js",
+  "compatibility_date": "2025-05-01",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "assets": {
+    "directory": "./public"
+  },
+  "vars": {
+    "APP_NAME": "devfolio"
+  },
+  "kv_namespaces": [
+    {
+      "binding": "CONFIG",
+      "id": "YOUR_KV_NAMESPACES_ID"
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "devfolio",
+      "database_id": "YOUR_D1_DATABASE_ID"
+    }
+  ]
+  // "r2_buckets": [
+  //   {
+  //     "binding": "MY_BUCKET",
+  //     "bucket_name": "my-bucket"
+  //   }
+  // ],
+  // "ai": {
+  //   "binding": "AI"
+  // }
+}

@@ -1,4 +1,4 @@
-/public/blog/
+# Config files (use .example versions)
 /data/profile.json
 /data/about.json
 /data/contact.json
@@ -8,33 +8,24 @@
 /data/services.json
 /data/routes.json
 wrangler.jsonc
-.wrangler/
-package-lock.json
 
-# prod
+# Build output
 dist/
 
-# dev
+# Development
 .hono/
 .wrangler/
-.yarn/
-!.yarn/releases
-.vscode/*
-!.vscode/launch.json
-!.vscode/*.code-snippets
-.idea/workspace.xml
-.idea/usage.statistics.xml
-.idea/shelf
 
-# deps
+# Dependencies
 node_modules/
 
-# env
+# Environment files
 .env
+.env.local
 .env.production
 .dev.vars
 
-# logs
+# Logs
 logs/
 *.log
 npm-debug.log*
@@ -43,5 +34,20 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# misc
+# OS files
 .DS_Store
+.DS_Store?
+._*
+
+# IDE files
+.vscode/*
+!.vscode/launch.json
+!.vscode/*.code-snippets
+.idea/workspace.xml
+.idea/usage.statistics.xml
+.idea/shelf
+
+# Package managers
+package-lock.json
+.yarn/
+!.yarn/releases

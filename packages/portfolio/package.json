@@ -1,7 +1,7 @@
 {
-  "name": "devfolio",
+  "name": "portfolio",
   "version": "1.0.0",
-  "description": "using hono framework, deploying at cloudflare workers",
+  "description": "using hono framework, deploying at cloudflare workers with hexo blog",
   "homepage": "https://maekawa.dev",
   "bugs": {
     "url": "https://github.com/takayamaekawa/devfolio/issues"
@@ -16,13 +16,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build --mode client && vite build",
-    "submodule": "git submodule init && git submodule update --recursive --remote",
-    "build-blog": "npm run submodule && cd ./blog/ && npm i && npm run build && cd .. && ./create_blog_dir.sh",
-    "build-blog-win": "npm run submodule && cd ./blog/ && npm i && npm run build && cd .. && .\\create_blog_dir.sh",
     "preview": "wrangler dev",
-    "deploy": "npm run build && wrangler deploy",
-    "deploy-blog": "npm run build && npm run build-blog && wrangler deploy",
-    "deploy-blog-win": "npm run build && npm run build-blog-win && wrangler deploy"
+    "deploy": "wrangler deploy"
   },
   "private": true,
   "dependencies": {

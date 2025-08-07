@@ -1,0 +1,13 @@
+{
+  "name": "devfolio-monorepo",
+  "version": "1.0.0",
+  "description": "Portfolio and blog monorepo",
+  "private": true,
+  "scripts": {
+    "build": "pnpm -r build && pnpm run merge:assets",
+    "merge:assets": "rm -rf public && mkdir -p public && cp -r packages/portfolio/public/* public/ && mkdir -p public/blog && cp -r packages/blog/public/* public/blog/",
+    "dev": "pnpm -r --parallel dev",
+    "deploy": "pnpm run build && wrangler deploy",
+    "preview": "wrangler dev"
+  }
+}
