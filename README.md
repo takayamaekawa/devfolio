@@ -5,7 +5,7 @@
 [https://maekawa.dev/blog](https://maekawa.dev/blog)
 - qiita  
 [Qiita-@takaya_maekawa](https://qiita.com/takaya_maekawa).  
-If you wanna deploy to Qiita, plz execute [deploy_to_qiita.sh](deploy_to_qiita.sh) before git pushing.
+If you wanna deploy to Qiita, plz execute [deploy_to_qiita.sh](scripts/deploy_to_qiita.sh) before git pushing.
 
 ## Static Site Generator
 Powered by [hexojs/hexo](https://github.com/hexojs/hexo)

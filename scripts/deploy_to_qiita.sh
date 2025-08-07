@@ -1,9 +1,9 @@
 #!/bin/bash
 
-ROOT_QIITA="qiita"
-SOURCE="source/_posts"
+ROOT_QIITA="../qiita"
+SOURCE="../source/_posts"
 
-cd "$(dirname "$0")"
+cd "$(dirname "$0")/.."
 
 current_quotepath=$(git config --get core.quotepath)
 if [ "$current_quotepath" != "false" ]; then
@@ -74,8 +74,8 @@ else
     fi
 
     md_basename=$(basename "$source_file" .md)
-    if [ -f "mapping.sh" ]; then
-      . mapping.sh
+    if [ -f "scripts/mapping.sh" ]; then
+      . scripts/mapping.sh
       each "$ROOT_QIITA/public" "$md_basename"
     fi
     npx qiita publish --root "${ROOT_QIITA}" --force "$md_basename"
