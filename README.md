@@ -1,11 +1,30 @@
 # blog (Hexo/Qiita Project Source)
 
+## Setup
+
+### Configuration
+Before deploying to Qiita, you need to set up the mapping configuration file:
+
+```bash
+# Copy the example configuration file
+cp config/mapping.config.js.example config/mapping.config.js
+
+# Edit the configuration file with your actual URLs and mappings
+# config/mapping.config.js contains:
+# - RULE_OF_REPLACER: URL/text replacement rules
+# - QIITA_MAP: mapping between article filenames and replacement rules
+```
+
 ## Deployed at
 - cloudflare/workers  
 [https://maekawa.dev/blog](https://maekawa.dev/blog)
 - qiita  
 [Qiita-@takaya_maekawa](https://qiita.com/takaya_maekawa).  
-If you wanna deploy to Qiita, plz execute [deploy_to_qiita.sh](scripts/deploy_to_qiita.sh) before git pushing.
+If you wanna deploy to Qiita, plz execute `npm run qiita:deploy` before git pushing.
+
+## Scripts
+- `npm run qiita:deploy`: Deploy changed markdown files to Qiita with URL mapping
+- `node scripts/rep.js <directory> <filename|all>`: Apply URL mappings to specific files
 
 ## Static Site Generator
 Powered by [hexojs/hexo](https://github.com/hexojs/hexo)

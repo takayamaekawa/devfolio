@@ -1,0 +1,35 @@
+// URL置換ルール設定ファイル
+// このファイルを config/mapping.config.js としてコピーし、実際の設定に変更してください
+
+export const RULE_OF_REPLACER = {
+  // キー: [置換前のURL/テキスト, 置換後のURL/テキスト]
+  1: [
+    "https://example.dev/blog/posts/123/",
+    "https://qiita.com/your_username/items/your_item_id1",
+  ],
+  2: [
+    "https://example.dev/blog/posts/456/",
+    "https://qiita.com/your_username/items/your_item_id2",
+  ],
+  3: [
+    "https://example.dev/blog/posts/789/",
+    "https://qiita.com/your_username/items/your_item_id3",
+  ],
+  4: [
+    "/images/example_image.png",
+    "https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/your_user_id/your_image_id.png",
+  ],
+  // 追加のルールは以下に追記
+  x: [
+    "置換前のテキスト例",
+    "置換後のテキスト例",
+  ],
+};
+
+export const QIITA_MAP = {
+  // "記事のファイル名（.md拡張子なし）": "適用するルール番号（;で区切って複数指定可能）"
+  "サンプル記事1": "1;x",
+  "サンプル記事2": "2",
+  "サンプル記事3": "3;4",
+  // 追加の記事マッピングは以下に追記
+};

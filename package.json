@@ -2,6 +2,7 @@
   "name": "hexo-site",
   "version": "0.0.0",
   "description": "",
+  "type": "module",
   "license": "MIT",
   "author": "Takaya Maekawa",
   "scripts": {
@@ -9,8 +10,8 @@
     "build": "hexo generate",
     "generate": "hexo generate",
     "workers:deploy": "npm run build && wrangler deploy",
-    "qiita:deploy": "./scripts/deploy_to_qiita.sh",
-    "qiita:deploy:win": ".\\scripts\\deploy_to_qiita.sh",
+    "qiita:deploy": "node scripts/deploy_to_qiita.js",
+    "qiita:deploy:win": "node scripts/deploy_to_qiita.js",
     "qiita:sync": "qiita pull --root qiita",
     "format": "biome format --write ."
   },
@@ -37,6 +38,7 @@
   "devDependencies": {
     "@biomejs/biome": "^2.1.2",
     "@qiita/qiita-cli": "^1.6.2",
+    "glob": "^11.0.3",
     "wrangler": "^4.14.1"
   }
 }
