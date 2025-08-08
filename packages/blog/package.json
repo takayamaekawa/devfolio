@@ -11,8 +11,7 @@
     "generate": "hexo generate",
     "workers:deploy": "npm run build && wrangler deploy",
     "qiita:deploy": "node scripts/deploy_to_qiita.js",
-    "qiita:deploy:win": "node scripts/deploy_to_qiita.js",
-    "qiita:sync": "qiita pull --root qiita",
+    "qiita:sync": "qiita-cli pull --root qiita",
     "format": "biome format --write ."
   },
   "hexo": {
@@ -33,7 +32,8 @@
     "hexo-renderer-pug": "^3.0.0",
     "hexo-renderer-stylus": "^3.0.1",
     "hexo-server": "^3.0.0",
-    "hexo-theme-butterfly": "^5.3.5"
+    "hexo-theme-butterfly": "^5.3.5",
+    "qiita-cli": "^1.0.4"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.1.2",
