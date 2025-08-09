@@ -1,11 +1,27 @@
 ---
-title: 'WSLを使わない! Windows開発環境構築'
+title: WSLを使わない! Windows開発環境構築
 tags:
-  - 'Neovim'
-  - 'Windows'
-  - '開発環境'
+- Windows
+- 開発環境
+- neovim
 abbrlink: 47392
-date: 2025-03-14 18:52:00
+date: '2025-03-14 18:52:00'
+qiita:
+  id: 65452a2b670b6cc7114a
+  status: published
+  last_sync_hash: 1dfce417
+  last_sync_at: '2025-08-09T10:46:07.647Z'
+  private: false
+  updated_at: '2025-03-14 18:52:00'
+  tags:
+  - name: Windows
+    versions: []
+  - name: 開発環境
+    versions: []
+  - name: neovim
+    versions: []
+  slide: false
+  ignore_publish: false
 ---
 
 <!--

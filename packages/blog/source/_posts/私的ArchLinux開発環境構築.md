@@ -1,10 +1,24 @@
 ---
-title: '私的ArchLinux開発環境構築'
+title: 私的ArchLinux開発環境構築
 abbrlink: 14653
-date: 2025-03-13 12:09:00
+date: '2025-03-13 12:09:00'
 tags:
-  - 'ArchLinux'
-  - '環境構築'
+- archLinux
+- 環境構築
+qiita:
+  id: 522d6bd4666d9537c27f
+  status: published
+  last_sync_hash: 60e6c0b4
+  last_sync_at: '2025-08-09T10:46:07.657Z'
+  private: false
+  updated_at: '2025-03-13 12:09:00'
+  tags:
+  - name: archLinux
+    versions: []
+  - name: 環境構築
+    versions: []
+  slide: false
+  ignore_publish: false
 ---
 
 <!--

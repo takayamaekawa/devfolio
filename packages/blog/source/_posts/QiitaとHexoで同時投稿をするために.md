@@ -1,11 +1,32 @@
 ---
-title: 'QiitaとHexoで同時投稿をするために'
+title: QiitaとHexoで同時投稿をするために
 tags:
-  - 'Qiita'
-  - 'Hexo'
+- Qiita
+- Hexo
 abbrlink: 8859
-date: 2025-04-28 16:01:00
+date: '2025-04-28 16:01:00'
+qiita:
+  id: 52b68bf70e480f4835ad
+  status: published
+  last_sync_hash: 05d9e3cb
+  last_sync_at: '2025-08-09T10:46:07.642Z'
+  private: false
+  updated_at: '2025-04-28 16:01:00'
+  tags:
+  - name: Qiita
+    versions: []
+  - name: Hexo
+    versions: []
+  slide: false
+  ignore_publish: false
 ---
+
+<!--
+Copyright (c) 2025 Takaya Maekawa
+This file is distributed under the terms of the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+See the LICENSE file in the source directory for details.
+(https://creativecommons.org/licenses/by-nc-sa/4.0/)
+-->
 
 # QiitaとHexoで同時投稿するには
 

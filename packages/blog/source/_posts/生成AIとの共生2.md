@@ -1,9 +1,21 @@
 ---
-title: '生成AIとの共生2'
+title: 生成AIとの共生2
 tags:
-  - 'LLM'
+- LLM
 abbrlink: 8821
-date: 2025-04-23 17:52:50
+date: '2025-04-23 17:52:50'
+qiita:
+  id: f563b57505808f5bfaeb
+  status: published
+  last_sync_hash: bf167dab
+  last_sync_at: '2025-08-09T10:46:07.656Z'
+  private: false
+  updated_at: '2025-04-23 17:52:50'
+  tags:
+  - name: LLM
+    versions: []
+  slide: false
+  ignore_publish: false
 ---
 
 <!--

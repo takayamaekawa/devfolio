@@ -1,11 +1,25 @@
 ---
-title: 'Website Terms and Policies'
+title: Website Terms and Policies
 tags:
-  - 'google'
-  - 'x'
+- Google
+- X
 abbrlink: 41809
-date: 2024-12-31 10:32:55
+date: '2024-12-31 10:32:55'
 sitemap: false
+qiita:
+  id: 4b5feb1871519604f463
+  status: published
+  last_sync_hash: b24a9816
+  last_sync_at: '2025-08-09T10:46:07.648Z'
+  private: false
+  updated_at: '2024-12-31 10:32:55'
+  tags:
+  - name: Google
+    versions: []
+  - name: X
+    versions: []
+  slide: false
+  ignore_publish: false
 ---
 
 <!--

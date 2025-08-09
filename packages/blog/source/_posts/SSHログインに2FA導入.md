@@ -1,12 +1,30 @@
 ---
-title: 'SSHログインに2FA導入'
+title: SSHログインに2FA導入
 tags:
-  - 'ArchLinux'
-  - '2FA'
-  - 'Google-Authendicator'
-  - 'SSH'
+- SSH
+- archLinux
+- 2FA
+- Google-Authendicator
 abbrlink: 18876
-date: 2025-02-18 00:00:00
+date: '2025-02-18 00:00:00'
+qiita:
+  id: b840688ec38e89839ac1
+  status: published
+  last_sync_hash: 52baed54
+  last_sync_at: '2025-08-09T10:46:07.644Z'
+  private: false
+  updated_at: '2025-02-18 00:00:00'
+  tags:
+  - name: SSH
+    versions: []
+  - name: archLinux
+    versions: []
+  - name: 2FA
+    versions: []
+  - name: Google-Authendicator
+    versions: []
+  slide: false
+  ignore_publish: false
 ---
 
 <!--
