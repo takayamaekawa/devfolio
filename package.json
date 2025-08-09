@@ -9,5 +9,8 @@
     "dev": "pnpm -r --parallel dev",
     "deploy": "pnpm run build && wrangler deploy",
     "preview": "wrangler dev"
+  },
+  "dependencies": {
+    "wrangler": "^4.28.1"
   }
 }

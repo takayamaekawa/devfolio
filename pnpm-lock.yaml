@@ -6,7 +6,11 @@ settings:
 
 importers:
 
-  .: {}
+  .:
+    dependencies:
+      wrangler:
+        specifier: ^4.28.1
+        version: 4.28.1(@cloudflare/workers-types@4.20250807.0)
 
   packages/blog:
     dependencies:
