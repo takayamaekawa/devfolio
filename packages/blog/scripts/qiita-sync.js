@@ -16,9 +16,9 @@ import {
   isContentChanged 
 } from './utils/header-converter.js';
 import { 
-  ensureArticlesStructure, 
+  ensureQiitaStructure, 
   placeArticleForQiita, 
-  createWillBePatchedFile,
+  updateExistingArticle,
   getArticlesList,
   syncFromQiita
 } from './utils/file-manager.js';
@@ -27,7 +27,7 @@ import { each as applyMapping } from './mapping.js';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = join(__dirname, '..');
 const SOURCE_POSTS_DIR = join(ROOT_DIR, 'source', '_posts');
-const ARTICLES_DIR = join(ROOT_DIR, 'articles');
+const QIITA_DIR = join(ROOT_DIR, 'qiita');
 
 /**
  * メイン同期処理
@@ -81,14 +81,14 @@ async function fullSync() {
   await prepareChangedArticles();
   
   console.log('\n✅ Full synchronization completed!');
-  console.log('📝 Run "npm run qiita:publish" to publish changes to Qiita');
+  console.log('📝 Run "npm run qiita:publish" to publish all changes to Qiita');
 }
 
 /**
  * Qiitaから記事を取得
  */
 async function pullFromQiita() {
-  const success = await syncFromQiita(ARTICLES_DIR);
+  const success = await syncFromQiita(QIITA_DIR);
   if (!success) {
     throw new Error('Failed to pull articles from Qiita');
   }
@@ -102,7 +102,7 @@ async function pullFromQiita() {
  * 既存記事（QiitaID付き）はqiita-cliが管理するため処理しない
  */
 async function convertHexoArticles() {
-  ensureArticlesStructure(ARTICLES_DIR);
+  ensureQiitaStructure(QIITA_DIR);
   
   // Hexo記事を取得
   const hexoFiles = await glob(join(SOURCE_POSTS_DIR, '*.md'));
@@ -134,7 +134,7 @@ async function convertHexoArticles() {
           frontMatter.title,
           qiitaContent,
           null, // 新規記事
-          ARTICLES_DIR
+          QIITA_DIR
         );
         
         if (result) {
@@ -156,7 +156,7 @@ async function convertHexoArticles() {
 }
 
 /**
- * 変更された記事のwill_be_patched.mdを生成
+ * 変更された記事をqiita/publicに反映
  */
 async function prepareChangedArticles() {
   const hexoFiles = await glob(join(SOURCE_POSTS_DIR, '*.md'));
@@ -166,26 +166,23 @@ async function prepareChangedArticles() {
     const content = readFileSync(hexoFile, 'utf8');
     const { frontMatter } = parseFrontMatter(content);
     
-    // 既存記事で内容が変更された場合のみwill_be_patched.mdを生成
+    // 既存記事で内容が変更された場合のみqiita/publicに反映
     if (frontMatter.qiita?.id && isContentChanged(hexoFile)) {
       const qiitaContent = convertToQiitaHeader(hexoFile);
-      const result = createWillBePatchedFile(
+      const result = updateExistingArticle(
         frontMatter.title,
         qiitaContent,
-        ARTICLES_DIR
+        QIITA_DIR
       );
       
-      // mapping.jsを適用
-      const mdBasename = basename(hexoFile, '.md');
-      await applyMappingIfExists(result.dirPath, mdBasename);
-      
-      changedArticles.push({
-        title: frontMatter.title,
-        type: 'update',
-        path: result.filePath
-      });
+      if (result) {
+        changedArticles.push({
+          title: frontMatter.title,
+          type: 'update',
+          path: result.filePath
+        });
+      }
     }
-    // 新規記事（Qiita IDなし）はここでは処理しない
   }
   
   if (changedArticles.length === 0) {
@@ -202,7 +199,7 @@ async function prepareChangedArticles() {
  * Qiitaの記事をHexoに同期
  */
 async function syncQiitaToHexo() {
-  const qiitaArticles = getArticlesList(ARTICLES_DIR);
+  const qiitaArticles = getArticlesList(QIITA_DIR);
   
   for (const article of qiitaArticles) {
     if (article.hasId) {
@@ -282,7 +279,7 @@ async function showSyncStatus() {
   console.log('📊 Synchronization Status\n');
   
   const hexoFiles = await glob(join(SOURCE_POSTS_DIR, '*.md'));
-  const qiitaArticles = getArticlesList(ARTICLES_DIR);
+  const qiitaArticles = getArticlesList(QIITA_DIR);
   
   console.log(`📝 Hexo articles: ${hexoFiles.length}`);
   console.log(`📄 Qiita articles: ${qiitaArticles.length}`);

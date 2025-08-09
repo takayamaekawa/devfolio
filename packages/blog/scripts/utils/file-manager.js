@@ -2,7 +2,7 @@
 
 /**
  * ファイル管理ユーティリティ
- * qiita-cliのarticlesディレクトリ管理
+ * 公式@qiita/qiita-cliのqiita/publicディレクトリ管理
  */
 
 import {
@@ -17,25 +17,27 @@ import { join, basename, dirname } from "path";
 import { execSync } from "child_process";
 
 /**
- * articlesディレクトリ構造を作成
+ * qiitaディレクトリ構造を作成
  */
-export function ensureArticlesStructure(articlesDir) {
-  if (!existsSync(articlesDir)) {
-    mkdirSync(articlesDir, { recursive: true });
+export function ensureQiitaStructure(qiitaDir) {
+  const publicDir = join(qiitaDir, "public");
+  if (!existsSync(publicDir)) {
+    mkdirSync(publicDir, { recursive: true });
   }
 }
 
 /**
- * 記事をarticlesディレクトリに配置
- * qiita-cli仕様: 既存記事はそのまま、新規記事のみdraft作成
+ * 新規記事をqiita/publicディレクトリに配置
+ * 公式qiita-cli仕様: 全ファイルは単一ディレクトリに配置
  */
 export function placeArticleForQiita(
   title,
   content,
   qiitaId = null,
-  articlesDir = "./articles",
+  qiitaDir = "./qiita",
 ) {
-  ensureArticlesStructure(articlesDir);
+  ensureQiitaStructure(qiitaDir);
+  const publicDir = join(qiitaDir, "public");
 
   // qiitaIdがある場合は既存記事なのでスキップ（qiita-cliが管理）
   if (qiitaId) {
@@ -43,110 +45,72 @@ export function placeArticleForQiita(
     return null;
   }
 
-  // 新規記事のみdraftとして作成
-  const safeDirName = sanitizeDirName(title);
-  const articleDir = join(articlesDir, safeDirName);
-
-  if (!existsSync(articleDir)) {
-    mkdirSync(articleDir, { recursive: true });
-  }
-
-  const fileName = "draft.md";
-  const filePath = join(articleDir, fileName);
+  // 新規記事用のファイル名生成（タイムスタンプベース）
+  const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
+  const fileName = `new-${timestamp}.md`;
+  const filePath = join(publicDir, fileName);
 
   writeFileSync(filePath, content, "utf8");
 
   return {
-    dirPath: articleDir,
+    dirPath: publicDir,
     filePath,
-    fileName: safeDirName,
+    fileName,
   };
 }
 
 /**
- * will_be_patched.md を既存のQiitaディレクトリに生成
+ * 既存記事の更新用ファイルを作成（記事タイトルベース）
  */
-export function createWillBePatchedFile(
+export function updateExistingArticle(
   title,
   content,
-  articlesDir = "./articles",
+  qiitaDir = "./qiita",
 ) {
-  if (!existsSync(articlesDir)) {
-    console.error(`❌ Articles directory does not exist: ${articlesDir}`);
+  const publicDir = join(qiitaDir, "public");
+  if (!existsSync(publicDir)) {
+    console.error(`❌ Qiita public directory does not exist: ${publicDir}`);
     return null;
   }
 
-  // タイトルに一致する既存ディレクトリを検索
-  const entries = readdirSync(articlesDir);
-  let targetDir = null;
+  // 記事タイトルをファイル名として使用
+  const fileName = `${title}.md`;
+  const filePath = join(publicDir, fileName);
+  writeFileSync(filePath, content, "utf8");
 
-  for (const entry of entries) {
-    const entryPath = join(articlesDir, entry);
-    if (statSync(entryPath).isDirectory()) {
-      // ディレクトリ名がタイトルと一致するかチェック
-      if (entry === title || entry.includes(title.substring(0, 10))) {
-        // UUIDファイルがあることを確認（Qiitaが管理するディレクトリ）
-        const files = readdirSync(entryPath);
-        const hasUuidFile = files.some(
-          (file) =>
-            file.match(/^[a-f0-9]{20}\.md$/) && file !== "will_be_patched.md",
-        );
-
-        if (hasUuidFile) {
-          targetDir = entryPath;
-          break;
-        }
-      }
-    }
-  }
-
-  if (!targetDir) {
-    console.error(`❌ No existing Qiita directory found for: ${title}`);
-    return null;
-  }
-
-  const patchFilePath = join(targetDir, "will_be_patched.md");
-  writeFileSync(patchFilePath, content, "utf8");
-
-  console.log(`Created will_be_patched.md: ${patchFilePath}`);
+  console.log(`Updated existing article: ${filePath}`);
 
   return {
-    dirPath: targetDir,
-    filePath: patchFilePath,
-    fileName: basename(targetDir),
+    dirPath: publicDir,
+    filePath,
+    fileName,
   };
 }
 
 /**
  * articlesディレクトリから記事一覧を取得
  */
-export function getArticlesList(articlesDir = "./articles") {
-  if (!existsSync(articlesDir)) {
+export function getArticlesList(qiitaDir = "./qiita") {
+  const publicDir = join(qiitaDir, "public");
+  if (!existsSync(publicDir)) {
     return [];
   }
 
   const articles = [];
-  const dirEntries = readdirSync(articlesDir);
+  const files = readdirSync(publicDir);
+  const mdFiles = files.filter((f) => f.endsWith(".md"));
 
-  for (const entry of dirEntries) {
-    const entryPath = join(articlesDir, entry);
-    const stat = statSync(entryPath);
-
-    if (stat.isDirectory()) {
-      const files = readdirSync(entryPath);
-      const mdFiles = files.filter((f) => f.endsWith(".md"));
-
-      for (const mdFile of mdFiles) {
-        articles.push({
-          title: entry,
-          fileName: mdFile,
-          filePath: join(entryPath, mdFile),
-          dirPath: entryPath,
-          isWillBePatched: mdFile === "will_be_patched.md",
-          hasId: mdFile !== "draft.md" && mdFile !== "will_be_patched.md",
-        });
-      }
-    }
+  for (const mdFile of mdFiles) {
+    const filePath = join(publicDir, mdFile);
+    const fileName = basename(mdFile, ".md");
+    
+    articles.push({
+      title: fileName,
+      fileName: mdFile,
+      filePath: filePath,
+      dirPath: publicDir,
+      hasId: true, // public内の全ファイルはQiita IDを持つ
+    });
   }
 
   return articles;
@@ -155,14 +119,14 @@ export function getArticlesList(articlesDir = "./articles") {
 /**
  * Qiitaから最新記事を同期
  */
-export async function syncFromQiita(articlesDir = "./articles") {
+export async function syncFromQiita(qiitaDir = "./qiita") {
   try {
     console.log("Syncing articles from Qiita...");
 
-    // qiita pull:article を実行
-    const result = execSync("npx qiita pull:article", {
+    // npx qiita pull --root qiita を実行
+    const result = execSync(`npx qiita pull --root ${basename(qiitaDir)}`, {
       stdio: "pipe",
-      cwd: dirname(articlesDir),
+      cwd: dirname(qiitaDir),
       encoding: "utf8",
     });
 
@@ -193,42 +157,26 @@ export async function syncFromQiita(articlesDir = "./articles") {
  * Qiitaに記事を投稿（バッチ処理）
  */
 export async function batchPublishToQiita(
-  articles,
-  articlesDir = "./articles",
+  qiitaDir = "./qiita",
 ) {
-  const results = [];
+  try {
+    console.log(`Publishing articles from: ${qiitaDir}`);
 
-  for (const article of articles) {
-    try {
-      console.log(`Publishing: ${article.fileName}`);
+    // npx qiita publish --root qiita --all を実行
+    execSync(`npx qiita publish --root ${basename(qiitaDir)} --all`, {
+      stdio: "inherit",
+      cwd: dirname(qiitaDir),
+    });
 
-      if (article.isWillBePatched) {
-        // patch処理
-        execSync(`npx qiita patch:article`, {
-          stdio: "inherit",
-          cwd: dirname(articlesDir),
-        });
-      } else if (!article.hasId) {
-        // 新規投稿
-        execSync(`npx qiita post:article`, {
-          stdio: "inherit",
-          cwd: dirname(articlesDir),
-        });
-      }
-
-      results.push({ article: article.title, status: "success" });
-      console.log(`✅ Successfully published: ${article.title}`);
-    } catch (error) {
-      console.error(`❌ Failed to publish ${article.title}:`, error.message);
-      results.push({
-        article: article.title,
-        status: "failed",
-        error: error.message,
-      });
-    }
+    console.log(`✅ Successfully published all articles`);
+    return [{ status: "success" }];
+  } catch (error) {
+    console.error(`❌ Failed to publish articles:`, error.message);
+    return [{
+      status: "failed",
+      error: error.message,
+    }];
   }
-
-  return results;
 }
 
 /**
@@ -244,26 +192,10 @@ function sanitizeDirName(title) {
 }
 
 /**
- * ディレクトリの存在確認とクリーンアップ
+ * qiita/publicディレクトリのクリーンアップ
  */
-export function cleanupArticlesDir(articlesDir = "./articles") {
-  const articles = getArticlesList(articlesDir);
-  let cleaned = 0;
-
-  // will_be_patched.md ファイルをクリーンアップ
-  for (const article of articles) {
-    if (article.isWillBePatched) {
-      try {
-        unlinkSync(article.filePath);
-        console.log(`Cleaned up: ${article.filePath}`);
-        cleaned++;
-      } catch (error) {
-        console.warn(`Could not clean up: ${article.filePath}`);
-      }
-    }
-  }
-
-  console.log(`✅ Cleaned up ${cleaned} will_be_patched.md files`);
-  return cleaned;
+export function cleanupQiitaDir(qiitaDir = "./qiita") {
+  console.log(`✅ No cleanup needed for qiita/public directory`);
+  return 0;
 }
 

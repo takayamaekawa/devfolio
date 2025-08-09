@@ -9,6 +9,7 @@ import { readFileSync, writeFileSync } from "fs";
 import crypto from "crypto";
 import yaml from "js-yaml";
 import { removeTagsQuotes } from "./format.js";
+import { formatToISOStringWithOffset } from "../format-time.js";
 
 /**
  * Hexoの記事から統合ヘッダー形式に変換
@@ -61,7 +62,7 @@ export function convertToQiitaHeader(filePath, qiitaArticleData = null) {
 
   // Hexoのtagsが配列で存在する場合
   if (Array.isArray(frontMatter.tags) && frontMatter.tags.length > 0) {
-    qiitaTags = frontMatter.tags.map((tag) => ({ name: tag, versions: [] }));
+    qiitaTags = frontMatter.tags; // 文字列配列としてそのまま使用
     console.log(
       "DEBUG - Using Hexo tags, converted to:",
       JSON.stringify(qiitaTags, null, 2),
@@ -80,30 +81,26 @@ export function convertToQiitaHeader(filePath, qiitaArticleData = null) {
 
   const qiitaFrontMatter = {
     title: frontMatter.title?.replace(/['"]/g, ""), // クォートを除去
-    tags: JSON.stringify(qiitaTags),
+    tags: qiitaTags, // 文字列配列形式
     private: frontMatter.qiita?.private || false,
+    updated_at: formatToISOStringWithOffset(), // 日本時間形式
+    id: frontMatter.qiita?.id || null,
+    organization_url_name: null,
     slide: frontMatter.qiita?.slide || false,
     ignorePublish: frontMatter.qiita?.ignore_publish || false,
-    id: frontMatter.qiita?.id || null,
-    updated_at: frontMatter.date || new Date().toISOString(),
-    organization_url_name: null,
   };
 
-  // Qiitaから取得したメタデータがあれば上書き
+  // Qiitaから取得したメタデータがあれば上書き（不要なフィールドは除外）
   if (qiitaArticleData) {
     qiitaFrontMatter.id = qiitaArticleData.id;
-    qiitaFrontMatter.created_at = qiitaArticleData.created_at;
-    qiitaFrontMatter.updated_at = qiitaArticleData.updated_at;
-    qiitaFrontMatter.url = qiitaArticleData.url;
-    qiitaFrontMatter.likes_count = qiitaArticleData.likes_count;
+    // updated_atは常に日本時間の現在時刻を使用（変更された記事として扱う）
+    qiitaFrontMatter.updated_at = formatToISOStringWithOffset();
     qiitaFrontMatter.organization_url_name =
       qiitaArticleData.organization_url_name || null;
   } else {
-    // 既存記事の場合、統合ヘッダーから必須フィールドを取得
+    // 既存記事の場合も不要フィールドは除外
     if (frontMatter.qiita?.id) {
-      qiitaFrontMatter.created_at = frontMatter.qiita.created_at;
-      qiitaFrontMatter.url = frontMatter.qiita.url;
-      qiitaFrontMatter.likes_count = frontMatter.qiita.likes_count || 0;
+      qiitaFrontMatter.id = frontMatter.qiita.id;
     }
   }
 
@@ -148,7 +145,7 @@ export function syncQiitaToIntegratedHeader(hexoFilePath, qiitaContent) {
 }
 
 /**
- * タグをQiita形式に変換
+ * タグをQiita形式に変換（文字列配列形式）
  */
 function convertTagsToQiitaFormat(tags) {
   if (!tags) return [];
@@ -162,24 +159,24 @@ function convertTagsToQiitaFormat(tags) {
     return [];
   }
 
-  // 既にQiita形式の場合はそのまま返す
+  // 既にオブジェクト形式の場合は文字列配列に変換
   if (
     Array.isArray(tags) &&
     tags.length > 0 &&
     typeof tags[0] === "object" &&
     tags[0].name
   ) {
-    return tags;
+    return tags.map((tag) => tag.name);
   }
 
-  // Hexo: ['tag1', 'tag2'] → Qiita: [{"name": "tag1", "versions": []}, ...]
-  if (Array.isArray(tags)) {
-    return tags.map((tag) => ({ name: tag, versions: [] }));
+  // 既に文字列配列の場合はそのまま返す
+  if (Array.isArray(tags) && tags.every((tag) => typeof tag === "string")) {
+    return tags;
   }
 
   // 文字列の場合
   if (typeof tags === "string") {
-    return [{ name: tags, versions: [] }];
+    return [tags];
   }
 
   return [];
@@ -215,8 +212,9 @@ function parseFrontMatter(content) {
  */
 function buildMarkdownContent(frontMatter, body) {
   const yamlContent = yaml.dump(frontMatter, {
-    // オブジェクト内の配列をインラインで出力しないようにする
-    noArrayIndent: true,
+    // 配列要素に適切なインデントを付ける
+    noArrayIndent: false,
+    indent: 2,
   });
   const completeYamlContent = removeTagsQuotes(yamlContent);
   return `---
