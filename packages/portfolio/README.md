@@ -1,4 +1,4 @@
-# devfolio
+# portfolio
 
 ## Note
 I wanna create static site in cloudflare worker, therefore I adopted [hono](https://hono.dev/) framework, more specifically using [honox](https://github.com/honojs/honox) of `xbasic` model.  
