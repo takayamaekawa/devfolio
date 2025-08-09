@@ -22,7 +22,7 @@
   "private": true,
   "dependencies": {
     "hono": "^4.9.0",
-    "honox": "^0.1.40"
+    "honox": "^0.1.44"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.1.2",
