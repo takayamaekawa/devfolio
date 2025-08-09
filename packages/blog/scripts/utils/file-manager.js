@@ -5,9 +5,16 @@
  * qiita-cliのarticlesディレクトリ管理
  */
 
-import { existsSync, mkdirSync, writeFileSync, readdirSync, statSync, unlinkSync } from 'fs';
-import { join, basename, dirname } from 'path';
-import { execSync } from 'child_process';
+import {
+  existsSync,
+  mkdirSync,
+  writeFileSync,
+  readdirSync,
+  statSync,
+  unlinkSync,
+} from "fs";
+import { join, basename, dirname } from "path";
+import { execSync } from "child_process";
 
 /**
  * articlesディレクトリ構造を作成
@@ -22,48 +29,57 @@ export function ensureArticlesStructure(articlesDir) {
  * 記事をarticlesディレクトリに配置
  * qiita-cli仕様: 既存記事はそのまま、新規記事のみdraft作成
  */
-export function placeArticleForQiita(title, content, qiitaId = null, articlesDir = './articles') {
+export function placeArticleForQiita(
+  title,
+  content,
+  qiitaId = null,
+  articlesDir = "./articles",
+) {
   ensureArticlesStructure(articlesDir);
-  
+
   // qiitaIdがある場合は既存記事なのでスキップ（qiita-cliが管理）
   if (qiitaId) {
     console.log(`Skipping existing article: ${title} (managed by qiita-cli)`);
     return null;
   }
-  
+
   // 新規記事のみdraftとして作成
   const safeDirName = sanitizeDirName(title);
   const articleDir = join(articlesDir, safeDirName);
-  
+
   if (!existsSync(articleDir)) {
     mkdirSync(articleDir, { recursive: true });
   }
-  
-  const fileName = 'draft.md';
+
+  const fileName = "draft.md";
   const filePath = join(articleDir, fileName);
-  
-  writeFileSync(filePath, content, 'utf8');
-  
+
+  writeFileSync(filePath, content, "utf8");
+
   return {
     dirPath: articleDir,
     filePath,
-    fileName: safeDirName
+    fileName: safeDirName,
   };
 }
 
 /**
  * will_be_patched.md を既存のQiitaディレクトリに生成
  */
-export function createWillBePatchedFile(title, content, articlesDir = './articles') {
+export function createWillBePatchedFile(
+  title,
+  content,
+  articlesDir = "./articles",
+) {
   if (!existsSync(articlesDir)) {
     console.error(`❌ Articles directory does not exist: ${articlesDir}`);
     return null;
   }
-  
+
   // タイトルに一致する既存ディレクトリを検索
   const entries = readdirSync(articlesDir);
   let targetDir = null;
-  
+
   for (const entry of entries) {
     const entryPath = join(articlesDir, entry);
     if (statSync(entryPath).isDirectory()) {
@@ -71,10 +87,11 @@ export function createWillBePatchedFile(title, content, articlesDir = './article
       if (entry === title || entry.includes(title.substring(0, 10))) {
         // UUIDファイルがあることを確認（Qiitaが管理するディレクトリ）
         const files = readdirSync(entryPath);
-        const hasUuidFile = files.some(file => 
-          file.match(/^[a-f0-9]{20}\.md$/) && file !== 'will_be_patched.md'
+        const hasUuidFile = files.some(
+          (file) =>
+            file.match(/^[a-f0-9]{20}\.md$/) && file !== "will_be_patched.md",
         );
-        
+
         if (hasUuidFile) {
           targetDir = entryPath;
           break;
@@ -82,90 +99,92 @@ export function createWillBePatchedFile(title, content, articlesDir = './article
       }
     }
   }
-  
+
   if (!targetDir) {
     console.error(`❌ No existing Qiita directory found for: ${title}`);
     return null;
   }
-  
-  const patchFilePath = join(targetDir, 'will_be_patched.md');
-  writeFileSync(patchFilePath, content, 'utf8');
-  
+
+  const patchFilePath = join(targetDir, "will_be_patched.md");
+  writeFileSync(patchFilePath, content, "utf8");
+
   console.log(`Created will_be_patched.md: ${patchFilePath}`);
-  
+
   return {
     dirPath: targetDir,
     filePath: patchFilePath,
-    fileName: basename(targetDir)
+    fileName: basename(targetDir),
   };
 }
 
 /**
  * articlesディレクトリから記事一覧を取得
  */
-export function getArticlesList(articlesDir = './articles') {
+export function getArticlesList(articlesDir = "./articles") {
   if (!existsSync(articlesDir)) {
     return [];
   }
-  
+
   const articles = [];
   const dirEntries = readdirSync(articlesDir);
-  
+
   for (const entry of dirEntries) {
     const entryPath = join(articlesDir, entry);
     const stat = statSync(entryPath);
-    
+
     if (stat.isDirectory()) {
       const files = readdirSync(entryPath);
-      const mdFiles = files.filter(f => f.endsWith('.md'));
-      
+      const mdFiles = files.filter((f) => f.endsWith(".md"));
+
       for (const mdFile of mdFiles) {
         articles.push({
           title: entry,
           fileName: mdFile,
           filePath: join(entryPath, mdFile),
           dirPath: entryPath,
-          isWillBePatched: mdFile === 'will_be_patched.md',
-          hasId: mdFile !== 'draft.md' && mdFile !== 'will_be_patched.md'
+          isWillBePatched: mdFile === "will_be_patched.md",
+          hasId: mdFile !== "draft.md" && mdFile !== "will_be_patched.md",
         });
       }
     }
   }
-  
+
   return articles;
 }
 
 /**
  * Qiitaから最新記事を同期
  */
-export async function syncFromQiita(articlesDir = './articles') {
+export async function syncFromQiita(articlesDir = "./articles") {
   try {
-    console.log('Syncing articles from Qiita...');
-    
+    console.log("Syncing articles from Qiita...");
+
     // qiita pull:article を実行
-    const result = execSync('npx qiita pull:article', { 
-      stdio: 'pipe',
+    const result = execSync("npx qiita pull:article", {
+      stdio: "pipe",
       cwd: dirname(articlesDir),
-      encoding: 'utf8'
+      encoding: "utf8",
     });
-    
+
     console.log(result);
-    console.log('✅ Sync from Qiita completed');
+    console.log("✅ Sync from Qiita completed");
     return true;
   } catch (error) {
     // qiita-cliが出力を持っていても終了コードが0でない場合があるため、
     // stdoutやstderrから成功メッセージを検索
-    const output = (error.stdout || '') + (error.stderr || '');
-    if (output.includes('Article fetching completed') || 
-        output.includes('fetching article')) {
+    const output = (error.stdout || "") + (error.stderr || "");
+    if (
+      output.includes("Article fetching completed") ||
+      output.includes("fetching article")
+    ) {
       console.log(output);
-      console.log('✅ Sync from Qiita completed (with warnings)');
+      console.log("✅ Sync from Qiita completed (with warnings)");
       return true;
     }
-    
-    console.error('❌ Failed to sync from Qiita:', error.message);
-    console.error('stdout:', error.stdout);
-    console.error('stderr:', error.stderr);
+
+    console.error("❌ Failed to sync from Qiita:", error.message);
+    console.error("stdout:", error.stdout);
+    console.error("stderr:", error.stderr);
     return false;
   }
 }
@@ -173,36 +192,42 @@ export async function syncFromQiita(articlesDir = './articles') {
 /**
  * Qiitaに記事を投稿（バッチ処理）
  */
-export async function batchPublishToQiita(articles, articlesDir = './articles') {
+export async function batchPublishToQiita(
+  articles,
+  articlesDir = "./articles",
+) {
   const results = [];
-  
+
   for (const article of articles) {
     try {
       console.log(`Publishing: ${article.fileName}`);
-      
+
       if (article.isWillBePatched) {
         // patch処理
         execSync(`npx qiita patch:article`, {
-          stdio: 'inherit',
-          cwd: dirname(articlesDir)
+          stdio: "inherit",
+          cwd: dirname(articlesDir),
         });
       } else if (!article.hasId) {
         // 新規投稿
         execSync(`npx qiita post:article`, {
-          stdio: 'inherit',
-          cwd: dirname(articlesDir)
+          stdio: "inherit",
+          cwd: dirname(articlesDir),
         });
       }
-      
-      results.push({ article: article.title, status: 'success' });
+
+      results.push({ article: article.title, status: "success" });
       console.log(`✅ Successfully published: ${article.title}`);
-      
     } catch (error) {
       console.error(`❌ Failed to publish ${article.title}:`, error.message);
-      results.push({ article: article.title, status: 'failed', error: error.message });
+      results.push({
+        article: article.title,
+        status: "failed",
+        error: error.message,
+      });
     }
   }
-  
+
   return results;
 }
 
@@ -211,9 +236,9 @@ export async function batchPublishToQiita(articles, articlesDir = './articles') 
  */
 function sanitizeDirName(title) {
   return title
-    .replace(/[^\w\s-]/g, '') // 英数字、スペース、ハイフン以外を除去
-    .replace(/\s+/g, '') // スペースを除去
-    .replace(/-+/g, '-') // 連続するハイフンを1つに
+    .replace(/[^\w\s-]/g, "") // 英数字、スペース、ハイフン以外を除去
+    .replace(/\s+/g, "") // スペースを除去
+    .replace(/-+/g, "-") // 連続するハイフンを1つに
     .trim()
     .substring(0, 50); // 長さ制限
 }
@@ -221,10 +246,10 @@ function sanitizeDirName(title) {
 /**
  * ディレクトリの存在確認とクリーンアップ
  */
-export function cleanupArticlesDir(articlesDir = './articles') {
+export function cleanupArticlesDir(articlesDir = "./articles") {
   const articles = getArticlesList(articlesDir);
   let cleaned = 0;
-  
+
   // will_be_patched.md ファイルをクリーンアップ
   for (const article of articles) {
     if (article.isWillBePatched) {
@@ -237,7 +262,8 @@ export function cleanupArticlesDir(articlesDir = './articles') {
       }
     }
   }
-  
+
   console.log(`✅ Cleaned up ${cleaned} will_be_patched.md files`);
   return cleaned;
 }
+
