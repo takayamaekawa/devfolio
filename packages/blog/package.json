@@ -10,17 +10,11 @@
     "build": "hexo generate",
     "generate": "hexo generate",
     "workers:deploy": "npm run build && wrangler deploy",
-    "qiita:deploy": "node scripts/deploy_to_qiita.js",
-    "qiita:sync": "qiita pull --root qiita",
-    "qiita:sync-new": "node scripts/qiita-sync.js sync",
-    "qiita:pull": "node scripts/qiita-sync.js pull",
-    "qiita:push": "node scripts/qiita-sync.js push",
+    "qiita:pull": "npx qiita pull --root qiita",
+    "qiita:sync": "node scripts/qiita-sync.js sync",
+    "qiita:publish": "npx qiita publish --all --root qiita",
     "qiita:status": "node scripts/qiita-sync.js status",
     "qiita:init": "node scripts/qiita-sync.js init",
-    "qiita:auto": "node scripts/auto-sync.js auto",
-    "qiita:publish": "node scripts/auto-sync.js publish",
-    "qiita:batch": "node scripts/auto-sync.js batch",
-    "qiita:cleanup": "node scripts/auto-sync.js cleanup",
     "format": "biome format --write ."
   },
   "hexo": {
@@ -41,8 +35,7 @@
     "hexo-renderer-pug": "^3.0.0",
     "hexo-renderer-stylus": "^3.0.1",
     "hexo-server": "^3.0.0",
-    "hexo-theme-butterfly": "^5.3.5",
-    "qiita-cli": "^1.0.4"
+    "hexo-theme-butterfly": "^5.3.5"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.1.2",

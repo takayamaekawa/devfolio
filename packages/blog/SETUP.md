@@ -1,15 +1,15 @@
-# Hexo-Qiita 同期システム セットアップガイド
+# Hexo-Qiita 同期システム セットアップガイド（公式qiita-cli対応版）
 
 ## 概要
 
-このシステムはHexo静的サイトジェネレーターとQiitaプラットフォーム間での記事同期を自動化します。Hexoを単一の真実の情報源として使用し、Qiitaへの変更を自動的に反映します。
+このシステムはHexo静的サイトジェネレーターと公式@qiita/qiita-cliを使用したQiitaプラットフォーム間での記事同期を自動化します。Hexoを単一の真実の情報源として使用し、Qiitaへの変更を自動的に反映します。
 
 ## 必要な前提条件
 
 1. **Node.js環境** - Node.js 18以上
-2. **Qiita CLI** - `npm install -g qiita-cli`
+2. **公式Qiita CLI** - `@qiita/qiita-cli`（既にプロジェクトにインストール済み）
 3. **Qiitaアカウント** - APIアクセス設定済み
-4. **qiita-cli初期化** - プロジェクトディレクトリで`qiita init`実行済み
+4. **qiita-cli初期化** - プロジェクトディレクトリで`npx qiita init`実行済み
 
 ## システムアーキテクチャ
 
@@ -18,32 +18,32 @@ Hexo記事 (source/_posts/)
     ↓
 統合ヘッダー (Hexo + Qiita メタデータ)
     ↓
-articles/ディレクトリ (qiita-cli管理)
+qiita/public/ディレクトリ（公式qiita-cli管理）
     ↓
 Qiitaプラットフォーム
 ```
 
 ## 初回セットアップ手順
 
-### Step 1: articles ディレクトリのクリーンアップ
+### Step 1: Qiitaから記事を取得
 
 ```bash
-# 既存のarticlesディレクトリを削除（クリーンな状態から開始）
-rm -rf articles
+# 公式qiita-cliでリモート記事を取得
+npm run qiita:pull
 ```
 
-### Step 2: 初回同期実行
+### Step 2: Hexo記事との同期実行
 
 ```bash
-# Qiitaから既存記事を取得し、Hexo記事と統合
-npm run qiita:sync-new
+# Hexo記事とQiitaを同期
+npm run qiita:sync
 ```
 
 この処理で以下が実行されます：
-1. **Qiita記事取得**: `qiita pull:article`でリモート記事をダウンロード
+1. **Qiita記事取得**: `npx qiita pull --root qiita`でqiita/public/に記事をダウンロード
 2. **統合ヘッダー同期**: Hexo記事にQiitaメタデータを追加
 3. **変更検出**: コンテンツハッシュによる差分確認
-4. **will_be_patched.md生成**: 変更のある記事のパッチファイル作成
+4. **qiita/public更新**: 変更のある記事をqiita/public/に配置
 
 ### Step 3: 動作確認
 
@@ -64,25 +64,28 @@ npm run qiita:sync-new
    ---
    ```
 
-2. **articlesディレクトリ構造**
+2. **qiita/publicディレクトリ構造**
    ```
-   articles/
-   └── 記事タイトル/
-       ├── 2b40040c087fe6bfc350.md  # Qiita管理ファイル
-       └── will_be_patched.md      # 変更パッチファイル
+   qiita/
+   └── public/
+       ├── 2b40040c087fe6bfc350.md  # 公式qiita-cli管理ファイル
+       ├── 18f0f23c6c19b32e9d3d.md
+       └── ...                     # 全記事が単一ディレクトリに配置
    ```
 
-3. **will_be_patched.md形式**
+3. **qiita/public記事形式**
    ```yaml
    ---
    title: 記事タイトル
-   tags: [{"name":"エンジニア","versions":[]}]  # Qiita形式
+   tags:
+   - name: エンジニア    # 公式qiita-cli形式（インライン）
+     versions: []
    private: false
+   updated_at: 2025-08-09T18:31:48+09:00  # ISO形式、クォーテーション不要
    id: 2b40040c087fe6bfc350
-   created_at: '2025-08-06T19:53:25+09:00'
-   url: 'https://qiita.com/username/items/2b40040c087fe6bfc350'
-   likes_count: 0
-   # その他必須フィールド
+   organization_url_name: null
+   slide: false
+   ignorePublish: false
    ---
    ```
 
@@ -94,15 +97,15 @@ npm run qiita:sync-new
 
 2. **変更同期** 
    ```bash
-   npm run qiita:sync-new
+   npm run qiita:sync
    ```
 
-3. **Qiitaへ公開**
+3. **Qiitaへ一括公開**
    ```bash
-   npx qiita patch:article
+   npm run qiita:publish
    ```
    
-   対話式メニューから更新したい記事を選択
+   全ての変更された記事がQiitaに反映されます
 
 ### 新規記事作成
 
@@ -110,23 +113,23 @@ npm run qiita:sync-new
 
 2. **初回同期で統合ヘッダー追加**
    ```bash
-   npm run qiita:sync-new
+   npm run qiita:sync
    ```
 
-3. **Qiitaへ新規投稿**
+3. **Qiitaへ一括公開**
    ```bash
-   npx qiita post:article  # 新規記事の場合
+   npm run qiita:publish  # 新規・更新記事を一括処理
    ```
 
 ## 利用可能なコマンド
 
 | コマンド | 説明 |
 |---------|------|
-| `npm run qiita:sync-new` | 完全同期（Qiita取得 → Hexo統合 → パッチ生成） |
-| `npm run qiita:publish` | 自動一括公開（未実装） |
-| `npx qiita pull:article` | Qiitaから記事取得のみ |
-| `npx qiita patch:article` | 変更記事をQiitaに反映 |
-| `npx qiita post:article` | 新規記事をQiitaに投稿 |
+| `npm run qiita:pull` | Qiitaから記事取得（`npx qiita pull --root qiita`） |
+| `npm run qiita:sync` | 完全同期（Qiita取得 → Hexo統合 → qiita/public更新） |
+| `npm run qiita:publish` | 一括公開（`npx qiita publish --all --root qiita`） |
+| `npm run qiita:status` | 同期状況の確認 |
+| `npm run qiita:init` | Hexoヘッダーを統合形式に初期化 |
 
 ## システムの特徴
 
@@ -212,10 +215,10 @@ module.exports = [
 ```
 packages/blog/
 ├── source/_posts/           # Hexo記事ファイル
-├── articles/               # qiita-cli管理ディレクトリ
+├── qiita/
+│   └── public/             # 公式qiita-cli管理ディレクトリ
 ├── scripts/
 │   ├── qiita-sync.js      # メイン同期スクリプト
-│   ├── auto-sync.js       # 自動公開スクリプト
 │   └── utils/
 │       ├── header-converter.js  # ヘッダー変換ユーティリティ
 │       └── file-manager.js      # ファイル管理ユーティリティ
@@ -230,7 +233,7 @@ packages/blog/
 - `syncQiitaToIntegratedHeader()`: QiitaメタデータをHexoに統合
 - `convertToQiitaHeader()`: HexoヘッダーをQiita形式に変換
 - `convertTagsToQiitaFormat()`: タグ形式の相互変換
-- `createWillBePatchedFile()`: パッチファイル生成
+- `updateExistingArticle()`: qiita/public記事ファイル更新
 
 ### 拡張可能性
 
