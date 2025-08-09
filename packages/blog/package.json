@@ -11,7 +11,16 @@
     "generate": "hexo generate",
     "workers:deploy": "npm run build && wrangler deploy",
     "qiita:deploy": "node scripts/deploy_to_qiita.js",
-    "qiita:sync": "qiita-cli pull --root qiita",
+    "qiita:sync": "qiita pull --root qiita",
+    "qiita:sync-new": "node scripts/qiita-sync.js sync",
+    "qiita:pull": "node scripts/qiita-sync.js pull",
+    "qiita:push": "node scripts/qiita-sync.js push",
+    "qiita:status": "node scripts/qiita-sync.js status",
+    "qiita:init": "node scripts/qiita-sync.js init",
+    "qiita:auto": "node scripts/auto-sync.js auto",
+    "qiita:publish": "node scripts/auto-sync.js publish",
+    "qiita:batch": "node scripts/auto-sync.js batch",
+    "qiita:cleanup": "node scripts/auto-sync.js cleanup",
     "format": "biome format --write ."
   },
   "hexo": {
