@@ -1,28 +1,24 @@
 ---
 title: OBSやVBCableを使わずに音声を内部ルーティング
 tags:
-- archLinux
-- OBS
-- JACK
-- VBCable
+  - archLinux
+  - OBS
+  - JACK
+  - VBCable
 abbrlink: 54038
 date: '2025-04-20 02:54:47'
 qiita:
   id: 7e4c56dc7f05daa97aa8
   status: published
-  last_sync_hash: 80a56df7
-  last_sync_at: '2025-08-09T10:46:07.640Z'
+  last_sync_hash: bddec4c0
+  last_sync_at: '2025-08-09T13:25:58.290Z'
   private: false
-  updated_at: '2025-04-20 02:54:47'
+  updated_at: '2025-08-09T22:19:33+09:00'
   tags:
-  - name: archLinux
-    versions: []
-  - name: OBS
-    versions: []
-  - name: JACK
-    versions: []
-  - name: VBCable
-    versions: []
+    - archLinux
+    - OBS
+    - JACK
+    - VBCable
   slide: false
   ignore_publish: false
 ---
@@ -45,6 +41,6 @@ systemctl --user restart pipewire
 systemctl --user restart pipewire-pulse
 systemctl --user restart pipewire-media-session
 ```
-jack, setupのinterfaceに持ってるオーディオインターフェースを選択
-あとは、グラフよりルーティング
+jack, setupのinterfaceに持ってるオーディオインターフェースを選択。
+あとは、グラフよりルーティング。
 ![jack_graph.png](/images/jack_graph.png)

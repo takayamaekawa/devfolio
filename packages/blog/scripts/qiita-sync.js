@@ -176,6 +176,10 @@ async function prepareChangedArticles() {
       );
       
       if (result) {
+        // mapping.jsを適用
+        const mdBasename = basename(hexoFile, '.md');
+        await applyMappingIfExists(result.dirPath, mdBasename);
+        
         changedArticles.push({
           title: frontMatter.title,
           type: 'update',
