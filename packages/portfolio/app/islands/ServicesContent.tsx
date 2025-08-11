@@ -18,35 +18,6 @@ const ServicesContent = ({ profile, services }: ServicesContentProps) => {
     <section class="mt-12 space-y-12 text-left">
       <article>
         <h2 class="text-2xl font-semibold">
-          {translate(services.devNotes.title, lang)}
-        </h2>
-        <div class="flex items-center mt-3 mb-2">
-          <div class="flex-grow border-t border-gray-500"></div>
-          <span class="px-4 text-lg font-semibold text-blue-400 bg-gray-900 italic">
-            {translate(services.devNotes.subtitle, lang)}
-          </span>
-          <div class="flex-grow border-t border-gray-500"></div>
-        </div>
-        <p class="mt-2 text-gray-300">
-          &emsp;{translate(services.devNotes.description1, lang)}
-        </p>
-        <p class="mt-2 text-gray-400">
-          {translate(services.devNotes.obsidianPoint, lang)}
-        </p>
-        <div class="mt-6">
-          <a
-            href={services.devNotes.siteUrl}
-            rel="noopener noreferrer"
-            target="_blank"
-            class="text-blue-400 hover:text-blue-300 text-link"
-          >
-            {translate(services.devNotes.visitSite, lang)}
-          </a>
-        </div>
-      </article>
-
-      <article>
-        <h2 class="text-2xl font-semibold">
           {translate(services.techBlog.title, lang)}
         </h2>
         <p class="mt-2 text-gray-300">

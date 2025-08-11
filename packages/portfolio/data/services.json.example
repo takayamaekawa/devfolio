@@ -1,28 +1,5 @@
 {
   "services": {
-    "devNotes": {
-      "title": {
-        "ja": "📝 サンプル開発者メモ",
-        "en": "📝 Sample Developer Notes"
-      },
-      "subtitle": {
-        "ja": "Obsidian",
-        "en": "Obsidian"
-      },
-      "description1": {
-        "ja": "開発を高速化＆整理するためのサンプル開発者メモ",
-        "en": "Sample developer notes for accelerating and organizing development"
-      },
-      "obsidianPoint": {
-        "ja": "サンプルObsidianの魅力ポイント",
-        "en": "Sample Obsidian appeal point"
-      },
-      "visitSite": {
-        "ja": "サンプルサイトを訪れる",
-        "en": "Visit Sample Site"
-      },
-      "siteUrl": "https://notes.sample.com"
-    },
     "techBlog": {
       "title": {
         "ja": "📝 サンプル技術ブログ",
