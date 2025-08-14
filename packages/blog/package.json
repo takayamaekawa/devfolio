@@ -38,7 +38,7 @@
     "hexo-theme-butterfly": "^5.3.5"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.1.2",
+    "@biomejs/biome": "^2.2.0",
     "@qiita/qiita-cli": "^1.6.2",
     "glob": "^11.0.3",
     "js-yaml": "^4.1.0",
