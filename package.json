@@ -11,6 +11,6 @@
     "preview": "wrangler dev"
   },
   "dependencies": {
-    "wrangler": "^4.28.1"
+    "wrangler": "^4.32.0"
   }
 }
