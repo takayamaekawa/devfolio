@@ -679,7 +679,7 @@ baidu_analytics:
 google_analytics:
 
 # https://www.cloudflare.com/zh-tw/web-analytics/
-cloudflare_analytics:
+cloudflare_analytics: 1650e917be2f497090645bde34142e76
 
 # https://clarity.microsoft.com/
 microsoft_clarity:
