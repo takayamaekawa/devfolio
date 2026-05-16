@@ -5,11 +5,11 @@
  * 既存のHexoヘッダーを統合形式に拡張し、Qiita形式に変換
  */
 
-import { readFileSync, writeFileSync } from "fs";
 import crypto from "crypto";
+import { readFileSync, writeFileSync } from "fs";
 import yaml from "js-yaml";
-import { removeTagsQuotes } from "./format.js";
 import { formatToISOStringWithOffset } from "../format-time.js";
+import { removeTagsQuotes } from "./format.js";
 
 /**
  * Hexoの記事から統合ヘッダー形式に変換
@@ -128,7 +128,7 @@ export function syncQiitaToIntegratedHeader(hexoFilePath, qiitaContent) {
       ...hexoFM.qiita,
       id: qiitaFM.id,
       status: qiitaFM.id ? "published" : "draft",
-      last_sync_hash: generateContentHash(qiitaBody),
+      last_sync_hash: generateContentHash(hexoBody),
       last_sync_at: new Date().toISOString(),
       private: qiitaFM.private,
       slide: qiitaFM.slide,

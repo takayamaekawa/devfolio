@@ -5,59 +5,59 @@
  * Hexo記事をqiita-cliの新仕様に対応して自動同期
  */
 
-import { readFileSync, writeFileSync, existsSync, readdirSync } from 'fs';
-import { join, basename, dirname } from 'path';
-import { fileURLToPath } from 'url';
-import { glob } from 'glob';
-import { 
-  convertToIntegratedHeader, 
-  convertToQiitaHeader, 
-  syncQiitaToIntegratedHeader,
-  isContentChanged 
-} from './utils/header-converter.js';
-import { 
-  ensureQiitaStructure, 
-  placeArticleForQiita, 
-  updateExistingArticle,
+import { existsSync, readdirSync, readFileSync, writeFileSync } from "fs";
+import { glob } from "glob";
+import { basename, dirname, join } from "path";
+import { fileURLToPath } from "url";
+import { each as applyMapping } from "./mapping.js";
+import {
+  ensureQiitaStructure,
   getArticlesList,
-  syncFromQiita
-} from './utils/file-manager.js';
-import { each as applyMapping } from './mapping.js';
+  placeArticleForQiita,
+  syncFromQiita,
+  updateExistingArticle,
+} from "./utils/file-manager.js";
+import {
+  convertToIntegratedHeader,
+  convertToQiitaHeader,
+  isContentChanged,
+  syncQiitaToIntegratedHeader,
+} from "./utils/header-converter.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const ROOT_DIR = join(__dirname, '..');
-const SOURCE_POSTS_DIR = join(ROOT_DIR, 'source', '_posts');
-const QIITA_DIR = join(ROOT_DIR, 'qiita');
+const ROOT_DIR = join(__dirname, "..");
+const SOURCE_POSTS_DIR = join(ROOT_DIR, "source", "_posts");
+const QIITA_DIR = join(ROOT_DIR, "qiita");
 
 /**
  * メイン同期処理
  */
 async function main() {
   const args = process.argv.slice(2);
-  const command = args[0] || 'sync';
-  
+  const command = args[0] || "sync";
+
   try {
     switch (command) {
-      case 'sync':
+      case "sync":
         await fullSync();
         break;
-      case 'pull':
+      case "pull":
         await pullFromQiita();
         break;
-      case 'push':
+      case "push":
         await pushToQiita();
         break;
-      case 'init':
+      case "init":
         await initializeHeaders();
         break;
-      case 'status':
+      case "status":
         await showSyncStatus();
         break;
       default:
         showHelp();
     }
   } catch (error) {
-    console.error('❌ Error:', error.message);
+    console.error("❌ Error:", error.message);
     process.exit(1);
   }
 }
@@ -66,21 +66,21 @@ async function main() {
  * フル同期：pull → convert → push
  */
 async function fullSync() {
-  console.log('🔄 Starting full synchronization...\n');
-  
+  console.log("🔄 Starting full synchronization...\n");
+
   // 1. Qiitaから最新を取得
-  console.log('📥 Step 1: Pulling from Qiita...');
+  console.log("📥 Step 1: Pulling from Qiita...");
   await pullFromQiita();
-  
+
   // 2. Hexo記事をQiita形式に変換
-  console.log('\n🔄 Step 2: Converting Hexo articles...');
+  console.log("\n🔄 Step 2: Converting Hexo articles...");
   await convertHexoArticles();
-  
+
   // 3. 変更されたものをQiitaに送信
-  console.log('\n📤 Step 3: Preparing articles for push...');
+  console.log("\n📤 Step 3: Preparing articles for push...");
   await prepareChangedArticles();
-  
-  console.log('\n✅ Full synchronization completed!');
+
+  console.log("\n✅ Full synchronization completed!");
   console.log('📝 Run "npm run qiita:publish" to publish all changes to Qiita');
 }
 
@@ -90,9 +90,9 @@ async function fullSync() {
 async function pullFromQiita() {
   const success = await syncFromQiita(QIITA_DIR);
   if (!success) {
-    throw new Error('Failed to pull articles from Qiita');
+    throw new Error("Failed to pull articles from Qiita");
   }
-  
+
   // Qiitaの記事をHexoに反映
   await syncQiitaToHexo();
 }
@@ -103,53 +103,57 @@ async function pullFromQiita() {
  */
 async function convertHexoArticles() {
   ensureQiitaStructure(QIITA_DIR);
-  
+
   // Hexo記事を取得
-  const hexoFiles = await glob(join(SOURCE_POSTS_DIR, '*.md'));
+  const hexoFiles = await glob(join(SOURCE_POSTS_DIR, "*.md"));
   let newArticlesCount = 0;
   let existingArticlesCount = 0;
-  
+
   for (const hexoFile of hexoFiles) {
     try {
       console.log(`Processing: ${basename(hexoFile)}`);
-      
+
       // 統合ヘッダー形式に変換（必要に応じて）
       const integratedContent = convertToIntegratedHeader(hexoFile);
       writeFileSync(hexoFile, integratedContent);
-      
-      const content = readFileSync(hexoFile, 'utf8');
+
+      const content = readFileSync(hexoFile, "utf8");
       const { frontMatter } = parseFrontMatter(content);
-      
+
       // 既存記事（QiitaID付き）は完全にスキップ
       if (frontMatter.qiita?.id) {
-        console.log(`✅ Skipping existing article: ${frontMatter.title} (managed by qiita-cli)`);
+        console.log(
+          `✅ Skipping existing article: ${frontMatter.title} (managed by qiita-cli)`,
+        );
         existingArticlesCount++;
       } else {
         // 新規記事のみ処理
         console.log(`🆕 Processing new article: ${frontMatter.title}`);
-        
+
         const qiitaContent = convertToQiitaHeader(hexoFile);
-        
+
         const result = placeArticleForQiita(
           frontMatter.title,
           qiitaContent,
           null, // 新規記事
-          QIITA_DIR
+          QIITA_DIR,
         );
-        
+
         if (result) {
           // mapping.jsを適用
-          const mdBasename = basename(hexoFile, '.md');
+          const mdBasename = basename(hexoFile, ".md");
           await applyMappingIfExists(result.dirPath, mdBasename);
           newArticlesCount++;
         }
       }
-      
     } catch (error) {
-      console.error(`❌ Failed to process ${basename(hexoFile)}:`, error.message);
+      console.error(
+        `❌ Failed to process ${basename(hexoFile)}:`,
+        error.message,
+      );
     }
   }
-  
+
   console.log(`📊 Processing summary:`);
   console.log(`  🆕 New articles: ${newArticlesCount}`);
   console.log(`  ✅ Existing articles (skipped): ${existingArticlesCount}`);
@@ -159,42 +163,44 @@ async function convertHexoArticles() {
  * 変更された記事をqiita/publicに反映
  */
 async function prepareChangedArticles() {
-  const hexoFiles = await glob(join(SOURCE_POSTS_DIR, '*.md'));
+  const hexoFiles = await glob(join(SOURCE_POSTS_DIR, "*.md"));
   const changedArticles = [];
-  
+
   for (const hexoFile of hexoFiles) {
-    const content = readFileSync(hexoFile, 'utf8');
+    const content = readFileSync(hexoFile, "utf8");
     const { frontMatter } = parseFrontMatter(content);
-    
+
     // 既存記事で内容が変更された場合のみqiita/publicに反映
     if (frontMatter.qiita?.id && isContentChanged(hexoFile)) {
       const qiitaContent = convertToQiitaHeader(hexoFile);
       const result = updateExistingArticle(
         frontMatter.title,
         qiitaContent,
-        QIITA_DIR
+        QIITA_DIR,
       );
-      
+
       if (result) {
         // mapping.jsを適用
-        const mdBasename = basename(hexoFile, '.md');
+        const mdBasename = basename(hexoFile, ".md");
         await applyMappingIfExists(result.dirPath, mdBasename);
-        
+
         changedArticles.push({
           title: frontMatter.title,
-          type: 'update',
-          path: result.filePath
+          type: "update",
+          path: result.filePath,
         });
       }
     }
   }
-  
+
   if (changedArticles.length === 0) {
-    console.log('📄 No articles to update');
+    console.log("📄 No articles to update");
   } else {
-    console.log(`📝 Prepared ${changedArticles.length} articles for publishing:`);
-    changedArticles.forEach(article => {
-      console.log(`  ${article.type === 'new' ? '🆕' : '🔄'} ${article.title}`);
+    console.log(
+      `📝 Prepared ${changedArticles.length} articles for publishing:`,
+    );
+    changedArticles.forEach((article) => {
+      console.log(`  ${article.type === "new" ? "🆕" : "🔄"} ${article.title}`);
     });
   }
 }
@@ -204,18 +210,26 @@ async function prepareChangedArticles() {
  */
 async function syncQiitaToHexo() {
   const qiitaArticles = getArticlesList(QIITA_DIR);
-  
+
   for (const article of qiitaArticles) {
     if (article.hasId) {
       try {
-        // 対応するHexo記事を検索
-        const hexoFile = await findHexoFileByTitle(article.title);
+        const qiitaContent = readFileSync(article.filePath, "utf8");
+
+        // ファイル名ではなくfrontmatterのtitleで検索
+        // （new-TIMESTAMP形式のファイルに対応するため）
+        const { frontMatter: qiitaFM } = parseFrontMatter(qiitaContent);
+        const titleToSearch = qiitaFM.title || article.title;
+
+        const hexoFile = await findHexoFileByTitle(titleToSearch);
         if (hexoFile) {
-          const qiitaContent = readFileSync(article.filePath, 'utf8');
-          const syncedContent = syncQiitaToIntegratedHeader(hexoFile, qiitaContent);
+          const syncedContent = syncQiitaToIntegratedHeader(
+            hexoFile,
+            qiitaContent,
+          );
           writeFileSync(hexoFile, syncedContent);
-          
-          console.log(`🔄 Synced from Qiita: ${article.title}`);
+
+          console.log(`🔄 Synced from Qiita: ${titleToSearch}`);
         }
       } catch (error) {
         console.warn(`⚠️ Could not sync: ${article.title} - ${error.message}`);
@@ -228,18 +242,20 @@ async function syncQiitaToHexo() {
  * 記事タイトルでHexoファイルを検索
  */
 async function findHexoFileByTitle(title) {
-  const hexoFiles = await glob(join(SOURCE_POSTS_DIR, '*.md'));
-  
+  const hexoFiles = await glob(join(SOURCE_POSTS_DIR, "*.md"));
+
   for (const hexoFile of hexoFiles) {
-    const content = readFileSync(hexoFile, 'utf8');
+    const content = readFileSync(hexoFile, "utf8");
     const { frontMatter } = parseFrontMatter(content);
-    
-    if (frontMatter.title === title || 
-        frontMatter.title?.replace(/['"]/g, '') === title) {
+
+    if (
+      frontMatter.title === title ||
+      frontMatter.title?.replace(/['"]/g, "") === title
+    ) {
       return hexoFile;
     }
   }
-  
+
   return null;
 }
 
@@ -247,32 +263,34 @@ async function findHexoFileByTitle(title) {
  * Hexo記事ヘッダーを統合形式に初期化
  */
 async function initializeHeaders() {
-  console.log('🔧 Initializing Hexo headers to integrated format...');
-  
-  const hexoFiles = await glob(join(SOURCE_POSTS_DIR, '*.md'));
+  console.log("🔧 Initializing Hexo headers to integrated format...");
+
+  const hexoFiles = await glob(join(SOURCE_POSTS_DIR, "*.md"));
   let updated = 0;
-  
+
   for (const hexoFile of hexoFiles) {
     try {
-      const originalContent = readFileSync(hexoFile, 'utf8');
+      const originalContent = readFileSync(hexoFile, "utf8");
       const { frontMatter } = parseFrontMatter(originalContent);
-      
+
       // 既に統合形式の場合はスキップ
       if (frontMatter.qiita) {
         continue;
       }
-      
+
       const integratedContent = convertToIntegratedHeader(hexoFile);
       writeFileSync(hexoFile, integratedContent);
-      
+
       console.log(`✅ Updated: ${basename(hexoFile)}`);
       updated++;
-      
     } catch (error) {
-      console.error(`❌ Failed to update ${basename(hexoFile)}:`, error.message);
+      console.error(
+        `❌ Failed to update ${basename(hexoFile)}:`,
+        error.message,
+      );
     }
   }
-  
+
   console.log(`✅ Updated ${updated} files to integrated format`);
 }
 
@@ -280,22 +298,22 @@ async function initializeHeaders() {
  * 同期状況を表示
  */
 async function showSyncStatus() {
-  console.log('📊 Synchronization Status\n');
-  
-  const hexoFiles = await glob(join(SOURCE_POSTS_DIR, '*.md'));
+  console.log("📊 Synchronization Status\n");
+
+  const hexoFiles = await glob(join(SOURCE_POSTS_DIR, "*.md"));
   const qiitaArticles = getArticlesList(QIITA_DIR);
-  
+
   console.log(`📝 Hexo articles: ${hexoFiles.length}`);
   console.log(`📄 Qiita articles: ${qiitaArticles.length}`);
-  
+
   let synced = 0;
   let needsUpdate = 0;
   let newArticles = 0;
-  
+
   for (const hexoFile of hexoFiles) {
-    const content = readFileSync(hexoFile, 'utf8');
+    const content = readFileSync(hexoFile, "utf8");
     const { frontMatter } = parseFrontMatter(content);
-    
+
     if (frontMatter.qiita?.id) {
       if (isContentChanged(hexoFile)) {
         needsUpdate++;
@@ -306,7 +324,7 @@ async function showSyncStatus() {
       newArticles++;
     }
   }
-  
+
   console.log(`\n📊 Status:`);
   console.log(`  ✅ Synced: ${synced}`);
   console.log(`  🔄 Needs update: ${needsUpdate}`);
@@ -332,31 +350,31 @@ function parseFrontMatter(content) {
   if (!match) {
     return { frontMatter: {}, body: content };
   }
-  
+
   const [, yamlContent, body] = match;
-  
+
   // タイトル抽出
   const titleMatch = yamlContent.match(/^title:\s*['"]?([^'"\n]+)['"]?/m);
-  const title = titleMatch ? titleMatch[1].trim() : '';
-  
+  const title = titleMatch ? titleMatch[1].trim() : "";
+
   // qiitaメタデータの詳細解析
   let qiitaMeta = null;
-  if (yamlContent.includes('qiita:')) {
+  if (yamlContent.includes("qiita:")) {
     // qiita.idを抽出
     const idMatch = yamlContent.match(/^\s*id:\s*(.+)$/m);
     const qiitaId = idMatch ? idMatch[1].trim() : null;
-    
-    if (qiitaId && qiitaId !== 'null') {
+
+    if (qiitaId && qiitaId !== "null") {
       qiitaMeta = { id: qiitaId };
     }
   }
-  
+
   return {
-    frontMatter: { 
+    frontMatter: {
       title,
-      qiita: qiitaMeta
+      qiita: qiitaMeta,
     },
-    body
+    body,
   };
 }
 
