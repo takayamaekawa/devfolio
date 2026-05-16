@@ -53,6 +53,9 @@ async function main() {
       case "status":
         await showSyncStatus();
         break;
+      case "migrate":
+        await migrateToSyncState();
+        break;
       default:
         showHelp();
     }
@@ -100,6 +103,7 @@ async function pullFromQiita() {
 /**
  * 新規記事のみをQiita形式に変換してarticlesディレクトリに配置
  * 既存記事（QiitaID付き）はqiita-cliが管理するため処理しない
+ * ignore_publish: true の記事はQiitaに投稿しないためスキップ
  */
 async function convertHexoArticles() {
   ensureQiitaStructure(QIITA_DIR);
@@ -108,6 +112,7 @@ async function convertHexoArticles() {
   const hexoFiles = await glob(join(SOURCE_POSTS_DIR, "*.md"));
   let newArticlesCount = 0;
   let existingArticlesCount = 0;
+  let ignoredArticlesCount = 0;
 
   for (const hexoFile of hexoFiles) {
     try {
@@ -119,6 +124,15 @@ async function convertHexoArticles() {
 
       const content = readFileSync(hexoFile, "utf8");
       const { frontMatter } = parseFrontMatter(content);
+
+      // ignore_publish: true の記事はQiitaに投稿しないためスキップ
+      if (frontMatter.qiita?.ignore_publish) {
+        console.log(
+          `⏭️ Skipping Hexo-only article: ${frontMatter.title} (ignore_publish)`,
+        );
+        ignoredArticlesCount++;
+        continue;
+      }
 
       // 既存記事（QiitaID付き）は完全にスキップ
       if (frontMatter.qiita?.id) {
@@ -157,6 +171,7 @@ async function convertHexoArticles() {
   console.log(`📊 Processing summary:`);
   console.log(`  🆕 New articles: ${newArticlesCount}`);
   console.log(`  ✅ Existing articles (skipped): ${existingArticlesCount}`);
+  console.log(`  ⏭️ Hexo-only articles (skipped): ${ignoredArticlesCount}`);
 }
 
 /**
@@ -170,8 +185,13 @@ async function prepareChangedArticles() {
     const content = readFileSync(hexoFile, "utf8");
     const { frontMatter } = parseFrontMatter(content);
 
+    // ignore_publish: true の記事はスキップ
+    if (frontMatter.qiita?.ignore_publish) {
+      continue;
+    }
+
     // 既存記事で内容が変更された場合のみqiita/publicに反映
-    if (frontMatter.qiita?.id && isContentChanged(hexoFile)) {
+    if (frontMatter.qiita?.id && isContentChanged(hexoFile, QIITA_DIR)) {
       const qiitaContent = convertToQiitaHeader(hexoFile);
       const result = updateExistingArticle(
         frontMatter.title,
@@ -207,6 +227,9 @@ async function prepareChangedArticles() {
 
 /**
  * Qiitaの記事をHexoに同期
+ *
+ * .md への書き込みは qiita.id が null → 実ID に変化したときのみ。
+ * それ以外の sync metadata は sync-state.json に保存する。
  */
 async function syncQiitaToHexo() {
   const qiitaArticles = getArticlesList(QIITA_DIR);
@@ -226,10 +249,17 @@ async function syncQiitaToHexo() {
           const syncedContent = syncQiitaToIntegratedHeader(
             hexoFile,
             qiitaContent,
+            QIITA_DIR,
           );
-          writeFileSync(hexoFile, syncedContent);
 
-          console.log(`🔄 Synced from Qiita: ${titleToSearch}`);
+          if (syncedContent !== null) {
+            // qiita.id が変化した（初回公開後の書き戻し）
+            writeFileSync(hexoFile, syncedContent);
+            console.log(`🆕 Written back qiita.id: ${titleToSearch}`);
+          } else {
+            // sync-state.json のみ更新済み（.md は触らない）
+            console.log(`🔄 Synced state from Qiita: ${titleToSearch}`);
+          }
         }
       } catch (error) {
         console.warn(`⚠️ Could not sync: ${article.title} - ${error.message}`);
@@ -309,13 +339,16 @@ async function showSyncStatus() {
   let synced = 0;
   let needsUpdate = 0;
   let newArticles = 0;
+  let ignored = 0;
 
   for (const hexoFile of hexoFiles) {
     const content = readFileSync(hexoFile, "utf8");
     const { frontMatter } = parseFrontMatter(content);
 
-    if (frontMatter.qiita?.id) {
-      if (isContentChanged(hexoFile)) {
+    if (frontMatter.qiita?.ignore_publish) {
+      ignored++;
+    } else if (frontMatter.qiita?.id) {
+      if (isContentChanged(hexoFile, QIITA_DIR)) {
         needsUpdate++;
       } else {
         synced++;
@@ -329,6 +362,113 @@ async function showSyncStatus() {
   console.log(`  ✅ Synced: ${synced}`);
   console.log(`  🔄 Needs update: ${needsUpdate}`);
   console.log(`  🆕 New articles: ${newArticles}`);
+  console.log(`  ⏭️ Hexo-only (ignore_publish): ${ignored}`);
+}
+
+/**
+ * 既存.mdのsync metadata を sync-state.json に移行し、frontmatter をクリーンアップ
+ * 移行対象: last_sync_hash / last_sync_at / updated_at（qiita配下）/ tags（qiita配下）
+ * 移行後: これらフィールドを frontmatter から除去し、updated: を qiita_updated_at から設定
+ */
+async function migrateToSyncState() {
+  console.log("🔧 Migrating sync metadata to sync-state.json...\n");
+
+  // 動的importで yaml と sync-state を取得
+  const { default: yaml } = await import("js-yaml");
+  const { updateArticleState, getArticleState } = await import(
+    "./utils/sync-state.js"
+  );
+  const { removeTagsQuotes } = await import("./utils/format.js");
+
+  function toHexoDate(isoStr) {
+    const d = new Date(isoStr);
+    const p = (n) => String(n).padStart(2, "0");
+    return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`;
+  }
+
+  const hexoFiles = await glob(join(SOURCE_POSTS_DIR, "*.md"));
+  let migrated = 0;
+  let skipped = 0;
+
+  for (const hexoFile of hexoFiles) {
+    try {
+      const content = readFileSync(hexoFile, "utf8");
+      const match = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+      if (!match) {
+        skipped++;
+        continue;
+      }
+
+      const [, yamlContent, body] = match;
+      const fm = yaml.load(yamlContent);
+
+      if (!fm?.qiita) {
+        skipped++;
+        continue;
+      }
+
+      const hasLegacyFields =
+        fm.qiita.last_sync_hash ||
+        fm.qiita.last_sync_at ||
+        fm.qiita.updated_at ||
+        fm.qiita.tags ||
+        fm.qiita.url ||
+        fm.qiita.likes_count ||
+        fm.qiita.created_at;
+
+      // sync-state.json に移行（レガシーフィールドがある場合）
+      if (hasLegacyFields) {
+        const updates = {};
+        if (fm.qiita.last_sync_hash)
+          updates.last_sync_hash = fm.qiita.last_sync_hash;
+        if (fm.qiita.last_sync_at) updates.last_sync_at = fm.qiita.last_sync_at;
+        if (fm.qiita.updated_at) updates.qiita_updated_at = fm.qiita.updated_at;
+        if (fm.qiita.tags) updates.qiita_tags = fm.qiita.tags;
+        if (fm.qiita.url) updates.qiita_url = fm.qiita.url;
+        if (fm.qiita.likes_count != null)
+          updates.qiita_likes_count = fm.qiita.likes_count;
+        if (fm.qiita.created_at) updates.qiita_created_at = fm.qiita.created_at;
+        updateArticleState(QIITA_DIR, hexoFile, updates);
+
+        // frontmatter からレガシーフィールドを除去
+        delete fm.qiita.last_sync_hash;
+        delete fm.qiita.last_sync_at;
+        delete fm.qiita.updated_at;
+        delete fm.qiita.tags;
+        delete fm.qiita.url;
+        delete fm.qiita.likes_count;
+        delete fm.qiita.created_at;
+      }
+
+      // updated: が未設定の場合、sync-state.json の qiita_updated_at から設定
+      if (!fm.updated) {
+        const articleState = getArticleState(QIITA_DIR, hexoFile);
+        const qiitaUpdatedAt = articleState.qiita_updated_at;
+        if (qiitaUpdatedAt) {
+          fm.updated = toHexoDate(qiitaUpdatedAt);
+        }
+      }
+
+      if (!hasLegacyFields && fm.updated) {
+        skipped++;
+        continue;
+      }
+
+      const newYaml = removeTagsQuotes(
+        yaml.dump(fm, { noArrayIndent: false, indent: 2 }),
+      );
+      writeFileSync(hexoFile, `---\n${newYaml}---\n${body}`);
+
+      console.log(`✅ Migrated: ${basename(hexoFile)}`);
+      migrated++;
+    } catch (error) {
+      console.error(`❌ Failed: ${basename(hexoFile)}: ${error.message}`);
+    }
+  }
+
+  console.log(
+    `\n📊 Migration complete: ${migrated} migrated, ${skipped} skipped`,
+  );
 }
 
 /**
@@ -364,9 +504,14 @@ function parseFrontMatter(content) {
     const idMatch = yamlContent.match(/^\s*id:\s*(.+)$/m);
     const qiitaId = idMatch ? idMatch[1].trim() : null;
 
-    if (qiitaId && qiitaId !== "null") {
-      qiitaMeta = { id: qiitaId };
-    }
+    // ignore_publishを抽出
+    const ignoreMatch = yamlContent.match(/^\s*ignore_publish:\s*(.+)$/m);
+    const ignorePub = ignoreMatch ? ignoreMatch[1].trim() === "true" : false;
+
+    qiitaMeta = {
+      id: qiitaId && qiitaId !== "null" ? qiitaId : null,
+      ignore_publish: ignorePub,
+    };
   }
 
   return {
