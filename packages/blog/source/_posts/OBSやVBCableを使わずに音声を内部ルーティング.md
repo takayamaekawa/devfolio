@@ -10,17 +10,10 @@ date: '2025-04-20 02:54:47'
 qiita:
   id: 7e4c56dc7f05daa97aa8
   status: published
-  last_sync_hash: bddec4c0
-  last_sync_at: '2025-08-09T13:25:58.290Z'
   private: false
-  updated_at: '2025-08-09T22:19:33+09:00'
-  tags:
-    - archLinux
-    - OBS
-    - JACK
-    - VBCable
   slide: false
   ignore_publish: false
+updated: '2026-05-16 23:26:51'
 ---
 
 <!--

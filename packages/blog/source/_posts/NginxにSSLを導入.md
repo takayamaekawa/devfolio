@@ -1,24 +1,17 @@
 ---
 title: NginxにSSLを導入
 tags:
-- nginx
-- SSL
+  - nginx
+  - SSL
 abbrlink: 21623
 date: '2025-02-01 00:00:00'
 qiita:
   id: 64c79e3b6572144f1faf
   status: published
-  last_sync_hash: 2c33540b
-  last_sync_at: '2025-08-09T10:46:07.639Z'
   private: false
-  updated_at: '2025-02-01 00:00:00'
-  tags:
-  - name: nginx
-    versions: []
-  - name: SSL
-    versions: []
   slide: false
   ignore_publish: false
+updated: '2025-05-30 19:32:43'
 ---
 
 <!--
