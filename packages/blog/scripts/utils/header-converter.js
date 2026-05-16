@@ -5,14 +5,16 @@
  * 既存のHexoヘッダーを統合形式に拡張し、Qiita形式に変換
  */
 
-import { readFileSync, writeFileSync } from "fs";
 import crypto from "crypto";
+import { readFileSync } from "fs";
 import yaml from "js-yaml";
-import { removeTagsQuotes } from "./format.js";
 import { formatToISOStringWithOffset } from "../format-time.js";
+import { removeTagsQuotes } from "./format.js";
+import { getArticleState, updateArticleState } from "./sync-state.js";
 
 /**
  * Hexoの記事から統合ヘッダー形式に変換
+ * sync metadata（last_sync_hash 等）はJSONで管理するため frontmatter には含めない
  */
 export function convertToIntegratedHeader(filePath) {
   const content = readFileSync(filePath, "utf8");
@@ -23,14 +25,12 @@ export function convertToIntegratedHeader(filePath) {
     return content;
   }
 
-  // 統合ヘッダーに拡張
+  // 統合ヘッダーに拡張（sync metadata は JSON管理のため frontmatter には持たせない）
   const integratedFrontMatter = {
     ...frontMatter,
     qiita: {
       id: null,
       status: "draft",
-      last_sync_hash: null,
-      last_sync_at: null,
       private: false,
       slide: false,
       ignore_publish: false,
@@ -109,14 +109,42 @@ export function convertToQiitaHeader(filePath, qiitaArticleData = null) {
 
 /**
  * Qiitaヘッダー → 統合ヘッダー逆変換（同期時）
+ *
+ * sync metadata（last_sync_hash 等）は sync-state.json に保存する。
+ * .md への書き込みが必要な場合のみ新しいコンテンツを返し、
+ * 不要な場合は null を返す（呼び出し側で writeFileSync を省略できる）。
+ *
+ * .md を更新する条件: qiita.id が null → 実ID に変化したとき
  */
-export function syncQiitaToIntegratedHeader(hexoFilePath, qiitaContent) {
+export function syncQiitaToIntegratedHeader(
+  hexoFilePath,
+  qiitaContent,
+  qiitaDir,
+) {
   const hexoContent = readFileSync(hexoFilePath, "utf8");
   const { frontMatter: hexoFM, body: hexoBody } = parseFrontMatter(hexoContent);
-  const { frontMatter: qiitaFM, body: qiitaBody } =
-    parseFrontMatter(qiitaContent);
+  const { frontMatter: qiitaFM } = parseFrontMatter(qiitaContent);
 
-  // Hexoヘッダーを維持しつつ、Qiitaメタデータを更新
+  // sync-state.json を更新（.md は汚染しない）
+  updateArticleState(qiitaDir, hexoFilePath, {
+    last_sync_hash: generateContentHash(hexoBody),
+    last_sync_at: new Date().toISOString(),
+    qiita_updated_at: qiitaFM.updated_at || null,
+    qiita_url: qiitaFM.url || null,
+    qiita_likes_count: qiitaFM.likes_count ?? null,
+    qiita_created_at: qiitaFM.created_at || null,
+    qiita_tags: qiitaFM.tags || [],
+  });
+
+  const oldId = hexoFM.qiita?.id ?? null;
+  const newId = qiitaFM.id ?? null;
+
+  // id が変化していない → .md 更新不要
+  if (oldId === newId) {
+    return null;
+  }
+
+  // id が変化した（null → 実ID）→ .md を更新
   const syncedFrontMatter = {
     ...hexoFM,
     // Hexoにtagsがない、または空の場合はQiitaのtagsを同期
@@ -125,19 +153,13 @@ export function syncQiitaToIntegratedHeader(hexoFilePath, qiitaContent) {
         ? hexoFM.tags
         : convertQiitaTagsToHexoFormat(qiitaFM.tags),
     qiita: {
-      ...hexoFM.qiita,
-      id: qiitaFM.id,
-      status: qiitaFM.id ? "published" : "draft",
-      last_sync_hash: generateContentHash(qiitaBody),
-      last_sync_at: new Date().toISOString(),
-      private: qiitaFM.private,
-      slide: qiitaFM.slide,
-      ignore_publish: qiitaFM.ignorePublish,
-      url: qiitaFM.url,
-      likes_count: qiitaFM.likes_count,
-      created_at: qiitaFM.created_at,
-      updated_at: qiitaFM.updated_at,
-      tags: qiitaFM.tags, // Qiita形式のtagsも保持
+      id: newId,
+      status: newId ? "published" : "draft",
+      private: qiitaFM.private ?? hexoFM.qiita?.private ?? false,
+      slide: qiitaFM.slide ?? hexoFM.qiita?.slide ?? false,
+      ignore_publish:
+        qiitaFM.ignorePublish ?? hexoFM.qiita?.ignore_publish ?? false,
+      // last_sync_hash / last_sync_at 等の sync metadata は JSON管理のため除外
     },
   };
 
@@ -231,15 +253,23 @@ function generateContentHash(content) {
 
 /**
  * ファイルが更新されているかチェック
+ *
+ * sync-state.json を優先参照し、なければ frontmatter の last_sync_hash にフォールバック
+ * （JSON分離前の記事との後方互換）
  */
-export function isContentChanged(filePath) {
+export function isContentChanged(filePath, qiitaDir) {
   const content = readFileSync(filePath, "utf8");
   const { frontMatter, body } = parseFrontMatter(content);
 
-  if (!frontMatter.qiita?.last_sync_hash) {
+  // sync-state.json から last_sync_hash を取得
+  const articleState = getArticleState(qiitaDir, filePath);
+  const storedHash =
+    articleState.last_sync_hash || frontMatter.qiita?.last_sync_hash || null;
+
+  if (!storedHash) {
     return true; // 初回同期
   }
 
   const currentHash = generateContentHash(body);
-  return currentHash !== frontMatter.qiita.last_sync_hash;
+  return currentHash !== storedHash;
 }

@@ -1,24 +1,17 @@
 ---
 title: NginxにModSecurityを適用
 tags:
-- nginx
-- ModSecurity
+  - nginx
+  - ModSecurity
 abbrlink: 39499
 date: '2025-02-01 00:00:00'
 qiita:
   id: 0509d717f35f5152f46d
   status: published
-  last_sync_hash: 242c5b89
-  last_sync_at: '2025-08-09T10:46:07.637Z'
   private: false
-  updated_at: '2025-02-01 00:00:00'
-  tags:
-  - name: nginx
-    versions: []
-  - name: ModSecurity
-    versions: []
   slide: false
   ignore_publish: false
+updated: '2025-05-30 19:32:42'
 ---
 
 <!--

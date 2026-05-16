@@ -1,27 +1,18 @@
 ---
 title: ArchLinuxでCLI開発環境を整える
 tags:
-- 開発環境
-- archLinux
-- CLI
+  - 開発環境
+  - archLinux
+  - CLI
 abbrlink: 54214
 date: '2025-03-28 08:54:00'
 qiita:
   id: 2b508e89d8e10b190a5f
   status: published
-  last_sync_hash: df5cc116
-  last_sync_at: '2025-08-09T10:46:07.633Z'
   private: false
-  updated_at: '2025-03-28 08:54:00'
-  tags:
-  - name: 開発環境
-    versions: []
-  - name: archLinux
-    versions: []
-  - name: CLI
-    versions: []
   slide: false
   ignore_publish: false
+updated: '2025-05-30 19:32:40'
 ---
 
 <!--

@@ -15,6 +15,7 @@
     "qiita:publish": "npx qiita publish --all --root qiita",
     "qiita:status": "node scripts/qiita-sync.js status",
     "qiita:init": "node scripts/qiita-sync.js init",
+    "qiita:migrate": "node scripts/qiita-sync.js migrate",
     "format": "biome format --write ."
   },
   "hexo": {
