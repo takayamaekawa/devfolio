@@ -3,9 +3,9 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: TM Blog
+title: tk-notes
 subtitle: 'Edited by Takaya Maekawa'
-description: 'CLI-like without VSCode'
+description: 'エンジニア・前川鷹哉のパーソナルノート。技術・ビジネス・思考の記録。'
 keywords:
 author: Takaya Maekawa
 language: ja
