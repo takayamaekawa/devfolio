@@ -47,6 +47,7 @@ code_blocks:
 social:
   fab fa-x-twitter: https://x.com/takaya_maekawa || X || '#1da1f2'
   fab fa-github: https://github.com/takayamaekawa || Github || '#24292e'
+  fab fa-linkedin: https://www.linkedin.com/in/takaya-maekawa-6417b2373 || LinkedIn || '#0a66c2'
   fas fa-envelope: mailto:takaya@maekawa.dev || Email || '#4a7dbe'
 
 # --------------------------------------
@@ -281,7 +282,7 @@ aside:
     category: true
   card_author:
     enable: true
-    description: "CLI-like without VSCode"
+    description: "「やりたい」が「やってしまう」に変わる瞬間を追いかけるエンジニア。好奇心を燃料に、技術とビジネスの掛け算を探求中。ワクワクするプロダクトで、人の心を動かすことを目指しています。"
     button:
       enable: true
       icon: fas fa-external-link-alt
