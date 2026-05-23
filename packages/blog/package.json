@@ -7,7 +7,7 @@
   "author": "Takaya Maekawa",
   "scripts": {
     "dev": "hexo server",
-    "build": "hexo generate && node scripts/fix_mailto_post.mjs",
+    "build": "hexo clean && hexo generate && node scripts/fix_mailto_post.mjs",
     "generate": "hexo generate",
     "workers:deploy": "npm run build && wrangler deploy",
     "qiita:pull": "npx qiita pull --root qiita",
