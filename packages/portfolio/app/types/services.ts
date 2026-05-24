@@ -1,4 +1,4 @@
-import { LocalizedString } from "../types/common";
+import type { LocalizedString } from "../types/common";
 
 export type ServiceOtherSiteItem = {
   name: LocalizedString;
@@ -24,6 +24,7 @@ export type ServiceInfo = {
     portalSite: LocalizedString;
     discordTitle: LocalizedString;
     joinHere: LocalizedString;
+    sourceCodeLabel: LocalizedString;
   };
   otherSites: {
     title: LocalizedString;

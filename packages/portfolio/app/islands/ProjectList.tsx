@@ -1,9 +1,9 @@
-import { usePageLang } from "../hooks/pageLang";
-import type { ProjectInfo } from "../types/projects";
 import ProjectItem from "../components/ProjectItem"; // ★コンポーネントをインポート
+import { usePageLang } from "../hooks/pageLang";
+import { generalMessages, projectPageStrings } from "../locales/translations";
 import type { ProfileData } from "../types/profile"; // RootLayoutIslandからprofileの型を借用 (または共通型へ)
+import type { ProjectInfo } from "../types/projects";
 import { translate } from "../utils/i18n";
-import { generalMessages } from "../locales/translations";
 
 type ProjectListProps = {
   projects: ProjectInfo[];
@@ -25,14 +25,20 @@ const ProjectList = ({ projects, profile }: ProjectListProps) => {
   return (
     <>
       <section class="mt-8 space-y-10">
-        {projects.map((project) => (
-          <ProjectItem
-            key={project.id}
-            {...project}
-            lang={lang}
-            githubId={githubId || ""} // githubIdがない場合は空文字を渡す
-          />
-        ))}
+        {projects.length === 0 ? (
+          <p class="text-gray-400 text-center py-12">
+            {translate(projectPageStrings.noProjects, lang)}
+          </p>
+        ) : (
+          projects.map((project) => (
+            <ProjectItem
+              key={project.id}
+              {...project}
+              lang={lang}
+              githubId={githubId || ""}
+            />
+          ))
+        )}
       </section>
       {githubProfileUrl && githubId && (
         <p class="mt-12 text-center text-gray-400">

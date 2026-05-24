@@ -1,7 +1,8 @@
 import { usePageLang } from "../hooks/pageLang";
-import { translate } from "../utils/i18n";
+import { projectPageStrings } from "../locales/translations";
 import type { ProfileSocials } from "../types/profile";
 import type { ServiceInfo } from "../types/services";
+import { translate } from "../utils/i18n";
 
 type ServicesContentProps = {
   profile: {
@@ -87,13 +88,14 @@ const ServicesContent = ({ profile, services }: ServicesContentProps) => {
           </a>
           <br />
           <br />
+          {translate(services.kishax.sourceCodeLabel, lang)}
           <a
-            href={`${profile.social.github.url}/${profile.social.github.id}`}
+            href={profile.social.kishax.github.url}
             class="text-blue-400 underline hover:text-blue-300 text-link"
             rel="noopener noreferrer"
             target="_blank"
           >
-            GitHub
+            Github
           </a>
         </p>
       </article>
@@ -108,39 +110,39 @@ const ServicesContent = ({ profile, services }: ServicesContentProps) => {
         </p>
         <div class="mt-6 flex space-x-4 items-center text-blue-400 leading-none"></div>
 
-        <ul class="mt-4 space-y-3">
-          {services.otherSites.info.map((site, index) => (
-            <li
-              key={`${translate(site.name, lang)}-${index}`}
-              class="mb-3 pb-3 border-b border-gray-700 last:border-b-0 last:pb-0 last:mb-0"
-            >
-              {" "}
-              {/* リストアイテム間の区切りと最後の要素の調整 */}
-              {/* サイト名と説明の行 */}
-              <div class="mb-1">
-                <span class="font-semibold text-gray-300">
-                  {translate(site.name, lang)}:
-                </span>
-                <span class="ml-2 text-gray-400">
-                  {translate(site.description, lang)}
-                </span>{" "}
-                {/* 説明文の色を少し調整 */}
-              </div>
-              {/* リンクの行 */}
-              <div>
-                <a
-                  href={site.url}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  class="text-blue-400 hover:text-blue-300 hover:underline text-link"
-                >
-                  {visitText || site.url}{" "}
-                  {/* visitTextがない場合のフォールバック */}
-                </a>
-              </div>
-            </li>
-          ))}
-        </ul>
+        {services.otherSites.info.length === 0 ? (
+          <p class="mt-4 text-gray-400">
+            {translate(projectPageStrings.noOtherSites, lang)}
+          </p>
+        ) : (
+          <ul class="mt-4 space-y-3">
+            {services.otherSites.info.map((site, index) => (
+              <li
+                key={`${translate(site.name, lang)}-${index}`}
+                class="mb-3 pb-3 border-b border-gray-700 last:border-b-0 last:pb-0 last:mb-0"
+              >
+                <div class="mb-1">
+                  <span class="font-semibold text-gray-300">
+                    {translate(site.name, lang)}:
+                  </span>
+                  <span class="ml-2 text-gray-400">
+                    {translate(site.description, lang)}
+                  </span>
+                </div>
+                <div>
+                  <a
+                    href={site.url}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    class="text-blue-400 hover:text-blue-300 hover:underline text-link"
+                  >
+                    {visitText || site.url}
+                  </a>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
       </article>
     </section>
   );

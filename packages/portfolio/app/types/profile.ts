@@ -21,5 +21,8 @@ export type ProfileSocials = {
     discord: {
       url: string;
     };
+    github: {
+      url: string;
+    };
   };
 };

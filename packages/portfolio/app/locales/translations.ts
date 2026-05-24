@@ -31,6 +31,14 @@ export const generalMessages: Record<string, LocalizedString> = {
 
 export const projectPageStrings = {
   // 新しいオブジェクトとして定義するか、generalMessagesに追加
+  noProjects: {
+    ja: "現在、公開中のプロジェクトはありません。",
+    en: "No projects to show at the moment.",
+  },
+  noOtherSites: {
+    ja: "現在、紹介できるサイトはありません。",
+    en: "No other sites to introduce at the moment.",
+  },
   viewOnGithub: { ja: "GitHubで見る", en: "View on GitHub" },
   moreInfoPrefix: { ja: "詳しくは、", en: "For more details, check " },
   moreInfoCheck: {
